@@ -1,0 +1,13 @@
+﻿<live-tile colour="blue" hover-slide="1" animation="flip-y">
+    <live-tile-slide>
+        <h4 class="text-center">{{tileItem.Title}}</h4>
+        <p>{{tileItem.CreatedDate | date: 'medium'}}</p>
+        <p class="fix fix-bottom text-center"><i class="fa fa-2x fa-comments-o"></i> {{tileItem.Comments.length}}</p>
+    </live-tile-slide>
+    <live-tile-slide>
+        <blockquote class="vertical-center">
+            <p>{{tileItem.Content}}</p>
+            <footer>{{tileItem.CreatedUser.RealName}}</footer>
+        </blockquote>
+    </live-tile-slide>
+</live-tile>

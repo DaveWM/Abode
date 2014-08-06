@@ -1,0 +1,10 @@
+﻿<div class="text-center noteViewContainer">
+    <h2>{{tileItem.Title}}</h2>
+    <p>{{tileItem.Content}}</p>
+    <footer>
+        <ul class="fa-ul">
+            <li><i class="fa fa-user"></i> {{tileItem.CreatedUser.RealName}}</li>
+            <li><i class="fa fa-calendar-o"></i> {{tileItem.CreatedDate | date : 'medium'}}</li>
+        </ul>
+    </footer>
+</div>

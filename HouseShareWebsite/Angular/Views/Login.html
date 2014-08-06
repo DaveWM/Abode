@@ -1,0 +1,27 @@
+﻿<div class="row content">
+    <div class="col-xs-12 col-md-6 text-center">
+        <div class="media brandDisplay">
+            <img src="/Content/images/houseIcon.png" class="logo img media-object" />
+            <div class="media-body">
+                <h1>{{appName}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        <form name="loginForm" ng-submit="login()" novalidate>
+            <a class="pull-right command-btn-light" ui-sref="app.register">Register <i class="fa fa-arrow-circle-o-right"></i></a>
+            <legend>Login</legend>
+            <fieldset ng-disabled="loggingIn">
+                <div class="form-group" ng-class="{'has-error': loginForm.email.$invalid && loginForm.email.$dirty}">
+                    <label for="email">Email</label>
+                    <input type="email" ng-model="email" class="form-control" required name="email" />
+                </div>
+                <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">
+                    <label for="password">Password</label>
+                    <input type="password" ng-model="password" class="form-control" required name="password" ng-minlength="5" />
+                </div>
+                <button type="submit" class="btn btn-primary form-control" ng-disabled="loginForm.$invalid">Login <loading-icon ng-show="loggingIn"></loading-icon></button>
+            </fieldset>
+        </form>
+    </div>
+</div>

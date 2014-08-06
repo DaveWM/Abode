@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html ng-app="App" ng-controller="appController" ng-cloak breakpoint="{0: 'hideSidebar', 1000: 'showSidebar'}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title ng-bind="getTitle()">Abode</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="container">
+        <div class="app" ng-class="options.transitionType">
+            <div ui-view="header" class="header row"></div>
+            <div ui-view="main" class="main row"></div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/scripts")
+    <script src="signalr/hubs"></script>
+    @Scripts.Render("~/bundles/angular")
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿<div class="navbar navbar-metro navbar-fixed-top">
+    <div>
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="app.main.whiteboard">{{appName}}</a>
+        </div>
+        <div class="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="btn btn-primary toggleButton" ng-click="toggleSidebar()"><i class="fa fa-reorder"></i></a>
+                </li>
+                <li>
+                    <loading-icon large="true" ng-show="isLoading()" class="vertical-center-li"></loading-icon>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-text">{{userDetails.name}}</p>
+                </li>
+                <li>
+                    <button class="btn btn-darkblue navbar-btn" ng-click="logout()"><i class="fa fa-sign-out"></i></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

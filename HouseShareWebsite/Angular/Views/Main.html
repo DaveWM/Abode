@@ -1,0 +1,14 @@
+﻿<div class="sidebar" ng-controller="sidebarController" ng-class="{collapsed:sidebar.collapsed}">
+    <div class="row">
+        <div class="col-xs-12">
+            <a ng-click="sidebar.toggleCollapsed()" class="sidebarToggle pull-right">
+                <i class="fa fa-2x fa-arrow-circle-o-left"></i>
+            </a>
+            <p class="pull-left"><small>OPTIONS</small></p>
+        </div>
+    </div>
+    <div class="row">
+        <div ui-view="sidebar"></div>
+    </div>
+</div>
+<div ui-view class="col-xs-12 slide"></div>

@@ -1,0 +1,25 @@
+﻿<div class="col-xs-12">
+    <form ng-submit="saveNote()" name="createNoteForm" novalidate>
+        <legend>Write a Note <i class="fa fa-file-text-o"></i></legend>
+        <fieldset ng-disabled="saving">
+            <div class="form-group" ng-class="{'has-error': createNoteForm.title.$invalid && createNoteForm.title.$dirty}">
+                <label for="title">Title</label>
+                <input type="text" ng-model="title" class="form-control" required name="title" placeholder="Just a short summary"></input>
+            </div>
+            <div class="form-group" ng-class="{'has-error': createNoteForm.title.$invalid && createNoteForm.title.$dirty}">
+                <label for="title">Note</label>
+                <textarea rows="5" cols="50" type="text" ng-model="content" class="form-control" required name="title"></textarea>
+            </div>
+            <div class="text-center">
+                <div>
+                    <rating ng-model="importanceRating" max="{{maxRating}}" state-on="'fa fa-2x fa-exclamation-circle'" state-off="'fa fa-2x fa-meh-o'" ng-class="{'very-important': importanceRating > 7, 'not-important': importanceRating < 4}"></rating>
+                </div>
+                <small>How important is this note?</small>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="!createNoteForm.$valid">Save <i class="fa fa-floppy-o"></i></button>
+            <div class="text-center">
+                <loading-icon class="spacer" large="true" ng-show="saving"></loading-icon>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="row">
+    <div class="content col-xs-12">
+        <form name="registerForm" ng-submit="register()" ng-disabled="registering" novalidate>
+            <legend><a ui-sref="app.login" class="command-btn-light"><i class="fa fa-arrow-circle-left"></i></a> Register</legend>
+            <fieldset ng-disabled="registering">
+                <div class="form-group" ng-class="{'has-error': registerForm.email.$invalid && registerForm.email.$dirty}">
+                    <label for="email">Email</label>
+                    <input type="email" ng-model="email" class="form-control" required name="email" />
+                </div>
+                <div class="form-group" ng-class="{'has-error': registerForm.password.$invalid && registerForm.password.$dirty}">
+                    <label for="password">Password</label>
+                    <input type="password" ng-model="password" class="form-control" required ng-minlength="5" name="password" />
+                </div>
+                <div class="form-group" ng-class="{'has-error': registerForm.name.$invalid && registerForm.name.$dirty}">
+                    <label for="realName">Name</label>
+                    <input type="text" class="form-control" ng-model="name" required name="name" />
+                </div>
+                <button type="submit" class="btn btn-primary form-control" ng-disabled="registerForm.$invalid">Register <loading-icon ng-show="registering"></loading-icon></button>
+            </fieldset>
+</form>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<a ui-sref="app.main.createHouse" class="pull-right"><i class="fa fa-2x fa-arrow-circle-right"></i></a>
+<div class="col-xs-12">
+    <legend>Join a House</legend>
+    <div class="input-group form-search">
+        <span class="input-group-addon" data-type="first"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control search-query" ng-model="searchString" ng-model-options="{ debounce: 350 }" placeholder="Start Typing to Search..." />
+    </div>
+    <div class="row spacer">
+        <live-tile ng-repeat="house in houses" class="col-md-3 col-sm-4" colour="blue" hover-slide="1">
+            <live-tile-slide>
+                <div class="text-center">
+                    <i class="fa fa-2x fa-home"></i>
+                </div>
+                <h4 class="text-center">{{house.Name}}</h4>
+                <button class="btn btn-primary btn-block fix fix-bottom" ng-click="joinHouse(house.Id)">Join <i class="fa fa-users"></i></button>
+            </live-tile-slide>
+            <live-tile-slide>
+                <h4 class="text-center">Housemates</h4>
+                <div class="col-md-8 col-md-offset-2">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="user in house.Users"><span class="badge badge-primary">{{user.Comments.length}} <i class="fa fa-comment-o"></i></span>{{user.RealName}}</li>
+                    </ul>
+                </div>
+                <p ng-show="!house.Users.length" class="text-center">Nobody lives here <i class="fa fa-frown-o"></i></p>
+                <button class="btn btn-primary btn-block fix fix-bottom" ng-click="joinHouse(house.Id)">Join <i class="fa fa-users"></i></button>
+            </live-tile-slide>
+        </live-tile>
+        <div class="col-xs-12 text-center" ng-show="!houses.length && searchString && !searching">
+            <p class="lead">No Houses found with that Name <i class="fa fa-frown-o"></i></p>
+        </div>
+        <div class="col-xs-12 text-center">
+            <loading-icon large="true" ng-show="searching"></loading-icon>
+        </div>
+    </div>
+</div>

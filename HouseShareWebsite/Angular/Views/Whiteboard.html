@@ -1,0 +1,5 @@
+﻿<div class="text-center spacer">
+    <div class="flyIn" ng-repeat="tileItem in tileItems" ng-include="tileViewMapping[tileItem.TileItemType]" ui-sref="app.main.tileItemDetails({ tileItemId: tileItem.Id})"></div>
+    <loading-icon ng-show="loading" large="true"></loading-icon>
+    <p class="lead" ng-show="!loading && !tileItems.length">There are no Tile Items to Display. Try adding a Note (link in the sidebar)</p>
+</div>
