@@ -1,8 +1,8 @@
 ﻿
 var appModule = angular.module('App', [
-    'Controllers', 'Services', 'Filters', 'Directives', 'ui.router', 'ngAnimate'])
+    'Controllers', 'Services', 'Filters', 'Directives', 'ui.router', 'ngAnimate', 'hmTouchEvents'])
                 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/whiteboard');
 
     $stateProvider.state('app', {
         'abstract': true,
@@ -11,7 +11,12 @@ var appModule = angular.module('App', [
                 templateUrl: 'Angular/Views/DefaultHeader.html'
             },
             'main': {
-                templateUrl: 'Angular/Views/Main.html'
+                templateUrl: 'Angular/Views/Main.html',
+                controller: function($scope, $rootScope) {
+                    $scope.closeSidebar = function () {
+                        $rootScope.sidebar.collapsed = true;
+                    };
+                }
             }
         }
     });
@@ -32,6 +37,14 @@ var appModule = angular.module('App', [
                 templateUrl: 'Angular/Views/SmallHeader.html',
                 controller: 'headerController'
             }
+        },
+        resolve: {
+            authenticated: function(authService, $state) {
+                return authService.ping().catch(
+                    function(error) { // not authenticated, need to log in
+                        $state.go('app.login');
+                    });
+            }
         }
     });
 
@@ -41,7 +54,7 @@ var appModule = angular.module('App', [
                 if (!config) {
                     config = {};
                 }
-                config.headers['Authorization'] = 'Bearer ' + currentUserService.getUserDetails().token;
+                config.headers['Authorization'] = 'Bearer ' + currentUserService.getToken();
                 notificationsService.addLoadingTask();
                 return config;
             },

@@ -27,7 +27,9 @@ namespace HouseShareWebsite
                 "~/Scripts/bootflat/*.js",
                 "~/Scripts/angular-local-storage.js",
                 "~/Scripts/angular-breakpoint.js",
-                "~/Scripts/jquery.signalR-2.1.0.min.js"));
+                "~/Scripts/jquery.signalR-2.1.0.min.js",
+                "~/Scripts/hammer.js",
+                "~/Scripts/angular-hammer.js"));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Angular/App.js",
                 "~/Angular/Controllers/*.js",

@@ -27,4 +27,8 @@
             $scope.loggingIn = false;
         });
     };
+
+    $scope.onSwipe = function() {
+        $state.go('app.register');
+    };
 });

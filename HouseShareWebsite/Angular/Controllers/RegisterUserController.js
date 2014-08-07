@@ -33,4 +33,7 @@
                 });
         });
     };
+    $scope.onSwipe = function() {
+        $state.go('app.login');
+    };
 });

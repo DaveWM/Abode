@@ -27,13 +27,6 @@
     };
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if (!toState.data || !toState.data.allowAnonymous) { // need to be authenticated
-            authService.ping().catch(
-                function (error) { // not authenticated, need to log in
-                $state.go('app.login');
-            });
-        }
-
         // if user doesn't have a home, redirect to house page
         if (toState.name.indexOf('app.main') >= 0 && (!toState.data || !toState.data.allowHomeless)) // child of main state (after login)
         {
