@@ -295,7 +295,9 @@
     <None Include=".bin\grunt.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include=".bin\npm.cmd" />
-    <Content Include="deployment.deployment" />
+    <Content Include="config.deployment">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\bootflat\css\bootflat.less" />
     <Content Include="Content\bootflat\css\bootflat.css">
       <DependentUpon>bootflat.less</DependentUpon>
@@ -478,7 +480,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
-    <Content Include="deploy.cmd" />
+    <Content Include="deploy.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\HouseShareWebsite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\HouseShareWebsite - Web Deploy.pubxml" />
     <Content Include="Scripts\combined.js" />
@@ -1033,9 +1037,8 @@
   <PropertyGroup>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>cd $(ProjectDir).bin\
-npm install
-grunt $(ConfigurationName)</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
