@@ -23,6 +23,13 @@
     $scope.tileItem = {};
     $scope.tileItemView = "";
 
+    $scope.commentLimit = 3;
+    $scope.commentsRevealed = false;
+    $scope.showAllComments = function() {
+        $scope.commentLimit = 9999;
+        $scope.commentsRevealed = true;
+    };
+
     $scope.loadingComments = true;
     commentsService.getItemComments(tileItemId)
         .then(function(comments) {

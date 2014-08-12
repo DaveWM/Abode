@@ -11,15 +11,13 @@
                 <textarea rows="5" cols="50" type="text" ng-model="content" class="form-control" required name="title"></textarea>
             </div>
             <div class="text-center">
+                <small>How important is this note?</small>
                 <div>
                     <rating ng-model="importanceRating" max="{{maxRating}}" state-on="'fa fa-2x fa-exclamation-circle'" state-off="'fa fa-2x fa-meh-o'" ng-class="{'very-important': importanceRating > 7, 'not-important': importanceRating < 4}"></rating>
                 </div>
-                <small>How important is this note?</small>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="!createNoteForm.$valid">Save <i class="fa fa-floppy-o"></i></button>
-            <div class="text-center">
-                <loading-icon class="spacer" large="true" ng-show="saving"></loading-icon>
-            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block spacer"
+                     ng-disabled="!createNoteForm.$valid">Save <i class="fa fa-floppy-o"></i> <loading-icon class="spacer" large="true" ng-show="saving"></loading-icon></button>
         </fieldset>
     </form>
 </div>

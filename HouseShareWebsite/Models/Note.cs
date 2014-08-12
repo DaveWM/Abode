@@ -1,4 +1,4 @@
-﻿namespace HouseShareWebsite.Models
+﻿namespace AbodeWebsite.Models
 {
     public class Note : TileItem
     {

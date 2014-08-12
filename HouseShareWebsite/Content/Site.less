@@ -41,6 +41,10 @@
 
 
 @contentBackgroundColour: rgba(43,87,151,0.4);
+//fix for phonegap not renering fa icons
+.fa {
+  text-rendering: auto !important;
+}
 
 a{
     cursor:pointer;
@@ -59,6 +63,7 @@ body{
      min-height:100%;
      overflow-x: hidden;
      background-color: transparent !important;
+     -ms-touch-action: pan-y;
 }
 .app{
     padding-left: @app-padding;
@@ -140,6 +145,12 @@ div.sidebar{
     }
     .navbar-header{
         background-color:@darkBlue;
+    }
+    .btn-primary:hover{
+        border: 1px solid @blue;
+    }
+    nav > li > a:hover{
+        border: 1px solid @blue;
     }
 }
 

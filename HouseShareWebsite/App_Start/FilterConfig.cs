@@ -1,8 +1,8 @@
 ﻿using System.Web.Http.Filters;
 using System.Web.Http;
-using HouseShareWebsite.Attributes;
+using AbodeWebsite.Attributes;
 
-namespace HouseShareWebsite
+namespace AbodeWebsite
 {
     public class FilterConfig
     {

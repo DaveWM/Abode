@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using HouseShareWebsite.App_Start;
+using AbodeWebsite.App_Start;
 
-namespace HouseShareWebsite
+namespace AbodeWebsite
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using HouseShareWebsite.Models;
-using HouseShareWebsite.Providers;
-using HouseShareWebsite.Results;
+using AbodeWebsite.Models;
+using AbodeWebsite.Providers;
+using AbodeWebsite.Results;
 
-namespace HouseShareWebsite.Controllers
+namespace AbodeWebsite.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

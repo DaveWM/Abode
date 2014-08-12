@@ -63,7 +63,7 @@ var appModule = angular.module('App', [
                 return data;
             },
             responseError: function(rejection) {
-                notificationsService.notifyError(rejection.data.error_description || rejection.data.message || rejection.data.Message || rejection.data.Message || 'Unknown Error Occured');
+                notificationsService.notifyError(rejection.data.error_description || rejection.data.message || rejection.data.Message || rejection.data.Message || "Unknown Error - Response: " + JSON.stringify(rejection.data));
                 notificationsService.removeLoadingTask();
                 return $q.reject(rejection);
             }

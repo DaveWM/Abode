@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using HouseShareWebsite.Models;
+using AbodeWebsite.Models;
 
-namespace HouseShareWebsite.Controllers.Helpers
+namespace AbodeWebsite.Controllers.Helpers
 {
     public static class UserHelpers
     {

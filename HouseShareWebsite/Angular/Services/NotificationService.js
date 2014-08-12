@@ -1,23 +1,42 @@
 ﻿angular.module('Services.Notifications', ['Services.CurrentUser'])
-    .factory('notificationsService', function (currentUserService) {
+    .factory('notificationsService', function (currentUserService, $window) {
         var loadingTasksCount = 0;
         var hub;
 
-        function connectToHub() {
-            hub = $.connection.houseHub;
-            $.connection.hub.qs = { 'token': currentUserService.getToken() };
+        var phoneNotification = function () { };
+    var isPhone = false;
+    if ($window.plugin) {
+        phoneNotification = $window.plugin.notification.local.add;
+        isPhone = true;
+    }
 
-            hub.client.commentAdded = function (comment) {
+    function connectToHub() {
+            var connection = $.hubConnection(globalConfig.apiUrl + "/signalr", { useDefaultPath: false });
+            hub = connection.createHubProxy('houseHub');
+            connection.qs = { 'token': currentUserService.getToken() };
+
+            hub.on('commentAdded', function (comment) {
                 // if not posted by current user
                 if (currentUserService.getUserDetails().name != comment.UserName) {
-                    toastr.info(comment.UserName + " posted a comment for the tile item: '" + comment.TileItemTitle + "'");
+                    var message = comment.UserName + " posted a comment for the tile item: '" + comment.TileItemTitle + "'";
+                    toastr.info(message);
+                    phoneNotification({
+                        id: new Date().getTime(),
+                        message: message,
+                        title: 'Abode: ' + comment.username + ' added a comment',
+                        autoCancel: true
+                    });
+                    toastr.info(isPhone.toString());
+                    if (isPhone) {
+                        toastr.info(JSON.stringify(window.plugin.notification.local));
+                    }
                 }
                 angular.forEach(commentAddedSubscribers, function (sub, key) {
                     sub(comment);
                 });
-            };
+            });
 
-            hub.client.tileItemAdded = function (tileItem) {
+            hub.on('tileItemAdded', function (tileItem) {
                 // if not posted by current user
                 if (currentUserService.getUserDetails().name != tileItem.CreatedUser.RealName) {
                     toastr.info(tileItem.CreatedUser.RealName + " created a new tile item: '" + tileItem.Title + "'");
@@ -25,11 +44,11 @@
                 angular.forEach(tileItemSubscribers, function (sub, key) {
                     sub(tileItem);
                 });
-            };
+            });
 
-            $.connection.hub.start()
+            connection.start({ jsonp: true })
             .then(function() {
-                hub.server.joinHouseGroup();
+                hub.invoke('joinHouseGroup');
             });
         }
 

@@ -109,7 +109,7 @@ T4JS 1.0
 					build: function(param){
 						return <#=JavaScriptNamespace#>.endpoint.query({url: this.uri, method: this.method, query: this.query}, param);
 					},
-					uri: url,
+					uri: globalConfig.apiUrl + url,
 					method: method,
 					query: query
 			};

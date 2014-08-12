@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(HouseShareWebsite.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(HouseShareWebsite.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(AbodeWebsite.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(AbodeWebsite.App_Start.NinjectWebCommon), "Stop")]
 
-namespace HouseShareWebsite.App_Start
+namespace AbodeWebsite.App_Start
 {
     using System;
     using System.Web;

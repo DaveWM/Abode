@@ -1,13 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http;
-using System.Security.AccessControl;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Filters;
 
-namespace HouseShareWebsite.Attributes
+namespace AbodeWebsite.Attributes
 {
     public class HandleErrorJsonAttribute : ExceptionFilterAttribute
     {

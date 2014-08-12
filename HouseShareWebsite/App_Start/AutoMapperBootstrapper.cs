@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using HouseShareWebsite.Models;
-using HouseShareWebsite.Models.ViewModels;
-using Microsoft.Ajax.Utilities;
+using AbodeWebsite.Models;
+using AbodeWebsite.Models.ViewModels;
 
-namespace HouseShareWebsite.App_Start
+namespace AbodeWebsite.App_Start
 {
     public static class AutoMapperBootstrapper
     {

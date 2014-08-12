@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AbodeWebsite.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using HouseShareWebsite.Models;
 
-namespace HouseShareWebsite
+namespace AbodeWebsite
 {
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 

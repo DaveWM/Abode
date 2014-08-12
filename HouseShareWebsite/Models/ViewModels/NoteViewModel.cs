@@ -1,4 +1,4 @@
-﻿namespace HouseShareWebsite.Models.ViewModels
+﻿namespace AbodeWebsite.Models.ViewModels
 {
     public class NoteViewModel : TileItemViewModel
     {

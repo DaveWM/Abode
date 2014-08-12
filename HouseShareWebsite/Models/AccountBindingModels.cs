@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HouseShareWebsite.Models
+namespace AbodeWebsite.Models
 {
     // Models used as parameters to AccountController actions.
 

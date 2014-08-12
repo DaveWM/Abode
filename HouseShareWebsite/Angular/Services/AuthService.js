@@ -4,7 +4,7 @@
     return {
         login: function(email, password) {
             var deferred = $q.defer();
-            $http.post('/Token', $.param({ // have to use this because server expects parameter string, not json
+            $http.post(globalConfig.apiUrl + '/Token', $.param({ // have to use this because server expects parameter string, not json
                     grant_type: 'password',
                     username: email,
                     password: password

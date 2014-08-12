@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HouseShareWebsite.Models
+namespace AbodeWebsite.Models
 {
     public class Comment
     {

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using HouseShareWebsite.Controllers.Helpers;
-using HouseShareWebsite.Models;
-using HouseShareWebsite.Models.ViewModels;
+using AbodeWebsite.Controllers.Helpers;
+using AbodeWebsite.Models;
+using AbodeWebsite.Models.ViewModels;
 
-namespace HouseShareWebsite.Controllers
+namespace AbodeWebsite.Controllers
 {
     public class NotesController : ApiController
     {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HouseShareWebsite.Models.ViewModels;
+﻿using AbodeWebsite.Models.ViewModels;
 using Microsoft.AspNet.SignalR;
 
-namespace HouseShareWebsite.Controllers.Helpers
+namespace AbodeWebsite.Controllers.Helpers
 {
     public static class TileItemHelpers
     {

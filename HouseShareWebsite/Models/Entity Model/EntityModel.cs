@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace HouseShareWebsite.Models
+namespace AbodeWebsite.Models
 {
     public class EntityModel : IdentityDbContext<ApplicationUser>
     {
@@ -20,12 +20,5 @@ namespace HouseShareWebsite.Models
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<House> Houses { get; set; }
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    modelBuilder.Entity<House>().HasOptional(h => h.Users).WithMany();
-        //}
     }
 }

@@ -1,4 +1,7 @@
-﻿a {
+﻿.fa {
+  text-rendering: auto !important;
+}
+a {
   cursor: pointer;
 }
 html {
@@ -15,6 +18,7 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   background-color: transparent !important;
+  -ms-touch-action: pan-y;
 }
 .app {
   padding-left: 15px;
@@ -96,6 +100,12 @@ div.sidebar .sidebarToggle i {
 }
 .navbar-metro .navbar-header {
   background-color: #094ab2;
+}
+.navbar-metro .btn-primary:hover {
+  border: 1px solid #2d89ef;
+}
+.navbar-metro nav > li > a:hover {
+  border: 1px solid #2d89ef;
 }
 .btn.btn-darkblue {
   background-color: #094ab2;

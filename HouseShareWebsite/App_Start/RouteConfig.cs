@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace HouseShareWebsite
+namespace AbodeWebsite
 {
     public class RouteConfig
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HouseShareWebsite.Models.ViewModels
+namespace AbodeWebsite.Models.ViewModels
 {
     public class UserViewModel
     {

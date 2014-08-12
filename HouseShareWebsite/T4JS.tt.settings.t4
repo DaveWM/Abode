@@ -12,7 +12,7 @@ const string JavaScriptEndpointObject = "endpoints";
 
 // This is a prefix that will be placed in front of your generated paths.  This is
 // used when you're running in a virtual directory or are using custom route prefixes.
-const string RoutePrefix = "api/";
+const string RoutePrefix = "/api/";
 
 // The relative path to and name of the output JavaScript file. 
 const string ScriptFileName = "Scripts\\ajaxEndpoints.js";

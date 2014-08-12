@@ -2,9 +2,13 @@
 <html ng-app="App" ng-controller="appController" ng-cloak breakpoint="{0: 'hideSidebar', 1000: 'showSidebar'}">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title ng-bind="getTitle()">Abode</title>
-    @Styles.Render("~/Content/css")
+    <script src="phonegap.js"></script>
+    <link rel="stylesheet" href="Content/combined.css"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="config.js"></script>
+    <script src="Scripts/combined.js"></script>
 </head>
 <body>
     <div class="container">
@@ -13,8 +17,5 @@
             <div ui-view="main" class="main row"></div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/scripts")
-    <script src="signalr/hubs"></script>
-    @Scripts.Render("~/bundles/angular")
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HouseSharingWebsite.Controllers
+namespace AbodeWebsite.Controllers
 {
     public class AppController : Controller
     {

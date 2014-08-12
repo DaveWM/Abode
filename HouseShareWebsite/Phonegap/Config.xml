@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.davemartin.abode"
+    version     = "0.1.0" >
+
+  <!-- versionCode is optional and Android only -->
+
+  <name>Abode</name>
+
+  <description>
+    House sharing app.
+  </description>
+
+  <author email="dwmartin41@gmail.com">
+    Dave Martin
+  </author>
+  
+  <gap:platform name="ios" />
+  <gap:platform name="android" />
+  <gap:platform name="winphone" />
+
+  <feature name="debug-server" required="true">
+    <param name="domain" value="http://192.168.1.82:8080"/>
+    <param name="key" value="abodeApp"/>
+  </feature>
+
+  <access origin="*" />
+
+  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" />
+
+  <preference name="WebViewBounce" value="false" />
+
+  <preference name="DisallowOverscroll" value="true" />
+
+  <preference name="UIWebViewBounce" value="false" />
+
+</widget>

@@ -83,7 +83,7 @@
 					build: function(param){
 						return server.endpoint.query({url: this.uri, method: this.method, query: this.query}, param);
 					},
-					uri: url,
+					uri: globalConfig.apiUrl + url,
 					method: method,
 					query: query
 			};
@@ -226,6 +226,6 @@ server.endpoints = (function(prefix){
 					["controllerContext","cancellationToken"])	
 		}	
 	}	
-}("api/"));
+}("/api/"));
 
 

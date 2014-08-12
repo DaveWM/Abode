@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HouseShareWebsite.Models
+namespace AbodeWebsite.Models
 {
     public class House
     {

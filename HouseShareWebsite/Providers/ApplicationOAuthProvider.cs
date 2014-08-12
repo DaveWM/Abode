@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using HouseShareWebsite.Models;
+using AbodeWebsite.Models;
 
-namespace HouseShareWebsite.Providers
+namespace AbodeWebsite.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
@@ -39,13 +38,11 @@ namespace HouseShareWebsite.Providers
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
 
             AuthenticationProperties properties = CreateProperties(user);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            context.Request.Context.Authentication.SignIn(oAuthIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

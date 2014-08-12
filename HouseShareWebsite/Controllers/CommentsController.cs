@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using HouseShareWebsite.Controllers.Helpers;
-using HouseShareWebsite.Models;
-using HouseShareWebsite.Models.ViewModels;
+using AbodeWebsite.Controllers.Helpers;
+using AbodeWebsite.Models;
+using AbodeWebsite.Models.ViewModels;
 using Microsoft.AspNet.SignalR;
 
-namespace HouseShareWebsite.Controllers
+namespace AbodeWebsite.Controllers
 {
     [RoutePrefix("api/comments")]
     public class CommentsController : ApiController

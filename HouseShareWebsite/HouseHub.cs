@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using HouseShareWebsite.Models;
+using AbodeWebsite.Attributes;
+using AbodeWebsite.Models;
 using Microsoft.AspNet.SignalR;
 
-namespace HouseShareWebsite
+namespace AbodeWebsite
 {
     [HubAuthorize]
     public class HouseHub : Hub

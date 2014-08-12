@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace HouseShareWebsite
+namespace AbodeWebsite
 {
     public class BundleConfig
     {

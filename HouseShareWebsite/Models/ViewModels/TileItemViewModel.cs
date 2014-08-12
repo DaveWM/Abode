@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace HouseShareWebsite.Models.ViewModels
+namespace AbodeWebsite.Models.ViewModels
 {
     public enum TileItemType
     {

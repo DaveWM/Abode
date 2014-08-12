@@ -4,14 +4,15 @@
 </div>
 <div class="col-sm-6 col-xs-12">
     <h4 class="text-center">Comments <i class="fa fa-comments-o"></i></h4>
-    <div class="commentContainer slideIn" ng-repeat="comment in comments">
+    <div class="commentContainer slideIn" ng-repeat="comment in comments | limitTo : commentLimit">
         <loading-icon ng-show="loadingComments"></loading-icon>
         <blockquote>
             <p>{{comment.Text}}</p>
             <footer>{{comment.UserName}} ({{comment.CreatedDate | date : 'medium'}})</footer>
         </blockquote>
     </div>
-    <form novalidate name="postCommentForm" ng-submit="postComment(newComment)">
+    <button class="btn btn-primary btn-block" ng-click="showAllComments()" ng-hide="!comments.length || commentsRevealed"><i class="fa fa-chevron-down"></i></button>
+    <form novalidate name="postCommentForm" ng-submit="postComment(newComment)" class="spacer">
         <textarea class="form-control" rows="3" ng-model="newComment" placeholder="Post a Comment" required></textarea>
         <button class="btn btn-primary btn-block" type="submit" ng-disabled="postCommentForm.$invalid">Post <i class="fa fa-envelope-o"></i></button>
         <loading-icon ng-show="postingComment"></loading-icon>
