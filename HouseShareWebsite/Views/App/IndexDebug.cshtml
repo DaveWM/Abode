@@ -3,11 +3,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=no" />
     <title ng-bind="getTitle()">Abode</title>
-    <script src="phonegap.js"></script>
-    <link rel="stylesheet" href="Content/combined.css"/>
+    @Styles.Render("~/Content/css")
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="config.js"></script>
-    <script src="Scripts/combined.js"></script>
+    @Scripts.Render("~/bundles/scripts")
+    @Scripts.Render("~/bundles/angular")
 </head>
 <body>
     <div class="container">

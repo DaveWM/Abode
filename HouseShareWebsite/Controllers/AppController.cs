@@ -7,6 +7,9 @@ namespace AbodeWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+#if DEBUG
+            return View("IndexDebug");
+#endif
             return View();
         }
     }

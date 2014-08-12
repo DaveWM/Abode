@@ -977,6 +977,7 @@
     <Content Include="T4JS.tt.settings.t4" />
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\App\IndexDebug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1031,7 +1032,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>cd $(ProjectDir).bin\
-grunt.cmd</PreBuildEvent>
+npm install
+grunt $(ConfigurationName)</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
