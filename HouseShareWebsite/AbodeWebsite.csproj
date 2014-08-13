@@ -287,6 +287,7 @@
     <Content Include="Angular\Views\Main.html" />
     <Content Include="Angular\Views\Register.html" />
     <Content Include="Angular\Views\SmallHeader.html" />
+    <Content Include="Content\combined.css" />
     <Content Include="globalConfig.js" />
     <Content Include="Content\bootflat\css\bootflat.css.map">
       <DependentUpon>bootflat.css</DependentUpon>
@@ -316,7 +317,6 @@
     <Content Include="Content\bootstrap\variables.min.css">
       <DependentUpon>variables.css</DependentUpon>
     </Content>
-    <Content Include="Content\combined.css" />
     <Content Include="Content\images\homeshare_bg.png" />
     <Content Include="Content\images\houseIcon.png" />
     <Content Include="Content\images\loading.GIF" />
