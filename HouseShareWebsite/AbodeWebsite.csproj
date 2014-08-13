@@ -1046,9 +1046,13 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)
+    <PostBuildEvent>IF $(ConfigurationName) == Release (
+echo Not Running Build Event
+) ELSE (
+cd $(ProjectDir)
 call npm install
-call grunt $(ConfigurationName)</PostBuildEvent>
+call grunt $(ConfigurationName)
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
