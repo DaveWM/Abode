@@ -339,6 +339,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Gruntfile.js" />
+    <Content Include="package.json" />
     <Content Include="Phonegap\globalConfig.js" />
     <Content Include="Phonegap\Config.xml" />
     <Content Include="Scripts\ajaxEndpoints.js" />
@@ -477,7 +478,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="package.json" />
     <Content Include="deploy.cmd" />
     <None Include="Properties\PublishProfiles\HouseShareWebsite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\HouseShareWebsite - Web Deploy.pubxml" />
