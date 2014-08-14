@@ -292,10 +292,10 @@
     <Content Include="Content\bootflat\css\bootflat.css.map">
       <DependentUpon>bootflat.css</DependentUpon>
     </Content>
-    <None Include=".bin\git.cmd" />
-    <None Include=".bin\grunt.cmd" />
-    <None Include=".bin\node.cmd" />
-    <None Include=".bin\npm.cmd" />
+    <Content Include=".bin\git.cmd" />
+    <Content Include=".bin\grunt.cmd" />
+    <Content Include=".bin\node.cmd" />
+    <Content Include=".bin\npm.cmd" />
     <None Include="Content\bootflat\css\bootflat.less" />
     <Content Include="Content\bootflat\css\bootflat.css">
       <DependentUpon>bootflat.less</DependentUpon>
