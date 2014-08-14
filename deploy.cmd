@@ -69,9 +69,11 @@ echo Handling .NET Web Application deployment.
 
 :: 0. Grunt
 echo Starting Grunt
-cd $(ProjectDir)
+cd "%DEPLOYMENT_SOURCE%\HouseShareWebsite\AbodeWebsite.csproj"
+echo "%DEPLOYMENT_SOURCE%\HouseShareWebsite\AbodeWebsite.csproj"
 call npm install
 call grunt $(ConfigurationName)
+IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 1. Restore NuGet packages
 IF /I "Abode.sln" NEQ "" (
