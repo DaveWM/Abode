@@ -1040,8 +1040,15 @@
   <PropertyGroup>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>IF "$(ConfigurationName)" == "Release" (
+echo Release, not running
+) ELSE (
+cd $(ProjectDir).bin
+call npm install
+call grunt $(ConfigurationName)
+)
+
+</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
