@@ -248,7 +248,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".deployment" />
     <Content Include="ajaxEndpoints.js">
       <DependentUpon>T4JS.tt</DependentUpon>
     </Content>
@@ -289,7 +288,6 @@
     <Content Include="Angular\Views\Register.html" />
     <Content Include="Angular\Views\SmallHeader.html" />
     <Content Include="Content\combined.css" />
-    <Content Include="deploy.cmd" />
     <Content Include="globalConfig.js" />
     <Content Include="Content\bootflat\css\bootflat.css.map">
       <DependentUpon>bootflat.css</DependentUpon>
@@ -1046,13 +1044,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>IF $(ConfigurationName) == Release (
-echo Not Running Build Event
-) ELSE (
-cd $(ProjectDir)
-call npm install
-call grunt $(ConfigurationName)
-)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
