@@ -106,7 +106,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 )
 
 # 4. Run grunt  
-call grunt release
+call grunt Release
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 

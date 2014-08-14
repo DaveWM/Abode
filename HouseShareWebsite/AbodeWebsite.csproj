@@ -248,6 +248,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".deployment" />
     <Content Include="ajaxEndpoints.js">
       <DependentUpon>T4JS.tt</DependentUpon>
     </Content>
@@ -288,6 +289,7 @@
     <Content Include="Angular\Views\Register.html" />
     <Content Include="Angular\Views\SmallHeader.html" />
     <Content Include="Content\combined.css" />
+    <Content Include="deploy.cmd" />
     <Content Include="globalConfig.js" />
     <Content Include="Content\bootflat\css\bootflat.css.map">
       <DependentUpon>bootflat.css</DependentUpon>
@@ -296,7 +298,6 @@
     <None Include=".bin\grunt.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include=".bin\npm.cmd" />
-    <Content Include="config.deployment" />
     <None Include="Content\bootflat\css\bootflat.less" />
     <Content Include="Content\bootflat\css\bootflat.css">
       <DependentUpon>bootflat.less</DependentUpon>
@@ -478,7 +479,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="deploy.cmd" />
     <None Include="Properties\PublishProfiles\HouseShareWebsite - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\HouseShareWebsite - Web Deploy.pubxml" />
     <Content Include="Scripts\combined.js" />
