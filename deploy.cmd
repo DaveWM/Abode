@@ -69,8 +69,8 @@ echo Handling .NET Web Application deployment.
 
 :: 0. Grunt
 echo Starting Grunt
-cd "%DEPLOYMENT_SOURCE%\HouseShareWebsite\AbodeWebsite.csproj"
-echo "%DEPLOYMENT_SOURCE%\HouseShareWebsite\AbodeWebsite.csproj"
+cd "%DEPLOYMENT_SOURCE%\HouseShareWebsite\"
+echo "%DEPLOYMENT_SOURCE%\HouseShareWebsite\"
 call npm install
 call grunt $(ConfigurationName)
 IF !ERRORLEVEL! NEQ 0 goto error
