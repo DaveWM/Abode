@@ -72,7 +72,7 @@ echo Starting Grunt
 cd "%DEPLOYMENT_SOURCE%\HouseShareWebsite\"
 echo "%DEPLOYMENT_SOURCE%\HouseShareWebsite\"
 call npm install
-call grunt $(ConfigurationName)
+call grunt Release
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 1. Restore NuGet packages
