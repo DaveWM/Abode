@@ -1,5 +1,6 @@
-﻿angular.module('Controllers.App', ['Services', 'Directives.LoadingIcon', 'Services.House', 'breakpointApp'])
-    .controller('appController', function($scope, authService, $state, $rootScope, notificationsService, houseService, $rootScope) {
+﻿angular.module('Controllers.App', ['Services', 'Directives.LoadingIcon', 'Services.House', 'breakpointApp', 'Services.PreviousState', 'Services.Phonegap'])
+    .controller('appController', function ($scope, authService, $state, $rootScope, notificationsService, houseService, previousState, phonegapService) {
+
     $scope.appName = 'Abode';
 
     $rootScope.pageTitle = '';
@@ -52,4 +53,10 @@
             $rootScope.pageTitle = toState.data.pageTitle;
         }
     });
+
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        previousState.set(fromState, fromParams);
+    });
+
+    phonegapService.setBackButtonFunc($state.go);
 });

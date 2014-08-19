@@ -1,14 +1,7 @@
-﻿angular.module('Services.Notifications', ['Services.CurrentUser'])
-    .factory('notificationsService', function (currentUserService, $window) {
+﻿angular.module('Services.Notifications', ['Services.CurrentUser', 'Services.Phonegap'])
+    .factory('notificationsService', function (currentUserService, phonegapService) {
         var loadingTasksCount = 0;
         var hub;
-
-        var phoneNotification = function () { };
-    var isPhone = false;
-    if ($window.plugin) {
-        phoneNotification = $window.plugin.notification.local.add;
-        isPhone = true;
-    }
 
     function connectToHub() {
             var connection = $.hubConnection(globalConfig.apiUrl + "/signalr", { useDefaultPath: false });
@@ -20,16 +13,12 @@
                 if (currentUserService.getUserDetails().name != comment.UserName) {
                     var message = comment.UserName + " posted a comment for the tile item: '" + comment.TileItemTitle + "'";
                     toastr.info(message);
-                    phoneNotification({
+                    phonegapService.notifyPhone({
                         id: new Date().getTime(),
                         message: message,
                         title: 'Abode: ' + comment.username + ' added a comment',
                         autoCancel: true
                     });
-                    toastr.info(isPhone.toString());
-                    if (isPhone) {
-                        toastr.info(JSON.stringify(window.plugin.notification.local));
-                    }
                 }
                 angular.forEach(commentAddedSubscribers, function (sub, key) {
                     sub(comment);

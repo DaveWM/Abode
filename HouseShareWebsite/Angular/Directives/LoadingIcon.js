@@ -10,7 +10,7 @@
             },
             replace: true,
             link: function($scope) {
-                $scope.src = $scope.alt ? '../Content/images/loading_alt.gif' : '../Content/images/loading.gif';
+                $scope.src = $scope.alt ? 'Content/images/loading_alt.gif' : 'Content/images/loading.gif';
             }
         };
     });

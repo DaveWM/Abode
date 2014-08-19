@@ -1,7 +1,8 @@
 ﻿
 var appModule = angular.module('App', [
     'Controllers', 'Services', 'Filters', 'Directives', 'ui.router', 'ngAnimate', 'hmTouchEvents'])
-                .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+        alert('angular started');
     $urlRouterProvider.otherwise('/whiteboard');
 
     $stateProvider.state('app', {
@@ -77,4 +78,12 @@ var appModule = angular.module('App', [
     "        <span class=\"sr-only\">({{ $index < value ? '*' : ' ' }})</span>\n" +
     "    </i>\n" +
     "</span>");
+}).factory('$exceptionHandler', function ($log) {
+    return function (exception, cause) {
+        alert('angular error');
+        alert('message: ' + exception.message);
+        alert('cause: ' + cause);
+        exception.message += cause;
+        $log.error(exception.message);
+    };
 });

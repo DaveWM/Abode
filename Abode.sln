@@ -33,6 +33,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Phonegap Release|Any CPU = Phonegap Release|Any CPU
+		Release_Test|Any CPU = Release_Test|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -41,6 +42,8 @@ Global
 		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Phonegap Release|Any CPU.ActiveCfg = Phonegap Release|Any CPU
 		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Phonegap Release|Any CPU.Build.0 = Phonegap Release|Any CPU
 		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Phonegap Release|Any CPU.Deploy.0 = Phonegap Release|Any CPU
+		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Release_Test|Any CPU.ActiveCfg = Release_Test|Any CPU
+		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Release_Test|Any CPU.Build.0 = Release_Test|Any CPU
 		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ABEEC7E-6210-4464-97BD-0CA2E8278521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

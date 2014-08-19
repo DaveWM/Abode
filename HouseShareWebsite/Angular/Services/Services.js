@@ -4,4 +4,6 @@
     'Services.CurrentUser',
     'Services.Notifications',
     'Services.House',
+    'Services.Phonegap',
+    'Services.PreviousState',
     'Services.TileItems'])

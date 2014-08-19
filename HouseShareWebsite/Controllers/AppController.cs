@@ -10,7 +10,7 @@ namespace AbodeWebsite.Controllers
 #if DEBUG
             return View("IndexDebug");
 #endif
-            return View();
+            return View("index");
         }
     }
 }

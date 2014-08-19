@@ -20,19 +20,16 @@
   <gap:platform name="android" />
   <gap:platform name="winphone" />
 
-  <feature name="debug-server" required="true">
-    <param name="domain" value="http://192.168.1.82:8080"/>
-    <param name="key" value="abodeApp"/>
-  </feature>
-
   <access origin="*" />
-
-  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" />
 
   <preference name="WebViewBounce" value="false" />
 
   <preference name="DisallowOverscroll" value="true" />
 
   <preference name="UIWebViewBounce" value="false" />
+  
+  <gap:splash src="/Content/images/houseIcon.png"/>
+  <icon src="/Content/images/houseIcon.png" />
 
+  <gap:plugin name="org.apache.cordova.device" />
 </widget>

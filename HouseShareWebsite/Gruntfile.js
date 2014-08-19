@@ -21,11 +21,11 @@ module.exports = function(grunt) {
         uglify: {
             all: {
                 options: {
-                    mangle: true,
-                    compress: {
-                        drop_console: true
-                    }
-                    //beautify: true
+                    mangle: false,
+                    //compress: {
+                    //    drop_console: true
+                    //}
+                    beautify: true
                 },
                 files: {
                     'Scripts/combined-strict.js': [
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
                         "Scripts/bootflat/*.js",
                         "Scripts/angular-local-storage.js",
                         "Scripts/angular-breakpoint.js",
-                        "Scripts/jquery.signalR-2.1.0.min.js",
+                        "Scripts/jquery.signalR-2.1.1.min.js",
                         "Scripts/hammer.js",
                         "Scripts/angular-hammer.js",
                         'Scripts/angular-combined.js'
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
         },
         zip: {
             all: {
-                src: ['Scripts/combined.js', "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/Images/*'],
+                src: ['Scripts/combined.js', "Scripts/jquery-migrate-1.2.1.js", "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/Images/*'],
                 dest: 'Phonegap.zip',
                 router: function(filepath) {
                     if (filepath.indexOf('Phonegap/') >= 0) {
@@ -90,8 +90,7 @@ module.exports = function(grunt) {
                     archive: "Phonegap.zip",
                     appId: 1041904,
                     user: {
-                        email: "dwmartin41@gmail.com",
-                        password: "abraxis79713"
+                        token: 'vx-SxN67RuqSjxt956u-'
                     },
                     pollRate: 5,
                     download: {
@@ -112,7 +111,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-notify');
 
     grunt.registerTask('Release', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
-    grunt.registerTask('Phonegap', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build']);
+    grunt.registerTask('Release_Test', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
+    grunt.registerTask('Phonegap', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build', 'notify:done']);
     grunt.registerTask('Debug', []);
 }
 
