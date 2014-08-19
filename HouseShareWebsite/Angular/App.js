@@ -2,7 +2,6 @@
 var appModule = angular.module('App', [
     'Controllers', 'Services', 'Filters', 'Directives', 'ui.router', 'ngAnimate', 'hmTouchEvents'])
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
-        alert('angular started');
     $urlRouterProvider.otherwise('/whiteboard');
 
     $stateProvider.state('app', {

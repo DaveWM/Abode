@@ -3,14 +3,14 @@
     var onBackButtonPressed = function() {};
     $document[0].addEventListener("backbutton", function () {
         var prevState = previousState.get();
-        if (prevState) {
+        if (prevState.state) {
             onBackButtonPressed(prevState.state, prevState.params);
         }
     }, false);
 
     $document[0].addEventListener("menubutton", function() {
         $rootScope.sidebar.collapsed = !$rootScope.sidebar.collapsed;
-        $scope.$apply();
+        $rootScope.$apply();
     });
 
     return {

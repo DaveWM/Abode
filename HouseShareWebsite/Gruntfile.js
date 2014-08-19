@@ -70,7 +70,7 @@ module.exports = function(grunt) {
         },
         zip: {
             all: {
-                src: ['Scripts/combined.js', "Scripts/jquery-migrate-1.2.1.js", "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/Images/*'],
+                src: ['Scripts/combined.js', "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/Images/*'],
                 dest: 'Phonegap.zip',
                 router: function(filepath) {
                     if (filepath.indexOf('Phonegap/') >= 0) {

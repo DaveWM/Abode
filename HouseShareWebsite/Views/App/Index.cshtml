@@ -1,10 +1,9 @@
 ﻿<html ng-app="App" ng-controller="appController" ng-cloak breakpoint="{0: 'hideSidebar', 1000: 'showSidebar'}">
 <head>
     <meta charset="utf-8" />
+    <script src="phonegap.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title ng-bind="getTitle()">Abode</title>
-    <script src="Scripts/jquery-migrate-1.2.1.js"></script>
-    <script src="phonegap.js"></script>
     <link rel="stylesheet" href="Content/combined.css"/>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="globalConfig.js"></script>
@@ -15,9 +14,6 @@
             alert('url: ' + url);
             alert('line: ' + line);
         };
-        document.addEventListener('deviceready', function () {
-            alert('deviceready');
-        }, false);
     </script>
 </head>
 <body>
