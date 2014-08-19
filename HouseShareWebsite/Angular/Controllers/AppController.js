@@ -58,5 +58,7 @@
         previousState.set(fromState, fromParams);
     });
 
-    phonegapService.setBackButtonFunc($state.go);
+    phonegapService.setBackButtonFunc(function (state, params) {
+        $state.go(state, params);
+    });
 });
