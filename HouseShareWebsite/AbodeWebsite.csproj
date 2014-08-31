@@ -233,7 +233,9 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\Helpers\TileItemHelpers.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HouseHub.cs" />
     <Compile Include="App_Start\AutoMapperBootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
