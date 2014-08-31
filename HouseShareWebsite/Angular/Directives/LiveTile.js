@@ -3,7 +3,7 @@
         return {
             restrict: 'E',
             replace:true,
-            template: '<div class="live-tile flyIn col-xs-6 col-sm-4 col-md-3" ng-class="colourClass" ng-mouseenter="onMouseEnter()" ng-mouseleave="onMouseLeave()"><div class="slideContainer" ng-transclude></div></div>',
+            template: '<div class="live-tile flyIn" ng-class="colourClass" ng-mouseenter="onMouseEnter()" ng-mouseleave="onMouseLeave()"><div class="slideContainer" ng-transclude></div></div>',
             transclude: true,
             scope: {
                 colour: '@',

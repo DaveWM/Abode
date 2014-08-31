@@ -1,5 +1,5 @@
 ﻿angular.module('Controllers.House', ['ui.router', 'Directives.LoadingIcon', 'ui.bootstrap', 'Services.Notifications', 'Directives.LiveTile'])
-    .config(function($stateProvider) {
+    .config(function ($stateProvider) {
         $stateProvider
             .state('app.main.createHouse', {
                 url: '/house/create',

@@ -7,4 +7,5 @@
     'Controllers.Header',
     'Controllers.House',
     'Controllers.Notes',
-    'Controllers.TileItem']);
+    'Controllers.TileItem',
+    'Controllers.UserSettings']);

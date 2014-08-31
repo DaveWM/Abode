@@ -25,6 +25,10 @@
                 currentUserService.setHouseId(response.data.Id);
                 return response;
             });
+        },
+
+        getHouse: function(id) {
+            return $http.get(server.endpoints.house.gethouse.uri, { params: { houseId: id } });
         }
     };
 })

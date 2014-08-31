@@ -24,12 +24,12 @@
         authService.register($scope.email, $scope.password, $scope.name)
             .then(function() {
                 authService.login($scope.email, $scope.password)
+                .finally(function () {
+                    $scope.registering = false;
+                })
                 .then(function () {
                     notificationsService.notifySuccess('Registered Successfully');
                     $state.go('app.main.whiteboard');
-                })
-                .finally(function() {
-                    $scope.registering = false;
                 });
         });
     };

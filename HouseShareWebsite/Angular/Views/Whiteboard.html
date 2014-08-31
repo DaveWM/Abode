@@ -1,6 +1,7 @@
 ﻿<div class="text-center spacer">
-    <live-tile ng-repeat="tileItem in tileItems" colour="{{tileTypeMapping[tileItem.TileItemType].colour}}" 
-               ui-sref="app.main.tileItemDetails({ tileItemId: tileItem.Id})" hover-slide="1" animation="flip-y">
+    <live-tile ng-repeat="tileItem in tileItems" colour="{{tileTypeMapping[tileItem.TileItemType].colour}}"
+               ui-sref="app.main.tileItemDetails({ tileItemId: tileItem.Id})" hover-slide="1" animation="flip-y"
+               class="col-xs-6 col-sm-4 col-md-3">
         <div ng-include="getTileView(tileItem.TileItemType)"></div>
     </live-tile>
     <loading-icon ng-show="loading" large="true"></loading-icon>

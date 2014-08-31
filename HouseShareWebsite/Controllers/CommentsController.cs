@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web.Http;
 using AutoMapper;
 using AbodeWebsite.Controllers.Helpers;
@@ -32,7 +33,7 @@ namespace AbodeWebsite.Controllers
         {
             using (var db = new EntityModel())
             {
-                var user = UserHelpers.GetCurrentUser(db);
+                var user = UserHelpers.GetCurrentUser();
                 var newComment = db.Comments.Create();
                 newComment.TileItemId = toPost.TileItemId;
                 newComment.Text = toPost.Text;

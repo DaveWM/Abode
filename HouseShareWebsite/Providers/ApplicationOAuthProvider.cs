@@ -87,7 +87,8 @@ namespace AbodeWebsite.Providers
             {
                 { "userName", user.UserName },
                 { "realName", user.RealName },
-                { "houseId", user.HouseId.IfNotNull(i => i.ToString()) ?? ""   }
+                { "houseId", user.HouseId.IfNotNull(i => i.ToString()) ?? ""   },
+                { "id", user.Id}
             };
             return new AuthenticationProperties(data);
         }

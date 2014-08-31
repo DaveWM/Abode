@@ -1,0 +1,55 @@
+﻿<div class="row">
+    <h2><i class="fa fa-user"></i> User Settings</h2>
+    <div class="col-md-6">
+        <form name="userDetailsForm" ng-submit="save()" novalidate>
+            <legend>Details <i class="fa fa-edit"></i></legend>
+            <fieldset ng-disabled="saving">
+                <div class="imageUploadContainer center-block" ng-file-drop="uploadProfilePicture($files)" accept="image/*" ng-file-drag-over-class="fileDrop" ng-file-select="uploadProfilePicture($files)">
+                    <profile-pic user="user" size="fullwidth"></profile-pic>
+                    <div class="btn btn-primary btn-block">Upload <i class="fa fa-cloud-upload"></i></div>
+                </div>
+                <span class="help-block text-center"><i class="fa fa-info-circle"></i> You can drag and drop a file to upload</span>
+                <p class="spacer lead"><i class="fa fa-envelope"></i> {{user.Email || 'Email not Found, not good :('}}</p>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" ng-model="user.RealName" />
+                </div>
+                <div class="form-group" ng-class="{'has-error': userDetailsForm.phone.$invalid}">
+                    <label for="phone">Phone No</label>
+                    <input type="text" name="phone" id="phone" class="form-control" ng-model="user.PhoneNumber" ng-pattern="'^((\\+\\d\\d)|0)\\d{10}$'" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" ng-disabled="userDetailsForm.$invalid">Save <i class="fa fa-floppy-o"></i> <loading-icon ng-show="saving"></loading-icon></button>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="houseDetailsContainer">
+            <div class="page-header">
+                <h3><i class="fa fa-home"></i> House <small>{{house.Name || 'Not in a house'}}</small></h3>
+            </div>
+            <div class="btn-group btn-group-justified spacer text-center">
+                <a class="btn btn-primary" ui-sref="app.main.joinHouse">Join House <i class="fa fa-mail-forward"></i><i class="fa fa-building-o"></i></a>
+                <a class="btn btn-primary" ui-sref="app.main.createHouse">Create House <i class="fa fa-plus-circle"></i></a>
+            </div>
+            <div class="spacer" ng-show="housemates.length > 1">
+                <h4><i class="fa fa-users"></i> Housemates</h4>
+                <div class="row">
+                    <live-tile ng-repeat="hm in housemates | filter : {Id: '!'+user.Id }" colour="green" hover-slide="1" ui-sref="app.main.userSettings({userId: hm.Id})" class="col-xs-12 col-sm-6">
+                        <live-tile-slide>
+                            <h4>{{hm.RealName}}</h4>
+                            <profile-pic size="large" user="hm" class="spacer"></profile-pic>
+                        </live-tile-slide>
+                        <live-tile-slide>
+                            <div class="center text-center">
+                                <h6><i class="fa fa-envelope"></i><br />{{hm.Email}}</h6>
+                                <h6><i class="fa fa-phone" ng-show="hm.PhoneNumber"></i><br />{{hm.PhoneNumber}}</h6>
+                            </div>
+                        </live-tile-slide>
+                    </live-tile>
+                </div>
+            </div>
+            <p ng-hide="housemates.length > 1">Your housemates haven't joined yet. Give them the password and tell them to join you.</p>
+        </div>
+    </div>
+</div>
+

@@ -14,6 +14,7 @@
             ).then(function(response) {
                 if (response.data.access_token) {
                     userDetails = {
+                        id: response.data.id,
                         email: response.data.userName,
                         name: response.data.realName,
                         houseId: response.data.houseId,

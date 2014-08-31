@@ -4,17 +4,6 @@
     <script src="phonegap.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title ng-bind="getTitle()">Abode</title>
-    <link rel="stylesheet" href="Content/combined.css"/>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="globalConfig.js"></script>
-    <script src="Scripts/combined.js"></script>
-    <script>
-        window.onerror = function (msg, url, line, col, error) {
-            alert('msg: ' + msg);
-            alert('url: ' + url);
-            alert('line: ' + line);
-        };
-    </script>
 </head>
 <body>
     <div class="container">
@@ -23,5 +12,10 @@
             <div ui-view="main" class="main row"></div>
         </div>
     </div>
+    
+    <link rel="stylesheet" href="Content/combined.css" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="globalConfig.js"></script>
+    <script src="Scripts/combined.js"></script>
 </body>
 </html>

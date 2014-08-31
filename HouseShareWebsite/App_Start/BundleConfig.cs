@@ -24,6 +24,7 @@ namespace AbodeWebsite
                 "~/Scripts/angular-ui/ui-utils.js",
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                 "~/Scripts/angular-ui-router.js",
+                "~/Scripts/angular-file-upload.js",
                 "~/Scripts/bootflat/*.js",
                 "~/Scripts/angular-local-storage.js",
                 "~/Scripts/angular-breakpoint.js",

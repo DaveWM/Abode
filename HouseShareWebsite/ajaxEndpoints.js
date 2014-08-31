@@ -186,6 +186,10 @@ server.endpoints = (function(prefix){
 					prefix + "house/getcurrenthouse",
 					"GET",
 					[]),	
+			"gethouse": new server.endpoint.Url(
+					prefix + "house/gethouse",
+					"GET",
+					["houseId"]),	
 			"joinhouse": new server.endpoint.Url(
 					prefix + "house/joinhouse",
 					"GET",
@@ -222,6 +226,29 @@ server.endpoints = (function(prefix){
 					["tileItemId"]),	
 			"executeasync": new server.endpoint.Url(
 					prefix + "tileitems/executeasync",
+					"GET",
+					["controllerContext","cancellationToken"])	
+		},	
+		user: {
+		
+			"uploadprofilepicture": new server.endpoint.Url(
+					prefix + "user/uploadprofilepicture",
+					"GET",
+					[]),	
+			"getuser": new server.endpoint.Url(
+					prefix + "user/getuser",
+					"GET",
+					["userId"]),	
+			"gethousemates": new server.endpoint.Url(
+					prefix + "user/gethousemates",
+					"GET",
+					["userId"]),	
+			"updateuser": new server.endpoint.Url(
+					prefix + "user/updateuser",
+					"GET",
+					["user"]),	
+			"executeasync": new server.endpoint.Url(
+					prefix + "user/executeasync",
 					"GET",
 					["controllerContext","cancellationToken"])	
 		}	

@@ -6,4 +6,5 @@
     'Services.House',
     'Services.Phonegap',
     'Services.PreviousState',
-    'Services.TileItems'])
+    'Services.TileItems',
+    'Services.Users'])

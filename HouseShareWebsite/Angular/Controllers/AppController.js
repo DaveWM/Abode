@@ -1,6 +1,5 @@
 ﻿angular.module('Controllers.App', ['Services', 'Directives.LoadingIcon', 'Services.House', 'breakpointApp', 'Services.PreviousState', 'Services.Phonegap'])
-    .controller('appController', function ($scope, authService, $state, $rootScope, notificationsService, houseService, previousState, phonegapService) {
-
+    .controller('appController', function ($scope, authService, $state, $rootScope, notificationsService, houseService, previousState, phonegapService, currentUserService) {
     $scope.appName = 'Abode';
 
     $rootScope.pageTitle = '';
@@ -28,10 +27,9 @@
     };
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        // if user doesn't have a home, redirect to house page
-        if (toState.name.indexOf('app.main') >= 0 && (!toState.data || !toState.data.allowHomeless)) // child of main state (after login)
-        {
-            houseService.getCurrentHouse().then(function(response) {
+
+        if (!(toState.data && toState.data.allowHomeless) && currentUserService.getUserDetails()) { // user logged in
+            return houseService.getCurrentHouse().then(function (response) {
                 if (!response.data || (response.data.toLowerCase && response.data.toLowerCase() == "null")) {
                     $state.go('app.main.joinHouse');
                 }

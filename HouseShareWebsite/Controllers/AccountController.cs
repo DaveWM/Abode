@@ -64,6 +64,7 @@ namespace AbodeWebsite.Controllers
 
                 return new UserInfoViewModel
                        {
+                           Id = user.Id,
                            Email = user.Email,
                            RealName = user.RealName,
                            HasRegistered = externalLogin == null,

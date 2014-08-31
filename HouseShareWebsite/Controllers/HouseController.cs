@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Web.Http;
 using AutoMapper;
 using AbodeWebsite.Controllers.Helpers;
@@ -18,10 +20,11 @@ namespace AbodeWebsite.Controllers
         {
             using (var db = new EntityModel())
             {
-                var user = UserHelpers.GetCurrentUser(db);
+                var user = UserHelpers.GetCurrentUser();
+                var appUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
                 var newHouse = db.Houses.Create();
                 Mapper.Map(house, newHouse);
-                user.House = newHouse;
+                appUser.House = newHouse;
                 db.SaveChanges();
                 return Mapper.Map<House,HouseViewModel>(newHouse);
             }
@@ -33,8 +36,23 @@ namespace AbodeWebsite.Controllers
         {
             using (var db = new EntityModel())
             {
-                var user = UserHelpers.GetCurrentUser(db);
-                return Mapper.Map<House,HouseViewModel>(user.House);
+                var user = UserHelpers.GetCurrentUser();
+                var appUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
+                return Mapper.Map<House, HouseViewModel>(appUser.House);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetHouse")]
+        public HouseViewModel GetHouse(int houseId)
+        {
+            using (var db = new EntityModel())
+            {
+                var house = db.Houses.FirstOrDefault(h => h.Id == houseId);
+                if(house == null)
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+                return Mapper.Map<House, HouseViewModel>(house);
             }
         }
 
@@ -52,10 +70,11 @@ namespace AbodeWebsite.Controllers
                     return null;
                 }
 
-                var user = UserHelpers.GetCurrentUser(db);
-                user.HouseId = toJoin.Id;
+                var user = UserHelpers.GetCurrentUser();
+                var appUser = db.Users.FirstOrDefault(u => u.Id == user.Id);
+                appUser.HouseId = toJoin.Id;
                 db.SaveChanges();
-                return Mapper.Map<House, HouseViewModel>(user.House);
+                return Mapper.Map<House, HouseViewModel>(appUser.House);
             }
         }
 
@@ -68,6 +87,6 @@ namespace AbodeWebsite.Controllers
                 var results = db.Houses.Include("Users").Include("Users.Comments").Where(h => h.Name.ToLower().Contains(searchString.ToLower())).Take(20).ToList();
                 return results.Select(Mapper.Map<House, HouseViewModel>).ToList();
             }
-        } 
+        }
     }
 }

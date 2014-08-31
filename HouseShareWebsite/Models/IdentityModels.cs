@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -14,6 +15,11 @@ namespace AbodeWebsite.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim(Constants.IdClaim, this.Id));
+            if (this.HouseId != null)
+            {
+                userIdentity.AddClaim(new Claim(Constants.HouseClaim, this.HouseId.Value.ToString()));
+            }
             return userIdentity;
         }
 
@@ -21,5 +27,6 @@ namespace AbodeWebsite.Models
         public int? HouseId { get; set; }
         public virtual House House { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public string ProfilePictureUrl { get; set; }
     }
 }
