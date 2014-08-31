@@ -1,4 +1,4 @@
-﻿angular.module('Controllers.UserSettings', ['angularFileUpload', 'Services.Users', 'Services.House', 'Services.Notifications', 'Directives.ProfilePic'])
+﻿angular.module('Controllers.UserSettings', ['angularFileUpload', 'Services.Users', 'Services.House', 'Services.Notifications', 'Directives.ProfilePic', 'ui.bootstrap'])
     .config(function($stateProvider) {
         $stateProvider.state('app.main.userSettings', {
             url: '/settings/:userId',
@@ -47,13 +47,27 @@
     $scope.housemates = housemates;
 
     var uploadUrl = server.endpoints.user.uploadprofilepicture.uri;
+    $scope.uploading = false;
+    $scope.uploadProgress = 0;
     $scope.uploadProfilePicture = function($files) {
+        $scope.uploading = true;
         $upload.upload({
             url: uploadUrl,
+            method: 'POST',
             file: $files[0]
-        }).then(function(response) {
-            $scope.user.ProfilePictureUrl = JSON.parse(response.data) + "?" + new Date().getTime(); // the date bit is to force the image to refresh
-        });
+        })
+            .progress(function (evt) {
+                console.log('progress');
+                $scope.uploadProgress = parseInt(100 * evt.loaded / evt.total);
+            })
+            .then(function (response) {
+                $scope.user.ProfilePictureUrl = JSON.parse(response.data);
+                notificationsService.notifySuccess('Uploaded new Image (you still need to save)');
+            })
+            .finally(function() {
+                $scope.uploading = false;
+                $scope.uploadProgress = 0;
+            });
     };
 
     $scope.saving = false;

@@ -18,6 +18,7 @@ namespace AbodeWebsite
                 "~/Scripts/toastr.js",
                 "~/Scripts/ajaxEndpoints.js",
                 "~/Scripts/bootstrap.js",
+                "~/Scripts/angular-file-upload-html5-shim.js",
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-touch.js",

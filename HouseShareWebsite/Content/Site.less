@@ -472,6 +472,9 @@ div.sidebar{
     width:50%;
 }
 .profilePic{
+    @sizeTransition:width ease 0.5s, height ease 0.5s;
+    .transition(@sizeTransition);
+
     width:80px;
     &-small{
         width:20px;
@@ -489,12 +492,12 @@ div.sidebar{
 }
 
 .fileDrop{
-    & *{
-        .transition(opacity ease 0.3s);
+    img,div{ 
         opacity: 0.3;
     }
     background-image: url("images/uploadIcon.png");
     background-size: contain;
+    background-position: center;
     background-color: @lightBlue;
 }
 
