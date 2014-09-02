@@ -44,6 +44,7 @@ div.content {
   background-color: rgba(43, 87, 151, 0.4);
 }
 div.sidebar {
+  margin-top: 52px;
   float: left;
   z-index: 9999;
   padding-left: 8px;
@@ -448,6 +449,10 @@ div.sidebar .sidebarToggle i {
 .live-tile-blue .live-tile-slide blockquote footer {
   color: #094ab2 !important;
 }
+.live-tile-blue .live-tile-slide ul {
+  max-height: 90px;
+  overflow-y: auto;
+}
 .live-tile-green .live-tile-slide {
   background-color: #00a300;
 }
@@ -460,6 +465,10 @@ div.sidebar .sidebarToggle i {
 }
 .live-tile-green .live-tile-slide blockquote footer {
   color: #1e7145 !important;
+}
+.live-tile-green .live-tile-slide ul {
+  max-height: 90px;
+  overflow-y: auto;
 }
 .live-tile .fix {
   position: absolute;
@@ -515,7 +524,6 @@ div.sidebar .sidebarToggle i {
 }
 .imageUploadContainer {
   cursor: pointer;
-  width: 50%;
 }
 .profilePic {
   -moz-transition: width ease 0.5s, height ease 0.5s;

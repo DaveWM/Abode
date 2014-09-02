@@ -9,6 +9,7 @@ namespace AbodeWebsite.Models.ViewModels
         public int TileItemId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string UserName { get; set; }
+        public string UserProfilePicUrl { get; set; }
         public string TileItemTitle { get; set; }
     }
 }

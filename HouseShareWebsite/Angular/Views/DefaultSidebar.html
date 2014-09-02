@@ -1,10 +1,12 @@
 ﻿
 <div class="col-xs-12">
     <ul class="nav nav-pills nav-stacked">
+        <li class="title"><h4>Main</h4></li>
+        <li><a ui-sref="app.main.whiteboard"><i class="fa fa-desktop"></i> Whiteboard</a></li>
         <li class="title"><h4>Add New</h4></li>
+        <li><a ui-sref="app.main.createNote"><i class="fa fa-clipboard"></i> Note</a></li>
         <li class="disabled"><a href="#"><i class="fa fa-coffee"></i> Shared Food</a></li>
         <li class="disabled"><a href="#"><i class="fa fa-calendar"></i> Event</a></li>
-        <li><a ui-sref="app.main.createNote"><i class="fa fa-clipboard"></i> Note</a></li>
         <li class="title"><h4>Settings</h4></li>
         <li><a ui-sref="app.main.userSettings({ userId: currentUser.id })"><i class="fa fa-cog"></i> General</a></li>
         <li><a ng-click="logout()"><i class="fa fa-sign-out"></i> Log Out</a></li>

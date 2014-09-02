@@ -4,10 +4,12 @@
         <form name="userDetailsForm" ng-submit="save()" novalidate>
             <legend>Details <i class="fa fa-edit"></i></legend>
             <fieldset ng-disabled="saving">
-                <div class="imageUploadContainer center-block" ng-file-drop="uploadProfilePicture($files)" accept="image/*" ng-file-drag-over-class="fileDrop" ng-file-select="uploadProfilePicture($files)">
-                    <profile-pic user="user" size="fullwidth"></profile-pic>
-                    <div class="btn btn-primary btn-block" ng-hide="uploading">Upload <i class="fa fa-cloud-upload"></i></div>
-                    <progressbar value="uploadProgress" max="100" ng-show="uploading"></progressbar>
+                <div class="row">
+                    <div class="imageUploadContainer col-xs-12 col-sm-6 col-sm-offset-3" ng-file-drop="uploadProfilePicture($files)" accept="image/*" ng-file-drag-over-class="fileDrop" ng-file-select="uploadProfilePicture($files)">
+                        <profile-pic user="user" size="fullwidth"></profile-pic>
+                        <div class="btn btn-primary btn-block" ng-hide="uploading">Upload <i class="fa fa-cloud-upload"></i></div>
+                        <progressbar value="uploadProgress" max="100" ng-show="uploading"></progressbar>
+                    </div>
                 </div>
                 <span class="help-block text-center"><i class="fa fa-info-circle"></i> You can drag and drop a file to upload</span>
                 <p class="spacer lead"><i class="fa fa-envelope"></i> {{user.Email || 'Email not Found, not good :('}}</p>

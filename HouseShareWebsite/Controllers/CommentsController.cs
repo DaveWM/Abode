@@ -41,6 +41,7 @@ namespace AbodeWebsite.Controllers
                 newComment.CreatedDate = DateTime.Now;
                 db.Comments.Add(newComment);
                 db.SaveChanges();
+                db.Entry(newComment).Reference(c => c.User).Load();
                 var result = Mapper.Map<Comment, CommentViewModel>(newComment);
                 NotifyAllCommentAdded(result, user.HouseId.Value);
                 return result;

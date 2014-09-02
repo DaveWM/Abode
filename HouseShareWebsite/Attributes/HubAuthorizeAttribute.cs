@@ -14,7 +14,7 @@ namespace AbodeWebsite.Attributes
             // authenticate by using bearer token in query string
             var token = request.QueryString.Get("token");
             var ticket = Startup.OAuthOptions.AccessTokenFormat.Unprotect(token);
-            if (ticket != null && ticket.Identity != null && ticket.Identity.IsAuthenticated)
+            if (ticket != null && ticket.Identity != null && ticket.Identity.IsAuthenticated && ticket.Identity.HasClaim(c => c.Type == Constants.HouseClaim))
             {
                 // set the authenticated user principal into environment so that it can be used in the future
                 request.Environment["server.User"] = new ClaimsPrincipal(ticket.Identity);

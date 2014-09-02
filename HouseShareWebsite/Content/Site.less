@@ -92,6 +92,7 @@ div.content{
     background-color: @contentBackgroundColour;
 }
 div.sidebar{
+    margin-top:@navbar-height + 2px;
     float:left;
     z-index: 9999;
         padding-left: 8px;
@@ -394,6 +395,10 @@ div.sidebar{
             blockquote footer{
                 color: @dark !important;
             }
+            ul{
+                max-height: 90px;
+                overflow-y: auto;
+            }
         }
 }
 
@@ -469,7 +474,6 @@ div.sidebar{
 
 .imageUploadContainer{
     cursor: pointer;
-    width:50%;
 }
 .profilePic{
     @sizeTransition:width ease 0.5s, height ease 0.5s;

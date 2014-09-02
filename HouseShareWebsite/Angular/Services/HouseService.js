@@ -1,5 +1,5 @@
 ﻿angular.module('Services.House', ['Services.CurrentUser'])
-.factory('houseService', function ($http, currentUserService) {
+.factory('houseService', function ($http, currentUserService, authService) {
     return {
         getCurrentHouse: function () {
             return $http.get(server.endpoints.house.getcurrenthouse.uri);
@@ -15,7 +15,9 @@
             return $http.post(server.endpoints.house.createhouse.uri, { Name: name, Password: password })
             .then(function(response) {
                 currentUserService.setHouseId(response.data.Id);
-                return response;
+                return authService.ping().finally(function () {
+                    return response;
+                });
             });
         },
 
@@ -23,7 +25,9 @@
             return $http.post(server.endpoints.house.joinhouse.uri, { Id: id, Password: password })
             .then(function (response) {
                 currentUserService.setHouseId(response.data.Id);
-                return response;
+                return authService.ping().finally(function() {
+                    return response;
+                });
             });
         },
 

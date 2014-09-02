@@ -79,32 +79,27 @@
             template: '<div class="modal-header"><h4>Enter the Password</h4></div><div class="modal-body"><input type="text" ng-model="password" class="form-control" placeholder="password" /></div>' +
                 '<div class="modal-footer"><button ng-click="joinHouse(password)" class="pull-right btn btn-primary" ng-disabled="joining">Join <loading-icon ng-show="joining"></loading-icon></button>' +
                 '<button ng-click="$dismiss()" ng-disabled="joining" class="pull-right btn btn-default">Cancel</button></div>',
-            controller: ['$scope', '$modalInstance', function ($modalScope, $modalInstance) {
-                $modalScope.joining = false;
+            controller: [
+                '$scope', '$modalInstance', function($modalScope, $modalInstance) {
+                    $modalScope.joining = false;
 
-                $modalScope.joinHouse = function (password) {
-                    $modalScope.joining = true;
-                    $scope.houses = [];
-                    houseService.joinHouse(houseId, password)
-                        .then(function (success) {
-                            if (success.data && success.data != "false") {
+                    $modalScope.joinHouse = function(password) {
+                        $modalScope.joining = true;
+                        houseService.joinHouse(houseId, password)
+                            .then(function(success) {
+                                $state.go('app.main.whiteboard');
+                                notificationsService.notifySuccess('Joined a House');
                                 $modalInstance.close(true);
-                            } else {
+                            })
+                            .catch(function() {
                                 notificationsService.notifyWarning('Incorrect password');
-                            }
-                        })
-                        .catch(function() {
-                            $modalInstance.dismiss();
-                        })
-                    .finally(function() {
-                        $modalScope.joining = false;
-                    });
-                };
-            }]
-        })
-        .result.then(function() {
-            $state.go('app.main.whiteboard');
-            notificationsService.notifySuccess('Joined a House');
+                            })
+                            .finally(function() {
+                                $modalScope.joining = false;
+                            });
+                    };
+                }
+            ]
         });
     };
 });

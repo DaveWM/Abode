@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using AutoMapper;
@@ -67,7 +68,7 @@ namespace AbodeWebsite.Controllers
                     throw new Exception("There is no house with Id " + toJoin.Id);
                 if (toJoin.Password != house.Password)
                 {
-                    return null;
+                    throw new HttpResponseException(this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Incorrect Password"));
                 }
 
                 var user = UserHelpers.GetCurrentUser();

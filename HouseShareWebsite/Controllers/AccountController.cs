@@ -74,9 +74,16 @@ namespace AbodeWebsite.Controllers
             }
         }
 
-        public IHttpActionResult Ping()
+        public async Task<string> Ping()
         {
-            return Ok();
+            using (var db = new EntityModel())
+            {
+                var id = this.User.Identity.GetUserId();
+                var user = db.Users.FirstOrDefault(u => u.Id == id);
+                var identity = await user.GenerateUserIdentityAsync(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db)), OAuthDefaults.AuthenticationType);
+                var ticket = new AuthenticationTicket(identity, ApplicationOAuthProvider.CreateProperties(user));
+                return Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+            }
         }
 
         // POST api/Account/Logout
@@ -274,11 +281,9 @@ namespace AbodeWebsite.Controllers
                 
                  ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    CookieAuthenticationDefaults.AuthenticationType);
 
                 AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user);
-                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+                Authentication.SignIn(properties, oAuthIdentity);
             }
             else
             {

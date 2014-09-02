@@ -6,7 +6,7 @@
         <div class="navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a class="btn btn-primary toggleButton" ng-click="toggleSidebar()"><i class="fa fa-reorder"></i></a>
+                    <a class="btn btn-primary toggleButton" ng-model="sidebar.collapsed" btn-checkbox><i class="fa fa-reorder"></i></a>
                 </li>
                 <li>
                     <loading-icon large="true" ng-show="isLoading()" class="vertical-center-li"></loading-icon>

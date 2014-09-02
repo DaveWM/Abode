@@ -1,20 +1,22 @@
-﻿<div class="col-sm-6 col-xs-12">
-    <loading-icon ng-show="loadingTileItem"></loading-icon>
-    <ng-include src="tileItemView"></ng-include>
+﻿<div class="col-lg-6 col-xs-12">
+    <div ng-include="tileItemView" class="slideIn"></div>
 </div>
-<div class="col-sm-6 col-xs-12">
+<div class="col-lg-6 col-xs-12">
     <h4 class="text-center">Comments <i class="fa fa-comments-o"></i></h4>
-    <div class="commentContainer slideIn" ng-repeat="comment in comments | limitTo : commentLimit">
-        <loading-icon ng-show="loadingComments"></loading-icon>
-        <blockquote>
-            <p>{{comment.Text}}</p>
-            <footer>{{comment.UserName}} ({{comment.CreatedDate | date : 'medium'}})</footer>
-        </blockquote>
+    <div class="commentContainer slideIn row" ng-repeat="comment in comments | limitTo : commentLimit">
+        <div class="col-xs-2">
+            <profile-pic comment="comment" size="fullwidth" class="pull-left"></profile-pic>
+        </div>
+        <div class="col-xs-10">
+            <blockquote>
+                <p>{{comment.Text}}</p>
+                <footer>{{comment.UserName}} ({{comment.CreatedDate | date : 'medium'}})</footer>
+            </blockquote>
+        </div>
     </div>
-    <button class="btn btn-primary btn-block" ng-click="showAllComments()" ng-hide="!comments.length || commentsRevealed"><i class="fa fa-chevron-down"></i></button>
+    <button class="btn btn-primary btn-block" ng-click="showAllComments()" ng-hide="!comments.length || comments.length <= commentLimit"><i class="fa fa-chevron-down"></i> <span class="badge badge-info pull-right">{{comments.length - commentLimit}}</span></button>
     <form novalidate name="postCommentForm" ng-submit="postComment(newComment)" class="spacer">
         <textarea class="form-control" rows="3" ng-model="newComment" placeholder="Post a Comment" required></textarea>
-        <button class="btn btn-primary btn-block" type="submit" ng-disabled="postCommentForm.$invalid">Post <i class="fa fa-envelope-o"></i></button>
-        <loading-icon ng-show="postingComment"></loading-icon>
+        <button class="btn btn-primary btn-block" type="submit" ng-disabled="postCommentForm.$invalid">Post <i class="fa fa-envelope-o"></i> <loading-icon ng-show="postingComment"></loading-icon></button>
     </form>
 </div>

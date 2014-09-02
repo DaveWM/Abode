@@ -13,7 +13,8 @@ namespace AbodeWebsite.App_Start
             Mapper.CreateMap<HouseViewModel, House>();
             Mapper.CreateMap<Comment, CommentViewModel>()
                 .ForMember(c => c.UserName, opt => opt.MapFrom(c => c.User.RealName))
-                .ForMember(c => c.TileItemTitle, opt => opt.MapFrom(c => c.TileItem.Title));
+                .ForMember(c => c.TileItemTitle, opt => opt.MapFrom(c => c.TileItem.Title))
+                .ForMember(c => c.UserProfilePicUrl, opt => opt.MapFrom(c => c.User.ProfilePictureUrl));
             Mapper.CreateMap<Note, NoteViewModel>();
             Mapper.CreateMap<NoteViewModel, Note>()
                 .ForMember(e => e.Comments, opt => opt.Ignore());

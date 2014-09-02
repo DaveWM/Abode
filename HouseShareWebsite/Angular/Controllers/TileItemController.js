@@ -1,4 +1,4 @@
-﻿angular.module('Controllers.TileItem', ['Services.Comments', 'Services.Notifications'])
+﻿angular.module('Controllers.TileItem', ['Services.Comments', 'Services.Notifications', 'Directives.ProfilePic'])
     .config(function($stateProvider) {
         $stateProvider.state('app.main.tileItemDetails', {
             url: '/details/{tileItemId}',
@@ -24,10 +24,8 @@
     $scope.tileItemView = "";
 
     $scope.commentLimit = 3;
-    $scope.commentsRevealed = false;
     $scope.showAllComments = function() {
-        $scope.commentLimit = 9999;
-        $scope.commentsRevealed = true;
+        $scope.commentLimit += 10;
     };
 
     $scope.loadingComments = true;
@@ -45,6 +43,9 @@
         $scope.postingComment = true;
         // comment should be added by signalR once posted
         commentsService.postComment(tileItemId, comment)
+            .then(function() {
+                $scope.commentLimit = 9999;
+            })
             .finally(function () {
                 $scope.newComment = null;
                 $scope.postingComment = false;
