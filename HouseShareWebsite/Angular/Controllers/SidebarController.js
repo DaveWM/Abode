@@ -2,5 +2,5 @@
     .controller('sidebarController', function($scope, $rootScope, currentUserService) {
         $scope.sidebar = $rootScope.sidebar;
 
-        $scope.currentUser = currentUserService.getUserDetails();
+        $scope.getCurrentUser = currentUserService.getUserDetails;
 });
