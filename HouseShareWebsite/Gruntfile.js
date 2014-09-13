@@ -21,11 +21,11 @@ module.exports = function(grunt) {
         uglify: {
             all: {
                 options: {
-                    mangle: false,
-                    //compress: {
-                    //    drop_console: true
-                    //}
-                    beautify: true
+                    mangle: true,
+                    compress: {
+                        drop_console: true
+                    }
+                    //beautify: true
                 },
                 files: {
                     'Scripts/combined-strict.js': [
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         },
         zip: {
             all: {
-                src: ['Scripts/combined.js', "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/Images/*'],
+                src: ['Scripts/combined.js', "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/images/*'],
                 dest: 'Phonegap.zip',
                 router: function(filepath) {
                     if (filepath.indexOf('Phonegap/') >= 0) {

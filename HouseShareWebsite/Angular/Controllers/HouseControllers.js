@@ -1,15 +1,23 @@
 ﻿angular.module('Controllers.House', ['ui.router', 'Directives.LoadingIcon', 'ui.bootstrap', 'Services.Notifications', 'Directives.LiveTile'])
     .config(function ($stateProvider) {
         $stateProvider
-            .state('app.main.createHouse', {
+            .state('app.main.house', {
+                abstract: true,
+                views: {
+                    '': {
+                        template: '<div ui-view="" class="slideIn"></div>'
+                    },
+                    'sidebar@app': {
+                        templateUrl: 'Angular/Views/NoHouseSidebar.html'
+                    }
+                }
+            })
+            .state('app.main.house.create', {
                 url: '/house/create',
                 views: {
                     '': {
                         templateUrl: 'Angular/Views/CreateHouse.html',
                         controller: 'createHouseController'
-                    },
-                    'sidebar@app': {
-                        templateUrl: 'Angular/Views/NoHouseSidebar.html'
                     }
                 },
                 data: {
@@ -19,15 +27,12 @@
                     pageTitle: 'Create House'
                 }
             })
-            .state('app.main.joinHouse', {
+            .state('app.main.house.join', {
                 url: '/house/join',
                 views: {
                     '': {
                         templateUrl: 'Angular/Views/JoinHouse.html',
                         controller: 'joinHouseController'
-                    },
-                    'sidebar@app': {
-                        templateUrl: 'Angular/Views/NoHouseSidebar.html'
                     }
                 },
                 data: {

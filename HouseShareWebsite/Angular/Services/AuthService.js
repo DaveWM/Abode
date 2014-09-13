@@ -52,6 +52,20 @@
         logout: function() {
             currentUserService.setUserDetails(null);
             $state.go('app.login');
+        },
+        getUserInfo: function() {
+            return $http.get(server.endpoints.account.getuserinfo.uri)
+                .then(function (response) {
+                var data = response.data;
+                    var userDetails = {
+                        id: data.Id,
+                        email: data.Email,
+                        name: data.RealName,
+                        houseId: data.HouseId,
+                        token: currentUserService.getToken()
+                    };
+                    currentUserService.setUserDetails(userDetails);
+                });
         }
     };
 });

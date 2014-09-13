@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -244,7 +245,7 @@ namespace AbodeWebsite.Controllers
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
-        [Route("ExternalLogin", Name = "ExternalLogin")]
+        [Route("GetExternalLogin", Name = "ExternalLogin")]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
@@ -257,7 +258,8 @@ namespace AbodeWebsite.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var claimsUser = User.Identity as ClaimsIdentity;
+            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(claimsUser);
 
             if (externalLogin == null)
             {
@@ -272,33 +274,34 @@ namespace AbodeWebsite.Controllers
 
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
-
-            bool hasRegistered = user != null;
-
-            if (hasRegistered)
+            var claims = claimsUser.Claims;
+            if (user == null)
             {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
-
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user);
-                Authentication.SignIn(properties, oAuthIdentity);
-            }
-            else
-            {
-                IEnumerable<Claim> claims = externalLogin.GetClaims();
-                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
-                Authentication.SignIn(identity);
+                await RegisterExternal(new RegisterExternalBindingModel
+                {
+                    Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value,
+                    RealName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value
+                });
+                user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+                externalLogin.ProviderKey));
             }
 
-            return Ok();
+            Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+               OAuthDefaults.AuthenticationType);
+
+            AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user);
+            Authentication.SignIn(properties, oAuthIdentity);
+            var ticket = new AuthenticationTicket(oAuthIdentity, properties);
+
+            return new RedirectResult(new Uri("/#/externallogin/" + Startup.OAuthOptions.AccessTokenFormat.Protect(ticket), UriKind.Relative), Request);
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
-        [Route("ExternalLogins")]
-        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
+        [Route("GetExternalLogins")]
+        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl = "", bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
@@ -375,18 +378,25 @@ namespace AbodeWebsite.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, RealName = model.RealName};
 
-            IdentityResult result = await UserManager.CreateAsync(user);
-            if (!result.Succeeded)
+            try
             {
-                return GetErrorResult(result);
+                IdentityResult result = await UserManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+                result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
             }
-
-            result = await UserManager.AddLoginAsync(user.Id, info.Login);
-            if (!result.Succeeded)
+            catch (Exception e)
             {
-                return GetErrorResult(result); 
+                Console.WriteLine(e);
             }
             return Ok();
         }

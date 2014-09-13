@@ -15,14 +15,14 @@ namespace AbodeWebsite.App_Start
                 .ForMember(c => c.UserName, opt => opt.MapFrom(c => c.User.RealName))
                 .ForMember(c => c.TileItemTitle, opt => opt.MapFrom(c => c.TileItem.Title))
                 .ForMember(c => c.UserProfilePicUrl, opt => opt.MapFrom(c => c.User.ProfilePictureUrl));
-            Mapper.CreateMap<Note, NoteViewModel>();
             Mapper.CreateMap<NoteViewModel, Note>()
                 .ForMember(e => e.Comments, opt => opt.Ignore());
 
             Mapper.CreateMap<TileItem, TileItemViewModel>()
+                .Include<Note, NoteViewModel>()
                 .ForMember(vm => vm.TileItemType,
-                    opt => opt.MapFrom(e => e is Note ? TileItemType.Note : TileItemType.Note))
-                    .Include<Note, NoteViewModel>();
+                    opt => opt.MapFrom(e => e is Note ? TileItemType.Note : TileItemType.Note));
+            Mapper.CreateMap<Note, NoteViewModel>();
         }
     }
 }

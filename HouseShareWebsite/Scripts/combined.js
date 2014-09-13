@@ -5637,337 +5637,7 @@ if (function(global, factory) {
     return n.noConflict = function(b) {
         return a.$ === n && (a.$ = Mc), b && a.jQuery === n && (a.jQuery = Lc), n;
     }, typeof b === U && (a.jQuery = a.$ = n), n;
-}), function(jQuery, window, undefined) {
-    function migrateWarn(msg) {
-        var console = window.console;
-        warnedAbout[msg] || (warnedAbout[msg] = !0, jQuery.migrateWarnings.push(msg), console && console.warn && !jQuery.migrateMute && (console.warn("JQMIGRATE: " + msg), 
-        jQuery.migrateTrace && console.trace && console.trace()));
-    }
-    function migrateWarnProp(obj, prop, value, msg) {
-        if (Object.defineProperty) try {
-            return void Object.defineProperty(obj, prop, {
-                configurable: !0,
-                enumerable: !0,
-                get: function() {
-                    return migrateWarn(msg), value;
-                },
-                set: function(newValue) {
-                    migrateWarn(msg), value = newValue;
-                }
-            });
-        } catch (err) {}
-        jQuery._definePropertyBroken = !0, obj[prop] = value;
-    }
-    var warnedAbout = {};
-    jQuery.migrateWarnings = [], !jQuery.migrateMute && window.console && window.console.log && window.console.log("JQMIGRATE: Logging is active"), 
-    jQuery.migrateTrace === undefined && (jQuery.migrateTrace = !0), jQuery.migrateReset = function() {
-        warnedAbout = {}, jQuery.migrateWarnings.length = 0;
-    }, "BackCompat" === document.compatMode && migrateWarn("jQuery is not compatible with Quirks Mode");
-    var attrFn = jQuery("<input/>", {
-        size: 1
-    }).attr("size") && jQuery.attrFn, oldAttr = jQuery.attr, valueAttrGet = jQuery.attrHooks.value && jQuery.attrHooks.value.get || function() {
-        return null;
-    }, valueAttrSet = jQuery.attrHooks.value && jQuery.attrHooks.value.set || function() {
-        return undefined;
-    }, rnoType = /^(?:input|button)$/i, rnoAttrNodeType = /^[238]$/, rboolean = /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i, ruseDefault = /^(?:checked|selected)$/i;
-    migrateWarnProp(jQuery, "attrFn", attrFn || {}, "jQuery.attrFn is deprecated"), 
-    jQuery.attr = function(elem, name, value, pass) {
-        var lowerName = name.toLowerCase(), nType = elem && elem.nodeType;
-        return pass && (oldAttr.length < 4 && migrateWarn("jQuery.fn.attr( props, pass ) is deprecated"), 
-        elem && !rnoAttrNodeType.test(nType) && (attrFn ? name in attrFn : jQuery.isFunction(jQuery.fn[name]))) ? jQuery(elem)[name](value) : ("type" === name && value !== undefined && rnoType.test(elem.nodeName) && elem.parentNode && migrateWarn("Can't change the 'type' of an input or button in IE 6/7/8"), 
-        !jQuery.attrHooks[lowerName] && rboolean.test(lowerName) && (jQuery.attrHooks[lowerName] = {
-            get: function(elem, name) {
-                var attrNode, property = jQuery.prop(elem, name);
-                return property === !0 || "boolean" != typeof property && (attrNode = elem.getAttributeNode(name)) && attrNode.nodeValue !== !1 ? name.toLowerCase() : undefined;
-            },
-            set: function(elem, value, name) {
-                var propName;
-                return value === !1 ? jQuery.removeAttr(elem, name) : (propName = jQuery.propFix[name] || name, 
-                propName in elem && (elem[propName] = !0), elem.setAttribute(name, name.toLowerCase())), 
-                name;
-            }
-        }, ruseDefault.test(lowerName) && migrateWarn("jQuery.fn.attr('" + lowerName + "') may use property instead of attribute")), 
-        oldAttr.call(jQuery, elem, name, value));
-    }, jQuery.attrHooks.value = {
-        get: function(elem, name) {
-            var nodeName = (elem.nodeName || "").toLowerCase();
-            return "button" === nodeName ? valueAttrGet.apply(this, arguments) : ("input" !== nodeName && "option" !== nodeName && migrateWarn("jQuery.fn.attr('value') no longer gets properties"), 
-            name in elem ? elem.value : null);
-        },
-        set: function(elem, value) {
-            var nodeName = (elem.nodeName || "").toLowerCase();
-            return "button" === nodeName ? valueAttrSet.apply(this, arguments) : ("input" !== nodeName && "option" !== nodeName && migrateWarn("jQuery.fn.attr('value', val) no longer sets properties"), 
-            void (elem.value = value));
-        }
-    };
-    var matched, browser, oldInit = jQuery.fn.init, oldParseJSON = jQuery.parseJSON, rquickExpr = /^([^<]*)(<[\w\W]+>)([^>]*)$/;
-    jQuery.fn.init = function(selector, context, rootjQuery) {
-        var match;
-        return selector && "string" == typeof selector && !jQuery.isPlainObject(context) && (match = rquickExpr.exec(jQuery.trim(selector))) && match[0] && ("<" !== selector.charAt(0) && migrateWarn("$(html) HTML strings must start with '<' character"), 
-        match[3] && migrateWarn("$(html) HTML text after last tag is ignored"), "#" === match[0].charAt(0) && (migrateWarn("HTML string cannot start with a '#' character"), 
-        jQuery.error("JQMIGRATE: Invalid selector string (XSS)")), context && context.context && (context = context.context), 
-        jQuery.parseHTML) ? oldInit.call(this, jQuery.parseHTML(match[2], context, !0), context, rootjQuery) : oldInit.apply(this, arguments);
-    }, jQuery.fn.init.prototype = jQuery.fn, jQuery.parseJSON = function(json) {
-        return json || null === json ? oldParseJSON.apply(this, arguments) : (migrateWarn("jQuery.parseJSON requires a valid JSON string"), 
-        null);
-    }, jQuery.uaMatch = function(ua) {
-        ua = ua.toLowerCase();
-        var match = /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
-        return {
-            browser: match[1] || "",
-            version: match[2] || "0"
-        };
-    }, jQuery.browser || (matched = jQuery.uaMatch(navigator.userAgent), browser = {}, 
-    matched.browser && (browser[matched.browser] = !0, browser.version = matched.version), 
-    browser.chrome ? browser.webkit = !0 : browser.webkit && (browser.safari = !0), 
-    jQuery.browser = browser), migrateWarnProp(jQuery, "browser", jQuery.browser, "jQuery.browser is deprecated"), 
-    jQuery.sub = function() {
-        function jQuerySub(selector, context) {
-            return new jQuerySub.fn.init(selector, context);
-        }
-        jQuery.extend(!0, jQuerySub, this), jQuerySub.superclass = this, jQuerySub.fn = jQuerySub.prototype = this(), 
-        jQuerySub.fn.constructor = jQuerySub, jQuerySub.sub = this.sub, jQuerySub.fn.init = function(selector, context) {
-            return context && context instanceof jQuery && !(context instanceof jQuerySub) && (context = jQuerySub(context)), 
-            jQuery.fn.init.call(this, selector, context, rootjQuerySub);
-        }, jQuerySub.fn.init.prototype = jQuerySub.fn;
-        var rootjQuerySub = jQuerySub(document);
-        return migrateWarn("jQuery.sub() is deprecated"), jQuerySub;
-    }, jQuery.ajaxSetup({
-        converters: {
-            "text json": jQuery.parseJSON
-        }
-    });
-    var oldFnData = jQuery.fn.data;
-    jQuery.fn.data = function(name) {
-        var ret, evt, elem = this[0];
-        return !elem || "events" !== name || 1 !== arguments.length || (ret = jQuery.data(elem, name), 
-        evt = jQuery._data(elem, name), ret !== undefined && ret !== evt || evt === undefined) ? oldFnData.apply(this, arguments) : (migrateWarn("Use of jQuery.fn.data('events') is deprecated"), 
-        evt);
-    };
-    var rscriptType = /\/(java|ecma)script/i, oldSelf = jQuery.fn.andSelf || jQuery.fn.addBack;
-    jQuery.fn.andSelf = function() {
-        return migrateWarn("jQuery.fn.andSelf() replaced by jQuery.fn.addBack()"), oldSelf.apply(this, arguments);
-    }, jQuery.clean || (jQuery.clean = function(elems, context, fragment, scripts) {
-        context = context || document, context = !context.nodeType && context[0] || context, 
-        context = context.ownerDocument || context, migrateWarn("jQuery.clean() is deprecated");
-        var i, elem, handleScript, jsTags, ret = [];
-        if (jQuery.merge(ret, jQuery.buildFragment(elems, context).childNodes), fragment) for (handleScript = function(elem) {
-            return !elem.type || rscriptType.test(elem.type) ? scripts ? scripts.push(elem.parentNode ? elem.parentNode.removeChild(elem) : elem) : fragment.appendChild(elem) : void 0;
-        }, i = 0; null != (elem = ret[i]); i++) jQuery.nodeName(elem, "script") && handleScript(elem) || (fragment.appendChild(elem), 
-        "undefined" != typeof elem.getElementsByTagName && (jsTags = jQuery.grep(jQuery.merge([], elem.getElementsByTagName("script")), handleScript), 
-        ret.splice.apply(ret, [ i + 1, 0 ].concat(jsTags)), i += jsTags.length));
-        return ret;
-    });
-    var eventAdd = jQuery.event.add, eventRemove = jQuery.event.remove, eventTrigger = jQuery.event.trigger, oldToggle = jQuery.fn.toggle, oldLive = jQuery.fn.live, oldDie = jQuery.fn.die, ajaxEvents = "ajaxStart|ajaxStop|ajaxSend|ajaxComplete|ajaxError|ajaxSuccess", rajaxEvent = new RegExp("\\b(?:" + ajaxEvents + ")\\b"), rhoverHack = /(?:^|\s)hover(\.\S+|)\b/, hoverHack = function(events) {
-        return "string" != typeof events || jQuery.event.special.hover ? events : (rhoverHack.test(events) && migrateWarn("'hover' pseudo-event is deprecated, use 'mouseenter mouseleave'"), 
-        events && events.replace(rhoverHack, "mouseenter$1 mouseleave$1"));
-    };
-    jQuery.event.props && "attrChange" !== jQuery.event.props[0] && jQuery.event.props.unshift("attrChange", "attrName", "relatedNode", "srcElement"), 
-    jQuery.event.dispatch && migrateWarnProp(jQuery.event, "handle", jQuery.event.dispatch, "jQuery.event.handle is undocumented and deprecated"), 
-    jQuery.event.add = function(elem, types, handler, data, selector) {
-        elem !== document && rajaxEvent.test(types) && migrateWarn("AJAX events should be attached to document: " + types), 
-        eventAdd.call(this, elem, hoverHack(types || ""), handler, data, selector);
-    }, jQuery.event.remove = function(elem, types, handler, selector, mappedTypes) {
-        eventRemove.call(this, elem, hoverHack(types) || "", handler, selector, mappedTypes);
-    }, jQuery.fn.error = function() {
-        var args = Array.prototype.slice.call(arguments, 0);
-        return migrateWarn("jQuery.fn.error() is deprecated"), args.splice(0, 0, "error"), 
-        arguments.length ? this.bind.apply(this, args) : (this.triggerHandler.apply(this, args), 
-        this);
-    }, jQuery.fn.toggle = function(fn, fn2) {
-        if (!jQuery.isFunction(fn) || !jQuery.isFunction(fn2)) return oldToggle.apply(this, arguments);
-        migrateWarn("jQuery.fn.toggle(handler, handler...) is deprecated");
-        var args = arguments, guid = fn.guid || jQuery.guid++, i = 0, toggler = function(event) {
-            var lastToggle = (jQuery._data(this, "lastToggle" + fn.guid) || 0) % i;
-            return jQuery._data(this, "lastToggle" + fn.guid, lastToggle + 1), event.preventDefault(), 
-            args[lastToggle].apply(this, arguments) || !1;
-        };
-        for (toggler.guid = guid; i < args.length; ) args[i++].guid = guid;
-        return this.click(toggler);
-    }, jQuery.fn.live = function(types, data, fn) {
-        return migrateWarn("jQuery.fn.live() is deprecated"), oldLive ? oldLive.apply(this, arguments) : (jQuery(this.context).on(types, this.selector, data, fn), 
-        this);
-    }, jQuery.fn.die = function(types, fn) {
-        return migrateWarn("jQuery.fn.die() is deprecated"), oldDie ? oldDie.apply(this, arguments) : (jQuery(this.context).off(types, this.selector || "**", fn), 
-        this);
-    }, jQuery.event.trigger = function(event, data, elem, onlyHandlers) {
-        return elem || rajaxEvent.test(event) || migrateWarn("Global events are undocumented and deprecated"), 
-        eventTrigger.call(this, event, data, elem || document, onlyHandlers);
-    }, jQuery.each(ajaxEvents.split("|"), function(_, name) {
-        jQuery.event.special[name] = {
-            setup: function() {
-                var elem = this;
-                return elem !== document && (jQuery.event.add(document, name + "." + jQuery.guid, function() {
-                    jQuery.event.trigger(name, null, elem, !0);
-                }), jQuery._data(this, name, jQuery.guid++)), !1;
-            },
-            teardown: function() {
-                return this !== document && jQuery.event.remove(document, name + "." + jQuery._data(this, name)), 
-                !1;
-            }
-        };
-    });
-}(jQuery, window), void 0 === jQuery.migrateMute && (jQuery.migrateMute = !0), function(e, t, n) {
-    function r(n) {
-        var r = t.console;
-        i[n] || (i[n] = !0, e.migrateWarnings.push(n), r && r.warn && !e.migrateMute && (r.warn("JQMIGRATE: " + n), 
-        e.migrateTrace && r.trace && r.trace()));
-    }
-    function a(t, a, i, o) {
-        if (Object.defineProperty) try {
-            return Object.defineProperty(t, a, {
-                configurable: !0,
-                enumerable: !0,
-                get: function() {
-                    return r(o), i;
-                },
-                set: function(e) {
-                    r(o), i = e;
-                }
-            }), n;
-        } catch (s) {}
-        e._definePropertyBroken = !0, t[a] = i;
-    }
-    var i = {};
-    e.migrateWarnings = [], !e.migrateMute && t.console && t.console.log && t.console.log("JQMIGRATE: Logging is active"), 
-    e.migrateTrace === n && (e.migrateTrace = !0), e.migrateReset = function() {
-        i = {}, e.migrateWarnings.length = 0;
-    }, "BackCompat" === document.compatMode && r("jQuery is not compatible with Quirks Mode");
-    var o = e("<input/>", {
-        size: 1
-    }).attr("size") && e.attrFn, s = e.attr, u = e.attrHooks.value && e.attrHooks.value.get || function() {
-        return null;
-    }, c = e.attrHooks.value && e.attrHooks.value.set || function() {
-        return n;
-    }, l = /^(?:input|button)$/i, d = /^[238]$/, p = /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i, f = /^(?:checked|selected)$/i;
-    a(e, "attrFn", o || {}, "jQuery.attrFn is deprecated"), e.attr = function(t, a, i, u) {
-        var c = a.toLowerCase(), g = t && t.nodeType;
-        return u && (4 > s.length && r("jQuery.fn.attr( props, pass ) is deprecated"), t && !d.test(g) && (o ? a in o : e.isFunction(e.fn[a]))) ? e(t)[a](i) : ("type" === a && i !== n && l.test(t.nodeName) && t.parentNode && r("Can't change the 'type' of an input or button in IE 6/7/8"), 
-        !e.attrHooks[c] && p.test(c) && (e.attrHooks[c] = {
-            get: function(t, r) {
-                var a, i = e.prop(t, r);
-                return i === !0 || "boolean" != typeof i && (a = t.getAttributeNode(r)) && a.nodeValue !== !1 ? r.toLowerCase() : n;
-            },
-            set: function(t, n, r) {
-                var a;
-                return n === !1 ? e.removeAttr(t, r) : (a = e.propFix[r] || r, a in t && (t[a] = !0), 
-                t.setAttribute(r, r.toLowerCase())), r;
-            }
-        }, f.test(c) && r("jQuery.fn.attr('" + c + "') may use property instead of attribute")), 
-        s.call(e, t, a, i));
-    }, e.attrHooks.value = {
-        get: function(e, t) {
-            var n = (e.nodeName || "").toLowerCase();
-            return "button" === n ? u.apply(this, arguments) : ("input" !== n && "option" !== n && r("jQuery.fn.attr('value') no longer gets properties"), 
-            t in e ? e.value : null);
-        },
-        set: function(e, t) {
-            var a = (e.nodeName || "").toLowerCase();
-            return "button" === a ? c.apply(this, arguments) : ("input" !== a && "option" !== a && r("jQuery.fn.attr('value', val) no longer sets properties"), 
-            e.value = t, n);
-        }
-    };
-    var g, h, v = e.fn.init, m = e.parseJSON, y = /^([^<]*)(<[\w\W]+>)([^>]*)$/;
-    e.fn.init = function(t, n, a) {
-        var i;
-        return t && "string" == typeof t && !e.isPlainObject(n) && (i = y.exec(e.trim(t))) && i[0] && ("<" !== t.charAt(0) && r("$(html) HTML strings must start with '<' character"), 
-        i[3] && r("$(html) HTML text after last tag is ignored"), "#" === i[0].charAt(0) && (r("HTML string cannot start with a '#' character"), 
-        e.error("JQMIGRATE: Invalid selector string (XSS)")), n && n.context && (n = n.context), 
-        e.parseHTML) ? v.call(this, e.parseHTML(i[2], n, !0), n, a) : v.apply(this, arguments);
-    }, e.fn.init.prototype = e.fn, e.parseJSON = function(e) {
-        return e || null === e ? m.apply(this, arguments) : (r("jQuery.parseJSON requires a valid JSON string"), 
-        null);
-    }, e.uaMatch = function(e) {
-        e = e.toLowerCase();
-        var t = /(chrome)[ \/]([\w.]+)/.exec(e) || /(webkit)[ \/]([\w.]+)/.exec(e) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(e) || /(msie) ([\w.]+)/.exec(e) || 0 > e.indexOf("compatible") && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(e) || [];
-        return {
-            browser: t[1] || "",
-            version: t[2] || "0"
-        };
-    }, e.browser || (g = e.uaMatch(navigator.userAgent), h = {}, g.browser && (h[g.browser] = !0, 
-    h.version = g.version), h.chrome ? h.webkit = !0 : h.webkit && (h.safari = !0), 
-    e.browser = h), a(e, "browser", e.browser, "jQuery.browser is deprecated"), e.sub = function() {
-        function t(e, n) {
-            return new t.fn.init(e, n);
-        }
-        e.extend(!0, t, this), t.superclass = this, t.fn = t.prototype = this(), t.fn.constructor = t, 
-        t.sub = this.sub, t.fn.init = function(r, a) {
-            return a && a instanceof e && !(a instanceof t) && (a = t(a)), e.fn.init.call(this, r, a, n);
-        }, t.fn.init.prototype = t.fn;
-        var n = t(document);
-        return r("jQuery.sub() is deprecated"), t;
-    }, e.ajaxSetup({
-        converters: {
-            "text json": e.parseJSON
-        }
-    });
-    var b = e.fn.data;
-    e.fn.data = function(t) {
-        var a, i, o = this[0];
-        return !o || "events" !== t || 1 !== arguments.length || (a = e.data(o, t), i = e._data(o, t), 
-        a !== n && a !== i || i === n) ? b.apply(this, arguments) : (r("Use of jQuery.fn.data('events') is deprecated"), 
-        i);
-    };
-    var j = /\/(java|ecma)script/i, w = e.fn.andSelf || e.fn.addBack;
-    e.fn.andSelf = function() {
-        return r("jQuery.fn.andSelf() replaced by jQuery.fn.addBack()"), w.apply(this, arguments);
-    }, e.clean || (e.clean = function(t, a, i, o) {
-        a = a || document, a = !a.nodeType && a[0] || a, a = a.ownerDocument || a, r("jQuery.clean() is deprecated");
-        var s, u, c, l, d = [];
-        if (e.merge(d, e.buildFragment(t, a).childNodes), i) for (c = function(e) {
-            return !e.type || j.test(e.type) ? o ? o.push(e.parentNode ? e.parentNode.removeChild(e) : e) : i.appendChild(e) : n;
-        }, s = 0; null != (u = d[s]); s++) e.nodeName(u, "script") && c(u) || (i.appendChild(u), 
-        u.getElementsByTagName !== n && (l = e.grep(e.merge([], u.getElementsByTagName("script")), c), 
-        d.splice.apply(d, [ s + 1, 0 ].concat(l)), s += l.length));
-        return d;
-    });
-    var Q = e.event.add, x = e.event.remove, k = e.event.trigger, N = e.fn.toggle, T = e.fn.live, M = e.fn.die, S = "ajaxStart|ajaxStop|ajaxSend|ajaxComplete|ajaxError|ajaxSuccess", C = RegExp("\\b(?:" + S + ")\\b"), H = /(?:^|\s)hover(\.\S+|)\b/, A = function(t) {
-        return "string" != typeof t || e.event.special.hover ? t : (H.test(t) && r("'hover' pseudo-event is deprecated, use 'mouseenter mouseleave'"), 
-        t && t.replace(H, "mouseenter$1 mouseleave$1"));
-    };
-    e.event.props && "attrChange" !== e.event.props[0] && e.event.props.unshift("attrChange", "attrName", "relatedNode", "srcElement"), 
-    e.event.dispatch && a(e.event, "handle", e.event.dispatch, "jQuery.event.handle is undocumented and deprecated"), 
-    e.event.add = function(e, t, n, a, i) {
-        e !== document && C.test(t) && r("AJAX events should be attached to document: " + t), 
-        Q.call(this, e, A(t || ""), n, a, i);
-    }, e.event.remove = function(e, t, n, r, a) {
-        x.call(this, e, A(t) || "", n, r, a);
-    }, e.fn.error = function() {
-        var e = Array.prototype.slice.call(arguments, 0);
-        return r("jQuery.fn.error() is deprecated"), e.splice(0, 0, "error"), arguments.length ? this.bind.apply(this, e) : (this.triggerHandler.apply(this, e), 
-        this);
-    }, e.fn.toggle = function(t, n) {
-        if (!e.isFunction(t) || !e.isFunction(n)) return N.apply(this, arguments);
-        r("jQuery.fn.toggle(handler, handler...) is deprecated");
-        var a = arguments, i = t.guid || e.guid++, o = 0, s = function(n) {
-            var r = (e._data(this, "lastToggle" + t.guid) || 0) % o;
-            return e._data(this, "lastToggle" + t.guid, r + 1), n.preventDefault(), a[r].apply(this, arguments) || !1;
-        };
-        for (s.guid = i; a.length > o; ) a[o++].guid = i;
-        return this.click(s);
-    }, e.fn.live = function(t, n, a) {
-        return r("jQuery.fn.live() is deprecated"), T ? T.apply(this, arguments) : (e(this.context).on(t, this.selector, n, a), 
-        this);
-    }, e.fn.die = function(t, n) {
-        return r("jQuery.fn.die() is deprecated"), M ? M.apply(this, arguments) : (e(this.context).off(t, this.selector || "**", n), 
-        this);
-    }, e.event.trigger = function(e, t, n, a) {
-        return n || C.test(e) || r("Global events are undocumented and deprecated"), k.call(this, e, t, n || document, a);
-    }, e.each(S.split("|"), function(t, n) {
-        e.event.special[n] = {
-            setup: function() {
-                var t = this;
-                return t !== document && (e.event.add(document, n + "." + e.guid, function() {
-                    e.event.trigger(n, null, t, !0);
-                }), e._data(this, n, e.guid++)), !1;
-            },
-            teardown: function() {
-                return this !== document && e.event.remove(document, n + "." + e._data(this, n)), 
-                !1;
-            }
-        };
-    });
-}(jQuery, window), function(define) {
+}), function(define) {
     define([ "jquery" ], function($) {
         return function() {
             function error(message, title, optionsOverride) {
@@ -6229,6 +5899,7 @@ if (function(global, factory) {
         house: {
             createhouse: new server.endpoint.Url(prefix + "house/createhouse", "GET", [ "house" ]),
             getcurrenthouse: new server.endpoint.Url(prefix + "house/getcurrenthouse", "GET", []),
+            gethouse: new server.endpoint.Url(prefix + "house/gethouse", "GET", [ "houseId" ]),
             joinhouse: new server.endpoint.Url(prefix + "house/joinhouse", "GET", [ "toJoin" ]),
             search: new server.endpoint.Url(prefix + "house/search", "GET", [ "searchString" ]),
             executeasync: new server.endpoint.Url(prefix + "house/executeasync", "GET", [ "controllerContext", "cancellationToken" ])
@@ -6241,6 +5912,13 @@ if (function(global, factory) {
             getwhiteboardtileitems: new server.endpoint.Url(prefix + "tileitems/getwhiteboardtileitems", "GET", []),
             gettileitem: new server.endpoint.Url(prefix + "tileitems/gettileitem", "GET", [ "tileItemId" ]),
             executeasync: new server.endpoint.Url(prefix + "tileitems/executeasync", "GET", [ "controllerContext", "cancellationToken" ])
+        },
+        user: {
+            uploadprofilepicture: new server.endpoint.Url(prefix + "user/uploadprofilepicture", "GET", []),
+            getuser: new server.endpoint.Url(prefix + "user/getuser", "GET", [ "userId" ]),
+            gethousemates: new server.endpoint.Url(prefix + "user/gethousemates", "GET", [ "userId" ]),
+            updateuser: new server.endpoint.Url(prefix + "user/updateuser", "GET", [ "user" ]),
+            executeasync: new server.endpoint.Url(prefix + "user/executeasync", "GET", [ "controllerContext", "cancellationToken" ])
         }
     };
 }("/api/"), "undefined" == typeof jQuery) throw new Error("Bootstrap's JavaScript requires jQuery");
@@ -7041,7 +6719,19 @@ if (function(global, factory) {
             data.offsetTop && (data.offset.top = data.offsetTop), Plugin.call($spy, data);
         });
     });
-}(jQuery), function(window, document, undefined) {
+}(jQuery), window.XMLHttpRequest && window.FormData && (XMLHttpRequest = function(origXHR) {
+    return function() {
+        var xhr = new origXHR();
+        return xhr.setRequestHeader = function(orig) {
+            return function(header, value) {
+                if ("__setXHR_" === header) {
+                    var val = value(xhr);
+                    val instanceof Function && val(xhr);
+                } else orig.apply(xhr, arguments);
+            };
+        }(xhr.setRequestHeader), xhr;
+    };
+}(XMLHttpRequest), window.XMLHttpRequest.__isShim = !0), function(window, document, undefined) {
     function minErr(module) {
         return function() {
             var message, i, code = arguments[0], prefix = "[" + (module ? module + ":" : "") + code + "] ", template = arguments[1], templateArgs = arguments, stringify = function(obj) {
@@ -16499,7 +16189,174 @@ function(window, angular, undefined) {
     $IsStateFilter.$inject = [ "$state" ], $IncludedByStateFilter.$inject = [ "$state" ], 
     angular.module("ui.router.state").filter("isState", $IsStateFilter).filter("includedByState", $IncludedByStateFilter), 
     $RouteProvider.$inject = [ "$stateProvider", "$urlRouterProvider" ], angular.module("ui.router.compat").provider("$route", $RouteProvider).directive("ngView", $ViewDirective);
-}(window, window.angular), function(f) {
+}(window, window.angular), function() {
+    var angularFileUpload = angular.module("angularFileUpload", []);
+    angularFileUpload.service("$upload", [ "$http", "$q", "$timeout", function($http, $q, $timeout) {
+        function sendHttp(config) {
+            config.method = config.method || "POST", config.headers = config.headers || {}, 
+            config.transformRequest = config.transformRequest || function(data, headersGetter) {
+                return window.ArrayBuffer && data instanceof window.ArrayBuffer ? data : $http.defaults.transformRequest[0](data, headersGetter);
+            };
+            var deferred = $q.defer();
+            window.XMLHttpRequest.__isShim && (config.headers.__setXHR_ = function() {
+                return function(xhr) {
+                    xhr && (config.__XHR = xhr, config.xhrFn && config.xhrFn(xhr), xhr.upload.addEventListener("progress", function(e) {
+                        deferred.notify(e);
+                    }, !1), xhr.upload.addEventListener("load", function(e) {
+                        e.lengthComputable && deferred.notify(e);
+                    }, !1));
+                };
+            }), $http(config).then(function(r) {
+                deferred.resolve(r);
+            }, function(e) {
+                deferred.reject(e);
+            }, function(n) {
+                deferred.notify(n);
+            });
+            var promise = deferred.promise;
+            return promise.success = function(fn) {
+                return promise.then(function(response) {
+                    fn(response.data, response.status, response.headers, config);
+                }), promise;
+            }, promise.error = function(fn) {
+                return promise.then(null, function(response) {
+                    fn(response.data, response.status, response.headers, config);
+                }), promise;
+            }, promise.progress = function(fn) {
+                return promise.then(null, null, function(update) {
+                    fn(update);
+                }), promise;
+            }, promise.abort = function() {
+                return config.__XHR && $timeout(function() {
+                    config.__XHR.abort();
+                }), promise;
+            }, promise.xhr = function(fn) {
+                return config.xhrFn = function(origXhrFn) {
+                    return function() {
+                        origXhrFn && origXhrFn.apply(promise, arguments), fn.apply(promise, arguments);
+                    };
+                }(config.xhrFn), promise;
+            }, promise;
+        }
+        this.upload = function(config) {
+            config.headers = config.headers || {}, config.headers["Content-Type"] = void 0, 
+            config.transformRequest = config.transformRequest || $http.defaults.transformRequest;
+            var formData = new FormData(), origTransformRequest = config.transformRequest, origData = config.data;
+            return config.transformRequest = function(formData, headerGetter) {
+                if (origData) if (config.formDataAppender) for (var key in origData) {
+                    var val = origData[key];
+                    config.formDataAppender(formData, key, val);
+                } else for (var key in origData) {
+                    var val = origData[key];
+                    if ("function" == typeof origTransformRequest) val = origTransformRequest(val, headerGetter); else for (var i = 0; i < origTransformRequest.length; i++) {
+                        var transformFn = origTransformRequest[i];
+                        "function" == typeof transformFn && (val = transformFn(val, headerGetter));
+                    }
+                    formData.append(key, val);
+                }
+                if (null != config.file) {
+                    var fileFormName = config.fileFormDataName || "file";
+                    if ("[object Array]" === Object.prototype.toString.call(config.file)) for (var isFileFormNameString = "[object String]" === Object.prototype.toString.call(fileFormName), i = 0; i < config.file.length; i++) formData.append(isFileFormNameString ? fileFormName : fileFormName[i], config.file[i], config.fileName && config.fileName[i] || config.file[i].name); else formData.append(fileFormName, config.file, config.fileName || config.file.name);
+                }
+                return formData;
+            }, config.data = formData, sendHttp(config);
+        }, this.http = function(config) {
+            return sendHttp(config);
+        };
+    } ]), angularFileUpload.directive("ngFileSelect", [ "$parse", "$timeout", function($parse, $timeout) {
+        return function(scope, elem, attr) {
+            var fn = $parse(attr.ngFileSelect);
+            if ("input" !== elem[0].tagName.toLowerCase() || "file" !== (elem.attr("type") && elem.attr("type").toLowerCase())) {
+                for (var fileElem = angular.element('<input type="file">'), i = 0; i < elem[0].attributes.length; i++) fileElem.attr(elem[0].attributes[i].name, elem[0].attributes[i].value);
+                elem.attr("data-multiple") && fileElem.attr("multiple", "true"), fileElem.css("top", 0).css("bottom", 0).css("left", 0).css("right", 0).css("width", "100%").css("opacity", 0).css("position", "absolute").css("filter", "alpha(opacity=0)"), 
+                elem.append(fileElem), ("" === elem.css("position") || "static" === elem.css("position")) && elem.css("position", "relative"), 
+                elem = fileElem;
+            }
+            elem.bind("change", function(evt) {
+                var fileList, i, files = [];
+                if (fileList = evt.__files_ || evt.target.files, null != fileList) for (i = 0; i < fileList.length; i++) files.push(fileList.item(i));
+                $timeout(function() {
+                    fn(scope, {
+                        $files: files,
+                        $event: evt
+                    });
+                });
+            });
+        };
+    } ]), angularFileUpload.directive("ngFileDropAvailable", [ "$parse", "$timeout", function($parse, $timeout) {
+        return function(scope, elem, attr) {
+            if ("draggable" in document.createElement("span")) {
+                var fn = $parse(attr.ngFileDropAvailable);
+                $timeout(function() {
+                    fn(scope);
+                });
+            }
+        };
+    } ]), angularFileUpload.directive("ngFileDrop", [ "$parse", "$timeout", "$location", function($parse, $timeout, $location) {
+        return function(scope, elem, attr) {
+            function isASCII(str) {
+                return /^[\000-\177]*$/.test(str);
+            }
+            function extractFiles(evt, callback) {
+                var files = [], items = evt.dataTransfer.items;
+                if (items && items.length > 0 && items[0].webkitGetAsEntry && "file" != $location.protocol()) for (var i = 0; i < items.length; i++) {
+                    var entry = items[i].webkitGetAsEntry();
+                    null != entry && (isASCII(entry.name) ? traverseFileTree(files, entry) : items[i].webkitGetAsEntry().isDirectory || files.push(items[i].getAsFile()));
+                } else {
+                    var fileList = evt.dataTransfer.files;
+                    if (null != fileList) for (var i = 0; i < fileList.length; i++) files.push(fileList.item(i));
+                }
+                !function waitForProcess(delay) {
+                    $timeout(function() {
+                        processing ? waitForProcess(10) : callback(files);
+                    }, delay || 0);
+                }();
+            }
+            function traverseFileTree(files, entry, path) {
+                if (null != entry) if (entry.isDirectory) {
+                    var dirReader = entry.createReader();
+                    processing++, dirReader.readEntries(function(entries) {
+                        for (var i = 0; i < entries.length; i++) traverseFileTree(files, entries[i], (path ? path : "") + entry.name + "/");
+                        processing--;
+                    });
+                } else processing++, entry.file(function(file) {
+                    processing--, file._relativePath = (path ? path : "") + file.name, files.push(file);
+                });
+            }
+            if ("draggable" in document.createElement("span")) {
+                var leaveTimeout = null;
+                elem[0].addEventListener("dragover", function(evt) {
+                    if (evt.stopPropagation(), evt.preventDefault(), $timeout.cancel(leaveTimeout), 
+                    !elem[0].__drag_over_class_) if (attr.ngFileDragOverClass.search(/\) *$/) > -1) {
+                        dragOverClassFn = $parse(attr.ngFileDragOverClass);
+                        var dragOverClass = dragOverClassFn(scope, {
+                            $event: evt
+                        });
+                        elem[0].__drag_over_class_ = dragOverClass;
+                    } else elem[0].__drag_over_class_ = attr.ngFileDragOverClass || "dragover";
+                    elem.addClass(elem[0].__drag_over_class_);
+                }, !1), elem[0].addEventListener("dragenter", function(evt) {
+                    evt.stopPropagation(), evt.preventDefault();
+                }, !1), elem[0].addEventListener("dragleave", function() {
+                    leaveTimeout = $timeout(function() {
+                        elem.removeClass(elem[0].__drag_over_class_), elem[0].__drag_over_class_ = null;
+                    }, attr.ngFileDragOverDelay || 1);
+                }, !1);
+                var fn = $parse(attr.ngFileDrop);
+                elem[0].addEventListener("drop", function(evt) {
+                    evt.stopPropagation(), evt.preventDefault(), elem.removeClass(elem[0].__drag_over_class_), 
+                    elem[0].__drag_over_class_ = null, extractFiles(evt, function(files) {
+                        fn(scope, {
+                            $files: files,
+                            $event: evt
+                        });
+                    });
+                }, !1);
+                var processing = 0;
+            }
+        };
+    } ]);
+}(), function(f) {
     function A(a, b, d) {
         var c = a[0], g = /er/.test(d) ? _indeterminate : /bl/.test(d) ? n : k, e = d == _update ? {
             checked: c[k],
@@ -18957,8 +18814,10 @@ var appModule = angular.module("App", [ "Controllers", "Services", "Filters", "D
         },
         resolve: {
             authenticated: [ "authService", "$state", function(authService, $state) {
-                return authService.ping().catch(function() {
-                    $state.go("app.login");
+                return authService.ping().then(function() {
+                    return !0;
+                }).catch(function() {
+                    return $state.go("app.login"), !1;
                 });
             } ]
         }
@@ -18979,14 +18838,9 @@ var appModule = angular.module("App", [ "Controllers", "Services", "Filters", "D
     } ]);
 } ]).run([ "$templateCache", function($templateCache) {
     $templateCache.put("template/rating/rating.html", '<span class="ratingIcon" ng-mouseleave="reset()" ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="{{range.length}}" aria-valuenow="{{value}}">\n    <i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" ng-class="$index < value && (r.stateOn || \'glyphicon glyphicon-star\') || (r.stateOff || \'glyphicon-star-empty\')">\n        <span class="sr-only">({{ $index < value ? \'*\' : \' \' }})</span>\n    </i>\n</span>');
-} ]).factory("$exceptionHandler", [ "$log", function($log) {
-    return function(exception, cause) {
-        alert("angular error"), alert("message: " + exception.message), alert("cause: " + cause), 
-        exception.message += cause, $log.error(exception.message);
-    };
 } ]);
 
-angular.module("Controllers.App", [ "Services", "Directives.LoadingIcon", "Services.House", "breakpointApp", "Services.PreviousState", "Services.Phonegap" ]).controller("appController", [ "$scope", "authService", "$state", "$rootScope", "notificationsService", "houseService", "previousState", "phonegapService", function($scope, authService, $state, $rootScope, notificationsService, houseService, previousState, phonegapService) {
+angular.module("Controllers.App", [ "Services", "Directives.LoadingIcon", "Services.House", "breakpointApp", "Services.PreviousState", "Services.Phonegap" ]).controller("appController", [ "$scope", "authService", "$state", "$rootScope", "notificationsService", "houseService", "previousState", "phonegapService", "currentUserService", function($scope, authService, $state, $rootScope, notificationsService, houseService, previousState, phonegapService, currentUserService) {
     $scope.appName = "Abode", $rootScope.pageTitle = "", $scope.getTitle = function() {
         var str = $scope.appName;
         return $scope.pageTitle && (str += " - " + $rootScope.pageTitle), str;
@@ -19000,15 +18854,17 @@ angular.module("Controllers.App", [ "Services", "Directives.LoadingIcon", "Servi
     $scope.options = {
         transitionType: defaultTransition
     }, $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState) {
-        !(toState.name.indexOf("app.main") >= 0) || toState.data && toState.data.allowHomeless || houseService.getCurrentHouse().then(function(response) {
-            (!response.data || response.data.toLowerCase && "null" == response.data.toLowerCase()) && $state.go("app.main.joinHouse");
-        }), $scope.options.transitionType = fromState.data && fromState.data.transition ? fromState.data.transition : defaultTransition, 
+        return toState.data && toState.data.allowHomeless || !currentUserService.getUserDetails() ? ($scope.options.transitionType = fromState.data && fromState.data.transition ? fromState.data.transition : defaultTransition, 
         toState.data && angular.isDefined(toState.data.sidebarCollapsed) && ($rootScope.sidebar.collapsed = toState.data.sidebarCollapsed || "hideSidebar" == $scope.breakpoint.class), 
-        toState.data && ($rootScope.pageTitle = toState.data.pageTitle);
+        void (toState.data && ($rootScope.pageTitle = toState.data.pageTitle))) : houseService.getCurrentHouse().then(function(response) {
+            (!response.data || response.data.toLowerCase && "null" == response.data.toLowerCase()) && $state.go("app.main.joinHouse");
+        });
     }), $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
         previousState.set(fromState, fromParams);
-    }), phonegapService.setBackButtonFunc($state.go);
-} ]), angular.module("Controllers", [ "Controllers.App", "Controllers.Login", "Controllers.Register", "Controllers.Home", "Controllers.Sidebar", "Controllers.Header", "Controllers.House", "Controllers.Notes", "Controllers.TileItem" ]), 
+    }), phonegapService.setBackButtonFunc(function(state, params) {
+        $state.go(state, params);
+    });
+} ]), angular.module("Controllers", [ "Controllers.App", "Controllers.Login", "Controllers.Register", "Controllers.Home", "Controllers.Sidebar", "Controllers.Header", "Controllers.House", "Controllers.Notes", "Controllers.TileItem", "Controllers.UserSettings" ]), 
 angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]).controller("headerController", [ "$scope", "currentUserService", "$rootScope", "authService", function($scope, currentUserService, $rootScope, authService) {
     $scope.userDetails = {}, $scope.userDetails = currentUserService.getUserDetails(), 
     $scope.logout = authService.logout, $scope.toggleSidebar = function() {
@@ -19070,17 +18926,16 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
             template: '<div class="modal-header"><h4>Enter the Password</h4></div><div class="modal-body"><input type="text" ng-model="password" class="form-control" placeholder="password" /></div><div class="modal-footer"><button ng-click="joinHouse(password)" class="pull-right btn btn-primary" ng-disabled="joining">Join <loading-icon ng-show="joining"></loading-icon></button><button ng-click="$dismiss()" ng-disabled="joining" class="pull-right btn btn-default">Cancel</button></div>',
             controller: [ "$scope", "$modalInstance", function($modalScope, $modalInstance) {
                 $modalScope.joining = !1, $modalScope.joinHouse = function(password) {
-                    $modalScope.joining = !0, $scope.houses = [], houseService.joinHouse(houseId, password).then(function(success) {
-                        success.data && "false" != success.data ? $modalInstance.close(!0) : notificationsService.notifyWarning("Incorrect password");
+                    $modalScope.joining = !0, houseService.joinHouse(houseId, password).then(function() {
+                        $state.go("app.main.whiteboard"), notificationsService.notifySuccess("Joined a House"), 
+                        $modalInstance.close(!0);
                     }).catch(function() {
-                        $modalInstance.dismiss();
+                        notificationsService.notifyWarning("Incorrect password");
                     }).finally(function() {
                         $modalScope.joining = !1;
                     });
                 };
             } ]
-        }).result.then(function() {
-            $state.go("app.main.whiteboard"), notificationsService.notifySuccess("Joined a House");
         });
     };
 } ]), angular.module("Controllers.Login", [ "Services.Auth", "ui.router", "ngTouch" ]).config([ "$stateProvider", function($stateProvider) {
@@ -19107,7 +18962,7 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
 } ]), angular.module("Controllers.Notes", [ "ui.bootstrap", "Services.TileItems" ]).config([ "$stateProvider", function($stateProvider) {
     $stateProvider.state("app.main.createNote", {
         url: "/notes/create",
-        templateUrl: "Angular/Views/createNote.html",
+        templateUrl: "Angular/Views/CreateNote.html",
         controller: "createNoteController",
         data: {
             transition: "slide-left",
@@ -19145,18 +19000,18 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
     $scope.name = "", $scope.email = "", $scope.password = "", $scope.registering = !1, 
     $scope.register = function() {
         $scope.registering = !0, authService.register($scope.email, $scope.password, $scope.name).then(function() {
-            authService.login($scope.email, $scope.password).then(function() {
-                notificationsService.notifySuccess("Registered Successfully"), $state.go("app.main.whiteboard");
-            }).finally(function() {
+            authService.login($scope.email, $scope.password).finally(function() {
                 $scope.registering = !1;
+            }).then(function() {
+                notificationsService.notifySuccess("Registered Successfully"), $state.go("app.main.whiteboard");
             });
         });
     }, $scope.onSwipe = function() {
         $state.go("app.login");
     };
-} ]), angular.module("Controllers.Sidebar", [ "Services.Auth" ]).controller("sidebarController", [ "$scope", "$rootScope", "$state", function($scope, $rootScope) {
-    $scope.sidebar = $rootScope.sidebar;
-} ]), angular.module("Controllers.TileItem", [ "Services.Comments", "Services.Notifications" ]).config([ "$stateProvider", function($stateProvider) {
+} ]), angular.module("Controllers.Sidebar", [ "Services.Auth", "Services.CurrentUser", "ui.bootstrap" ]).controller("sidebarController", [ "$scope", "$rootScope", "currentUserService", function($scope, $rootScope, currentUserService) {
+    $scope.sidebar = $rootScope.sidebar, $scope.getCurrentUser = currentUserService.getUserDetails;
+} ]), angular.module("Controllers.TileItem", [ "Services.Comments", "Services.Notifications", "Directives.ProfilePic" ]).config([ "$stateProvider", function($stateProvider) {
     $stateProvider.state("app.main.tileItemDetails", {
         url: "/details/{tileItemId}",
         templateUrl: "Angular/Views/TileItemDetails.html",
@@ -19169,15 +19024,16 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
     });
     $scope.$on("$destroy", function() {
         notificationsService.unsubscribleComments(subscriptionKey);
-    }), $scope.tileItem = {}, $scope.tileItemView = "", $scope.commentLimit = 3, $scope.commentsRevealed = !1, 
-    $scope.showAllComments = function() {
-        $scope.commentLimit = 9999, $scope.commentsRevealed = !0;
+    }), $scope.tileItem = {}, $scope.tileItemView = "", $scope.commentLimit = 3, $scope.showAllComments = function() {
+        $scope.commentLimit += 10;
     }, $scope.loadingComments = !0, commentsService.getItemComments(tileItemId).then(function(comments) {
         $scope.comments = comments.data;
     }).finally(function() {
         $scope.loadingComments = !1;
     }), $scope.newComment = null, $scope.postingComment = !1, $scope.postComment = function(comment) {
-        $scope.postingComment = !0, commentsService.postComment(tileItemId, comment).finally(function() {
+        $scope.postingComment = !0, commentsService.postComment(tileItemId, comment).then(function() {
+            $scope.commentLimit = 9999;
+        }).finally(function() {
             $scope.newComment = null, $scope.postingComment = !1;
         });
     };
@@ -19189,6 +19045,60 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
     }).finally(function() {
         $scope.loadingTileItem = !1;
     });
+} ]), angular.module("Controllers.UserSettings", [ "angularFileUpload", "Services.Users", "Services.House", "Services.Notifications", "Directives.ProfilePic", "ui.bootstrap" ]).config([ "$stateProvider", function($stateProvider) {
+    $stateProvider.state("app.main.userSettings", {
+        url: "/settings/:userId",
+        views: {
+            "": {
+                templateUrl: "Angular/Views/UserSettings.html",
+                controller: "userSettingsController"
+            }
+        },
+        data: {
+            pageTitle: "User Settings",
+            allowHomeless: !0
+        },
+        resolve: {
+            user: [ "usersService", "$stateParams", function(usersService, $stateParams) {
+                var userId = $stateParams.userId;
+                return usersService.getUser(userId).then(function(response) {
+                    return response.data;
+                });
+            } ],
+            house: [ "houseService", "user", "$q", function(houseService, user) {
+                return user.HouseId ? houseService.getHouse(user.HouseId).then(function(response) {
+                    return response.data;
+                }) : {};
+            } ],
+            housemates: [ "usersService", "user", "$q", function(usersService, user) {
+                return user.HouseId ? usersService.getHousemates(user.HouseId).then(function(response) {
+                    return response.data;
+                }) : [];
+            } ]
+        }
+    });
+} ]).controller("userSettingsController", [ "$scope", "$stateParams", "$upload", "$q", "notificationsService", "usersService", "user", "house", "housemates", function($scope, $stateParams, $upload, $q, notificationsService, usersService, user, house, housemates) {
+    $scope.user = user, $scope.house = house, $scope.housemates = housemates;
+    var uploadUrl = server.endpoints.user.uploadprofilepicture.uri;
+    $scope.uploading = !1, $scope.uploadProgress = 0, $scope.uploadProfilePicture = function($files) {
+        $scope.uploading = !0, $upload.upload({
+            url: uploadUrl,
+            method: "POST",
+            file: $files[0]
+        }).progress(function(evt) {
+            console.log("progress"), $scope.uploadProgress = parseInt(100 * evt.loaded / evt.total);
+        }).then(function(response) {
+            $scope.user.ProfilePictureUrl = JSON.parse(response.data), notificationsService.notifySuccess("Uploaded new Image (you still need to save)");
+        }).finally(function() {
+            $scope.uploading = !1, $scope.uploadProgress = 0;
+        });
+    }, $scope.saving = !1, $scope.save = function() {
+        $scope.saving = !0, usersService.updateUser($scope.user).then(function() {
+            notificationsService.notifySuccess("Updated User Details");
+        }).finally(function() {
+            $scope.saving = !1;
+        });
+    };
 } ]), angular.module("Controllers.Home", [ "Services.TileItems", "Services.Notifications", "Directives.LiveTile" ]).config([ "$stateProvider", function($stateProvider) {
     $stateProvider.state("app.main.whiteboard", {
         url: "/whiteboard",
@@ -19212,7 +19122,7 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
             colour: "blue"
         }
     }, $scope.getTileView = function(type) {
-        return "/Angular/Views/WhiteboardTileItems/" + $scope.tileTypeMapping[type].view;
+        return "Angular/Views/WhiteboardTileItems/" + $scope.tileTypeMapping[type].view;
     }, $scope.loading = !0, refresh();
     var key = notificationsService.subscribeTileItems(function(tileItem) {
         $scope.tileItems.push(tileItem), $scope.$apply();
@@ -19220,12 +19130,12 @@ angular.module("Controllers.Header", [ "Services.CurrentUser", "Services.Auth" ]
     $scope.$on("$destroy", function() {
         notificationsService.unsubscribleTileItems(key);
     });
-} ]), angular.module("Directives", [ "Directives.LoadingIcon", "Directives.LiveTile" ]), 
+} ]), angular.module("Directives", [ "Directives.LoadingIcon", "Directives.LiveTile", "Directives.ProfilePic" ]), 
 angular.module("Directives.LiveTile", []).directive("liveTile", function() {
     return {
         restrict: "E",
         replace: !0,
-        template: '<div class="live-tile flyIn col-xs-6 col-sm-4 col-md-3" ng-class="colourClass" ng-mouseenter="onMouseEnter()" ng-mouseleave="onMouseLeave()"><div class="slideContainer" ng-transclude></div></div>',
+        template: '<div class="live-tile flyIn" ng-class="colourClass" ng-mouseenter="onMouseEnter()" ng-mouseleave="onMouseLeave()"><div class="slideContainer" ng-transclude></div></div>',
         transclude: !0,
         scope: {
             colour: "@",
@@ -19293,7 +19203,31 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
             $scope.src = $scope.alt ? "Content/images/loading_alt.gif" : "Content/images/loading.gif";
         }
     };
+}), angular.module("Directives.ProfilePic", []).directive("profilePic", function() {
+    return {
+        restrict: "E",
+        template: '<img class="profilePic" ng-class="sizeClass" ng-src="{{user.ProfilePictureUrl || comment.UserProfilePicUrl || \'Content/images/profilePicPlaceholder.png\'}}" />',
+        scope: {
+            user: "=",
+            comment: "=",
+            size: "@"
+        },
+        replace: !0,
+        link: function($scope) {
+            $scope.size && ($scope.sizeClass = "profilePic-" + $scope.size);
+        }
+    };
 }), angular.module("Filters", []), angular.module("Services.Auth", [ "Services.CurrentUser" ]).factory("authService", [ "$http", "$q", "$state", "currentUserService", function($http, $q, $state, currentUserService) {
+    function setUserDataFromToken(token) {
+        var userDetails = {
+            id: token.id,
+            email: token.userName,
+            name: token.realName,
+            houseId: token.houseId,
+            token: token.access_token
+        };
+        currentUserService.setUserDetails(userDetails);
+    }
     return {
         login: function(email, password) {
             var deferred = $q.defer();
@@ -19306,12 +19240,7 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
                     "Content-Type": "application/x-www-form-urlencoded"
                 }
             }).then(function(response) {
-                response.data.access_token ? (userDetails = {
-                    email: response.data.userName,
-                    name: response.data.realName,
-                    houseId: response.data.houseId,
-                    token: response.data.access_token
-                }, currentUserService.setUserDetails(userDetails), deferred.resolve()) : deferred.reject("No access token in response");
+                response.data.access_token ? (setUserDataFromToken(response.data), deferred.resolve()) : deferred.reject("No access token in response");
             }, function(error) {
                 deferred.reject(error);
             }), deferred.promise;
@@ -19325,7 +19254,9 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
             });
         },
         ping: function() {
-            return $http.post(server.endpoints.account.ping.uri);
+            return $http.post(server.endpoints.account.ping.uri).then(function(response) {
+                return currentUserService.setToken(JSON.parse(response.data)), response;
+            });
         },
         logout: function() {
             currentUserService.setUserDetails(null), $state.go("app.login");
@@ -19366,6 +19297,10 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
             var details = localStorageService.get(userDetailsKey);
             return details ? details.token : null;
         },
+        setToken: function(token) {
+            var details = localStorageService.get(userDetailsKey);
+            details.token = token, localStorageService.set(userDetailsKey, details);
+        },
         setHouseId: function(houseId) {
             var user = localStorageService.get(userDetailsKey);
             user.houseId = houseId, localStorageService.set(userDetailsKey, user), onChangeFunc(user);
@@ -19374,7 +19309,7 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
             onChangeFunc = func;
         }
     };
-} ]), angular.module("Services.House", [ "Services.CurrentUser" ]).factory("houseService", [ "$http", "currentUserService", function($http, currentUserService) {
+} ]), angular.module("Services.House", [ "Services.CurrentUser" ]).factory("houseService", [ "$http", "currentUserService", "authService", function($http, currentUserService, authService) {
     return {
         getCurrentHouse: function() {
             return $http.get(server.endpoints.house.getcurrenthouse.uri);
@@ -19391,7 +19326,9 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
                 Name: name,
                 Password: password
             }).then(function(response) {
-                return currentUserService.setHouseId(response.data.Id), response;
+                return currentUserService.setHouseId(response.data.Id), authService.ping().finally(function() {
+                    return response;
+                });
             });
         },
         joinHouse: function(id, password) {
@@ -19399,7 +19336,16 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
                 Id: id,
                 Password: password
             }).then(function(response) {
-                return currentUserService.setHouseId(response.data.Id), response;
+                return currentUserService.setHouseId(response.data.Id), authService.ping().finally(function() {
+                    return response;
+                });
+            });
+        },
+        getHouse: function(id) {
+            return $http.get(server.endpoints.house.gethouse.uri, {
+                params: {
+                    houseId: id
+                }
             });
         }
     };
@@ -19507,7 +19453,7 @@ angular.module("Directives.LiveTile", []).directive("liveTile", function() {
             };
         }
     };
-}), angular.module("Services", [ "Services.Auth", "Services.Comments", "Services.CurrentUser", "Services.Notifications", "Services.House", "Services.Phonegap", "Services.PreviousState", "Services.TileItems" ]), 
+}), angular.module("Services", [ "Services.Auth", "Services.Comments", "Services.CurrentUser", "Services.Notifications", "Services.House", "Services.Phonegap", "Services.PreviousState", "Services.TileItems", "Services.Users" ]), 
 angular.module("Services.TileItems", [ "Services.Notifications" ]).factory("tileItemsService", [ "$http", "notificationsService", function($http, notificationsService) {
     return {
         createNote: function(note) {
@@ -19524,6 +19470,26 @@ angular.module("Services.TileItems", [ "Services.Notifications" ]).factory("tile
                     tileItemId: tileItemId
                 }
             });
+        }
+    };
+} ]), angular.module("Services.Users", []).factory("usersService", [ "$http", function($http) {
+    return {
+        getUser: function(id) {
+            return $http.get(server.endpoints.user.getuser.uri, {
+                params: {
+                    userId: id
+                }
+            });
+        },
+        getHousemates: function(houseId) {
+            return $http.get(server.endpoints.user.gethousemates.uri, {
+                params: {
+                    houseId: houseId
+                }
+            });
+        },
+        updateUser: function(user) {
+            return $http.post(server.endpoints.user.updateuser.uri, user);
         }
     };
 } ]);

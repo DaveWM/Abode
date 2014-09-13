@@ -3,7 +3,7 @@
         $stateProvider
             .state('app.main.createNote', {
                 url: '/notes/create',
-                templateUrl: 'Angular/Views/createNote.html',
+                templateUrl: 'Angular/Views/CreateNote.html',
                 controller: 'createNoteController',
                 data: {
                     transition: 'slide-left',

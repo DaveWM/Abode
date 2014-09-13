@@ -4,13 +4,13 @@
 <div class="col-lg-6 col-xs-12">
     <h4 class="text-center">Comments <i class="fa fa-comments-o"></i></h4>
     <div class="commentContainer slideIn row" ng-repeat="comment in comments | limitTo : commentLimit">
-        <div class="col-xs-2">
+        <div class="col-sm-2 col-xs-3">
             <profile-pic comment="comment" size="fullwidth" class="pull-left"></profile-pic>
         </div>
-        <div class="col-xs-10">
+        <div class="col-sm-10 col-xs-9">
             <blockquote>
                 <p>{{comment.Text}}</p>
-                <footer>{{comment.UserName}} ({{comment.CreatedDate | date : 'medium'}})</footer>
+                <footer><strong>{{comment.UserName}}</strong> ({{comment.CreatedDate | date : 'medium'}})</footer>
             </blockquote>
         </div>
     </div>

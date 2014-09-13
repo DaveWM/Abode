@@ -18,13 +18,13 @@ namespace AbodeWebsite.Controllers
                 var user = db.Users.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
                 if (user == null)
                     throw new Exception("Could not find current user.");
-                return
+                var results =
                     db.TileItems.Include("Comments")
                     .Where(ti => ti.CreatedUser.HouseId == user.HouseId)
                     .OrderByDescending(ti => ti.CreatedDate)
-                        .Take(20)
                         .ToList()
                         .Select(Mapper.Map<TileItem, TileItemViewModel>).ToList();
+                return results;
             }
         }
 
@@ -37,5 +37,12 @@ namespace AbodeWebsite.Controllers
                 return Mapper.Map<TileItem, TileItemViewModel>(tileItem);
             }
         }
+
+        [HttpGet]
+        [Route("tileItemTypes")]
+        public List<TileItemType> GetTileItemTypes()
+        {
+            return Enum.GetValues(typeof (TileItemType)).Cast<TileItemType>().ToList();
+        } 
     }
 }

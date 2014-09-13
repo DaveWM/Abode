@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace AbodeWebsite.Models.ViewModels
 {
@@ -17,8 +15,6 @@ namespace AbodeWebsite.Models.ViewModels
         public DateTime CreatedDate { get; set; }
         public decimal Priority { get; set; }
         public List<CommentViewModel> Comments { get; set; }
-
-        [JsonConverter(typeof(StringEnumConverter))]
         public TileItemType TileItemType { get; set; }
     }
 }

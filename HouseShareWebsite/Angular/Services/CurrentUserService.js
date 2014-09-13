@@ -18,7 +18,7 @@
             return null;
         },
         setToken: function(token) {
-            var details = localStorageService.get(userDetailsKey);
+            var details = localStorageService.get(userDetailsKey) || {};
             details.token = token;
             localStorageService.set(userDetailsKey, details);
         },

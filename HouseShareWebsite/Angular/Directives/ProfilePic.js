@@ -2,7 +2,7 @@
     .directive('profilePic', function() {
         return {
             restrict: 'E',
-            template: '<img class="profilePic" ng-class="sizeClass" ng-src="{{user.ProfilePictureUrl || comment.UserProfilePicUrl || \'/Content/images/profilePicPlaceholder.png\'}}" />',
+            template: '<img class="profilePic" ng-class="sizeClass" ng-src="{{user.ProfilePictureUrl || comment.UserProfilePicUrl || \'Content/images/profilePicPlaceholder.png\'}}" />',
             scope: {
                 user: '=',
                 comment: '=',

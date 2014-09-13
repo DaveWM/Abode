@@ -20,9 +20,8 @@ var appModule = angular.module('App', [
                     }
                 }
             }
-        });
-
-        $stateProvider.state('app.main', {
+        })
+        .state('app.main', {
             'abstract': true,
             views: {
                 'sidebar': {
@@ -43,6 +42,9 @@ var appModule = angular.module('App', [
                 authenticated: function(authService, $state) {
                     return authService.ping()
                         .then(function() {
+                            authService.getUserInfo();
+                        })
+                        .then(function() {
                             return true;
                         })
                         .catch(
@@ -50,6 +52,26 @@ var appModule = angular.module('App', [
                             $state.go('app.login');
                             return false;
                         });
+                }
+            }
+        })
+        .state('externallogin', {
+            url: '/externallogin/{token}',
+            resolve: {
+                userInfo: function ($stateParams, authService, currentUserService) {
+                    currentUserService.setToken($stateParams.token);
+                    return authService.getUserInfo();
+                }
+            },
+            views: {
+                'header': {
+                    templateUrl: 'Angular/Views/DefaultHeader.html'
+                },
+                'main': {
+                    template: '<p>Redirecting...</p>',
+                    controller: function ($scope, $stateParams, currentUserService, $state) {
+                        $state.go('app.main.whiteboard');
+                    }
                 }
             }
         });

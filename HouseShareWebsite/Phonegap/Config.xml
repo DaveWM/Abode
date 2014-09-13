@@ -28,8 +28,9 @@
 
   <preference name="UIWebViewBounce" value="false" />
   
-  <gap:splash src="/Content/images/houseIcon.png"/>
-  <icon src="/Content/images/houseIcon.png" />
+  <gap:splash src="Content/images/houseIcon.png"/>
+  <icon src="Content/images/houseIcon.png" />
 
   <gap:plugin name="org.apache.cordova.device" />
+  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" />
 </widget>

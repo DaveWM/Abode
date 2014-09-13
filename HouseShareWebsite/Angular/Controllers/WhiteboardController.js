@@ -13,13 +13,13 @@
         $scope.tileItems = [];
         // TODO get web api to stop being shit, and serialise an enum to a string
         $scope.tileTypeMapping = {
-            0: { // note
+            'Note': { // note
                 view: 'Note.html',
                 colour: 'blue'
             }
         };
     $scope.getTileView = function(type) {
-        return '/Angular/Views/WhiteboardTileItems/' + $scope.tileTypeMapping[type].view;
+        return 'Angular/Views/WhiteboardTileItems/' + $scope.tileTypeMapping[type].view;
     };
 
         $scope.loading = true;

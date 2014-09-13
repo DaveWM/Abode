@@ -23,5 +23,8 @@
                 <button type="submit" class="btn btn-primary form-control" ng-disabled="loginForm.$invalid">Login <loading-icon ng-show="loggingIn"></loading-icon></button>
             </fieldset>
         </form>
+        <div class="spacer text-center">
+            <button ng-repeat="externalLogin in externalLogins" class="btn" ng-class="'btn-'+externalLogin.Name" ng-click="startExternalLogin(externalLogin.Url)"><i class="fa" ng-class="externalLoginIconMap[externalLogin.Name]"></i> {{externalLogin.Name}}</button>
+        </div>
     </div>
 </div>

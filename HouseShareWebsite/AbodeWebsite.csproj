@@ -357,7 +357,7 @@
     </Content>
     <Content Include="Content\images\homeshare_bg.png" />
     <Content Include="Content\images\houseIcon.png" />
-    <Content Include="Content\images\loading.GIF" />
+    <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\loading_alt.GIF" />
     <Content Include="Content\loadingIcon.GIF" />
     <Content Include="Content\Site.css">
@@ -995,8 +995,6 @@
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-migrate-1.2.1.js" />
-    <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

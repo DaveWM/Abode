@@ -224,6 +224,10 @@ server.endpoints = (function(prefix){
 					prefix + "tileitems/gettileitem",
 					"GET",
 					["tileItemId"]),	
+			"gettileitemtypes": new server.endpoint.Url(
+					prefix + "tileitems/gettileitemtypes",
+					"GET",
+					[]),	
 			"executeasync": new server.endpoint.Url(
 					prefix + "tileitems/executeasync",
 					"GET",
@@ -242,7 +246,7 @@ server.endpoints = (function(prefix){
 			"gethousemates": new server.endpoint.Url(
 					prefix + "user/gethousemates",
 					"GET",
-					["userId"]),	
+					["houseId"]),	
 			"updateuser": new server.endpoint.Url(
 					prefix + "user/updateuser",
 					"GET",

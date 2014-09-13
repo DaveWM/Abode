@@ -28,10 +28,10 @@
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-        if (!(toState.data && toState.data.allowHomeless) && currentUserService.getUserDetails()) { // user logged in
+        if (!(toState.data && (toState.data.allowHomeless || toState.data.allowAnonymous)) && currentUserService.getUserDetails()) { // user logged in
             return houseService.getCurrentHouse().then(function (response) {
                 if (!response.data || (response.data.toLowerCase && response.data.toLowerCase() == "null")) {
-                    $state.go('app.main.joinHouse');
+                    $state.go('app.main.house.join');
                 }
             });
         }

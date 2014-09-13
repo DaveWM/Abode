@@ -86,7 +86,7 @@ namespace AbodeWebsite.Providers
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", user.UserName },
-                { "realName", user.RealName },
+                { "realName", user.RealName ?? "" },
                 { "houseId", user.HouseId.IfNotNull(i => i.ToString()) ?? ""   },
                 { "id", user.Id}
             };
