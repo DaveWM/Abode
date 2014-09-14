@@ -282,12 +282,18 @@ namespace AbodeWebsite.Controllers
 
             if (user == null)
             {
-                await RegisterExternal(new RegisterExternalBindingModel
+                var registerResult = await RegisterExternal(new RegisterExternalBindingModel
                 {
                     Email = email,
                     RealName = name,
                     PhoneNumber = phoneNumber
                 });
+
+                // need to refactor this - if result is not null it means an error occured
+                if (registerResult != null)
+                {
+                    return registerResult;
+                }
                 user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
             }
@@ -302,13 +308,6 @@ namespace AbodeWebsite.Controllers
             var ticket = new AuthenticationTicket(oAuthIdentity, properties);
             
             return new RedirectResult(new Uri("/#/externallogin/" + Startup.OAuthOptions.AccessTokenFormat.Protect(ticket), UriKind.Relative), Request);
-        }
-
-        [HttpGet]
-        [Route("Test")]
-        public IHttpActionResult Test()
-        {
-            return Ok();
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
@@ -411,7 +410,7 @@ namespace AbodeWebsite.Controllers
             {
                 Console.WriteLine(e);
             }
-            return Ok();
+            return null;
         }
 
         protected override void Dispose(bool disposing)
