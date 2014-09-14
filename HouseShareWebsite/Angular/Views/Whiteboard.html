@@ -1,7 +1,13 @@
-﻿<div class="text-center spacer">
-    <live-tile ng-repeat="tileItem in tileItems" colour="{{tileTypeMapping[tileItem.TileItemType].colour}}"
-               ui-sref="app.main.tileItemDetails({ tileItemId: tileItem.Id})" hover-slide="1" animation="flip-y"
-               class="col-xs-6 col-sm-4 col-md-3">
+﻿<div class="row filtersContainer">
+    <h5 ng-click="filtersCollapsed = !filtersCollapsed">Filters <i class="fa fa-chevron-up animate" ng-class="{'rotate-180': !filtersCollapsed}"></i></h5> 
+    <div class="col-xs-12 filterControlsContainer" ng-init="filtersCollapsed = true" collapse="filtersCollapsed" style="margin-bottom: 10px">
+        <input class="form-control" ng-model="textFilter" placeholder="Type in here to filter" />
+        <icon-select selected="typeFilter" icon-mapping="typeIconMapping"></icon-select>
+    </div>
+</div>
+<div class="text-center spacer row">
+    <live-tile ng-repeat="tileItem in tileItems | filter: textFilter | filter: {TileItemType: typeFilter == 'All' ? '' : typeFilter} | orderBy : tileItemOrdering" colour="{{tileTypeMapping[tileItem.TileItemType].colour}}"
+               ui-sref="app.main.tileItemDetails({ tileItemId: tileItem.Id})" hover-slide="1" animation="flip-y" size="{{getTileItemSize(tileItem)}}" icons="tileItem.icons">
         <div ng-include="getTileView(tileItem.TileItemType)"></div>
     </live-tile>
     <loading-icon ng-show="loading" large="true"></loading-icon>

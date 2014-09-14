@@ -6,7 +6,7 @@
         <input type="text" class="form-control search-query" ng-model="searchString" ng-model-options="{ debounce: 350 }" placeholder="Start Typing to Search..." />
     </div>
     <div class="row spacer">
-        <live-tile ng-repeat="house in houses" class="col-md-3 col-sm-4" colour="blue" hover-slide="1" class="col-xs-6 col-sm-4 col-md-3">
+        <live-tile ng-repeat="house in houses" colour="blue" hover-slide="1">
             <live-tile-slide>
                 <div class="text-center">
                     <i class="fa fa-2x fa-home"></i>

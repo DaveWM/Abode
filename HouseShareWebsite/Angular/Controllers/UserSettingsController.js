@@ -41,10 +41,12 @@
             }
         });
     })
-    .controller('userSettingsController', function($scope, $stateParams, $upload, $q, notificationsService, usersService, user, house, housemates) {
+    .controller('userSettingsController', function($scope, $stateParams, $upload, $q, notificationsService, usersService, currentUserService, user, house, housemates) {
     $scope.user = user;
     $scope.house = house;
     $scope.housemates = housemates;
+
+    $scope.editable = currentUserService.getUserDetails().id == $stateParams.userId;
 
     var uploadUrl = server.endpoints.user.uploadprofilepicture.uri;
     $scope.uploading = false;

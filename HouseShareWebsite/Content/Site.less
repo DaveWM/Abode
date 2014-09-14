@@ -403,7 +403,20 @@ div.sidebar{
 }
 
 .live-tile{
-    height: 180px;
+    @defaultTileHeight: 180px;
+    height: @defaultTileHeight;
+    .generateSizes(@size, @baseHeight) when (@size > 0){
+        .generateSizes(@size - 1, @baseHeight);
+        &-@{size}{
+            height: @baseHeight * @size;
+        }
+    }
+    .generateSizes(4, @defaultTileHeight);
+    .halfHeight &{
+        height: @defaultTileHeight /2 ;
+        .generateSizes(4, @defaultTileHeight/2);
+    }
+
     overflow: hidden;
     position:relative;
     margin-bottom: 5px;
@@ -438,6 +451,12 @@ div.sidebar{
         position:absolute;
         left:0;
         top:0;
+    }
+    .tileIcons{
+        margin-top: 5px;
+        i{
+            margin-right: 3px;
+        }
     }
 }
 
@@ -544,6 +563,35 @@ div.sidebar{
     &.btn-twitter{
         .brandButton(#00aced,#55acee)
     }
+}
+
+.animate{
+    .transition(all 0.5s ease);
+}
+.rotate-180{
+    .transform(rotateZ(180deg));
+}
+.filtersContainer{
+    border-bottom: @lightBlue 1px solid;
+    h5{
+        margin-bottom: 10px;
+    }
+    .filterControlsContainer{
+    }
+}
+.iconSelect{
+    margin: 5px 0 5px 0;
+    text-align: center;
+    i{
+        margin: 0 5px 0 5px;
+        &.selected{
+            color: @darkBlue;
+        }
+    }
+}
+
+.fa-red{
+    color:@red;
 }
 
 

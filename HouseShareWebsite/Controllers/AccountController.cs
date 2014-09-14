@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -275,12 +276,14 @@ namespace AbodeWebsite.Controllers
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
             var claims = claimsUser.Claims;
+            var phoneNumber = claims.FirstOrDefault(c => c.Type == ClaimTypes.MobilePhone).IfNotNull(p => p.Value);
             if (user == null)
             {
                 await RegisterExternal(new RegisterExternalBindingModel
                 {
                     Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value,
-                    RealName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value
+                    RealName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
+                    PhoneNumber = phoneNumber
                 });
                 user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
@@ -378,7 +381,7 @@ namespace AbodeWebsite.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, RealName = model.RealName};
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, RealName = model.RealName, PhoneNumber = model.PhoneNumber};
 
             try
             {

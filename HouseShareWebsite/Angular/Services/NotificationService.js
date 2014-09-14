@@ -36,7 +36,7 @@
             });
 
             connection.start({ jsonp: true })
-            .then(function() {
+            .done(function() {
                 hub.invoke('joinHouseGroup');
             });
         }

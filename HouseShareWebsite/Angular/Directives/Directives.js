@@ -1,1 +1,1 @@
-﻿angular.module('Directives', ['Directives.LoadingIcon', 'Directives.LiveTile', 'Directives.ProfilePic']);
+﻿angular.module('Directives', ['Directives.IconSelect', 'Directives.LoadingIcon', 'Directives.LiveTile', 'Directives.ProfilePic']);

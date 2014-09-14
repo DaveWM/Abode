@@ -431,6 +431,33 @@ div.sidebar .sidebarToggle i {
   position: relative;
   margin-bottom: 5px;
 }
+.live-tile-1 {
+  height: 180px;
+}
+.live-tile-2 {
+  height: 360px;
+}
+.live-tile-3 {
+  height: 540px;
+}
+.live-tile-4 {
+  height: 720px;
+}
+.halfHeight .live-tile {
+  height: 90px;
+}
+.halfHeight .live-tile-1 {
+  height: 90px;
+}
+.halfHeight .live-tile-2 {
+  height: 180px;
+}
+.halfHeight .live-tile-3 {
+  height: 270px;
+}
+.halfHeight .live-tile-4 {
+  height: 360px;
+}
 .live-tile .slideContainer {
   height: 100%;
   width: 100%;
@@ -494,6 +521,12 @@ div.sidebar .sidebarToggle i {
   position: absolute;
   left: 0;
   top: 0;
+}
+.live-tile .tileIcons {
+  margin-top: 5px;
+}
+.live-tile .tileIcons i {
+  margin-right: 3px;
 }
 .disable-highlight {
   -webkit-touch-callout: none;
@@ -609,5 +642,37 @@ div.sidebar .sidebarToggle i {
 .btn.btn-twitter:focus {
   background-color: #55acee;
   border-color: #55acee;
+}
+.animate {
+  -moz-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.rotate-180 {
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+.filtersContainer {
+  border-bottom: #eff4ff 1px solid;
+}
+.filtersContainer h5 {
+  margin-bottom: 10px;
+}
+.iconSelect {
+  margin: 5px 0 5px 0;
+  text-align: center;
+}
+.iconSelect i {
+  margin: 0 5px 0 5px;
+}
+.iconSelect i.selected {
+  color: #094ab2;
+}
+.fa-red {
+  color: #ee1111;
 }
 /*# sourceMappingURL=Site.css.map */

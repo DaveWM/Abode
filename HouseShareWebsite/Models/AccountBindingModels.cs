@@ -53,11 +53,10 @@ namespace AbodeWebsite.Models
 
     public class RegisterExternalBindingModel
     {
-        [Required]
-        [Display(Name = "Email")]
         public string Email { get; set; }
 
         public string RealName { get; set; }
+        public string PhoneNumber { get; set; }
     }
 
     public class RemoveLoginBindingModel

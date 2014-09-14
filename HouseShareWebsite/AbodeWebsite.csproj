@@ -299,6 +299,7 @@
     <Content Include="Angular\Directives\LiveTile.js" />
     <Content Include="Angular\Directives\LoadingIcon.js" />
     <Content Include="Angular\Directives\ProfilePic.js" />
+    <Content Include="Angular\Directives\IconSelect.js" />
     <Content Include="Angular\Filters\Filters.js" />
     <Content Include="Angular\Services\AuthService.js" />
     <Content Include="Angular\Services\CommentsService.js" />

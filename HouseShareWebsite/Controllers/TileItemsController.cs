@@ -18,10 +18,10 @@ namespace AbodeWebsite.Controllers
                 var user = db.Users.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
                 if (user == null)
                     throw new Exception("Could not find current user.");
+                // return unordered results, order in front end
                 var results =
                     db.TileItems.Include("Comments")
                     .Where(ti => ti.CreatedUser.HouseId == user.HouseId)
-                    .OrderByDescending(ti => ti.CreatedDate)
                         .ToList()
                         .Select(Mapper.Map<TileItem, TileItemViewModel>).ToList();
                 return results;
@@ -39,7 +39,7 @@ namespace AbodeWebsite.Controllers
         }
 
         [HttpGet]
-        [Route("tileItemTypes")]
+        [Route("GetTileItemTypes")]
         public List<TileItemType> GetTileItemTypes()
         {
             return Enum.GetValues(typeof (TileItemType)).Cast<TileItemType>().ToList();
