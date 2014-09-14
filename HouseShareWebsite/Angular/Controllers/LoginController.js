@@ -12,7 +12,7 @@
             resolve: {
                 externalLogins: function($http) {
                     return $http.get(server.endpoints.account.getexternallogins.uri, {
-                        params: {returnUrl: '/#/externallogin/'}
+                        params: {returnUrl: '/'}
                         })
                         .then(function(response) {
                             return response.data;
