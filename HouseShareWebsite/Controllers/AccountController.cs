@@ -272,17 +272,20 @@ namespace AbodeWebsite.Controllers
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 return new ChallengeResult(provider, this);
             }
-
+            
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
-            var claims = claimsUser.Claims;
-            var phoneNumber = claims.FirstOrDefault(c => c.Type == ClaimTypes.MobilePhone).IfNotNull(p => p.Value);
+            var phoneNumber = claimsUser.FindFirst(ClaimTypes.MobilePhone).IfNotNull(p => p.Value);
+
+            var email = claimsUser.FindFirst(ClaimTypes.Email).Value;
+            var name = claimsUser.FindFirst(ClaimTypes.Name).Value;
+
             if (user == null)
             {
                 await RegisterExternal(new RegisterExternalBindingModel
                 {
-                    Email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value,
-                    RealName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
+                    Email = email,
+                    RealName = name,
                     PhoneNumber = phoneNumber
                 });
                 user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
@@ -297,8 +300,15 @@ namespace AbodeWebsite.Controllers
             AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user);
             Authentication.SignIn(properties, oAuthIdentity);
             var ticket = new AuthenticationTicket(oAuthIdentity, properties);
-
+            
             return new RedirectResult(new Uri("/#/externallogin/" + Startup.OAuthOptions.AccessTokenFormat.Protect(ticket), UriKind.Relative), Request);
+        }
+
+        [HttpGet]
+        [Route("Test")]
+        public IHttpActionResult Test()
+        {
+            return Ok();
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true

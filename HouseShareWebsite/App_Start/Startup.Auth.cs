@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Web.Cors;
+using System.Security.Claims;
 using AbodeWebsite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.MicrosoftAccount;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.Owin.Security.Twitter;
 using Owin;
 using AbodeWebsite.Providers;
+using WebGrease.Css.Extensions;
 
 namespace AbodeWebsite
 {
@@ -32,13 +34,13 @@ namespace AbodeWebsite
             PublicClientId = "self";
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             OAuthOptions = new OAuthAuthorizationServerOptions
-            {
-                TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
-                AllowInsecureHttp = true
-            };
+                           {
+                               TokenEndpointPath = new PathString("/Token"),
+                               Provider = new ApplicationOAuthProvider(PublicClientId),
+                               AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                               AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
+                               AllowInsecureHttp = true
+                           };
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
@@ -46,23 +48,29 @@ namespace AbodeWebsite
 
 
             // Uncomment the following lines to enable logging in with third party login providers
-            app.UseMicrosoftAccountAuthentication(
-                clientId: "000000004012ABA5",
-                clientSecret: "9KHkk7OfuYwr06NpsaBKEZxD0wfQZgE2");
-
-            app.UseTwitterAuthentication(
-                consumerKey: "QUEcMqpTwUN01DpEz2uMwTAYN",
-                consumerSecret: "6DFMM6HQQnEG8qleTqDOvdLm6ejbrnvB0nmGy595JaMaDx7pwe");
-
-            app.UseFacebookAuthentication(
-                appId: "775625759162004",
-                appSecret: "d411869c0707a273d6530a6a9cc592f7");
-
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            var microsoftOptions = new MicrosoftAccountAuthenticationOptions
+                                   {
+                                       ClientId = "000000004012ABA5",
+                                       ClientSecret = "9KHkk7OfuYwr06NpsaBKEZxD0wfQZgE2"
+                                   };
+            microsoftOptions.Scope.Add("wl.emails");
+            var facebookOptions = new FacebookAuthenticationOptions
             {
-                ClientId = "469646760415-qfrnioi99r3bmcfpsi7997m1h6qgj0b3.apps.googleusercontent.com",
-                ClientSecret = "9YdAukql7ZKrm6RUI4hfXA7S"
-            });
+                AppId = "775625759162004",
+                AppSecret = "d411869c0707a273d6530a6a9cc592f7"
+            };
+            facebookOptions.Scope.Add("email");
+
+            var googleOptions = new GoogleOAuth2AuthenticationOptions()
+                                {
+                                    ClientId =
+                                        "469646760415-qfrnioi99r3bmcfpsi7997m1h6qgj0b3.apps.googleusercontent.com",
+                                    ClientSecret = "9YdAukql7ZKrm6RUI4hfXA7S"
+                                };
+
+            app.UseFacebookAuthentication(facebookOptions);
+            app.UseMicrosoftAccountAuthentication(microsoftOptions);
+            app.UseGoogleAuthentication(googleOptions);
         }
     }
 }

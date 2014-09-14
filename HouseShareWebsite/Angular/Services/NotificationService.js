@@ -41,10 +41,14 @@
             });
         }
 
+    var connectedToHub = false;
     function tryConnectToHub() {
-        var userDetails = currentUserService.getUserDetails();
-        if (userDetails && userDetails.houseId) {
-            connectToHub();
+        if (!connectedToHub) {
+            var userDetails = currentUserService.getUserDetails();
+            if (userDetails && userDetails.houseId) {
+                connectedToHub = true;
+                connectToHub();
+            }
         }
     }
 
