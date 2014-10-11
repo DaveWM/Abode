@@ -1,1 +1,1 @@
-﻿angular.module('Filters', []);
+﻿angular.module('Filters', ['Filters.FromNow']);

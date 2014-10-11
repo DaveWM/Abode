@@ -17,12 +17,16 @@ namespace AbodeWebsite.App_Start
                 .ForMember(c => c.UserProfilePicUrl, opt => opt.MapFrom(c => c.User.ProfilePictureUrl));
             Mapper.CreateMap<NoteViewModel, Note>()
                 .ForMember(e => e.Comments, opt => opt.Ignore());
+            Mapper.CreateMap<ChoreViewModel, Chore>()
+                .ForMember(e => e.Comments, opt => opt.Ignore());
 
             Mapper.CreateMap<TileItem, TileItemViewModel>()
                 .Include<Note, NoteViewModel>()
+                .Include<Chore, ChoreViewModel>()
                 .ForMember(vm => vm.TileItemType,
-                    opt => opt.MapFrom(e => e is Note ? TileItemType.Note : TileItemType.Note));
+                    opt => opt.MapFrom(e => e is Note ? TileItemType.Note : TileItemType.Chore));
             Mapper.CreateMap<Note, NoteViewModel>();
+            Mapper.CreateMap<Chore, ChoreViewModel>();
         }
     }
 }

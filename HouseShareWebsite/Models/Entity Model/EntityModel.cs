@@ -18,6 +18,7 @@ namespace AbodeWebsite.Models
 
         public virtual DbSet<TileItem> TileItems { get; set; }
         public virtual DbSet<Note> Notes { get; set; }
+        public virtual DbSet<Chore> Chores { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<House> Houses { get; set; }
     }

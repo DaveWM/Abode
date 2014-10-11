@@ -4,14 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=no" />
     <title ng-bind="getTitle()">Abode</title>
     @Styles.Render("~/Content/css")
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="globalConfig.js"></script>
     @Scripts.Render("~/bundles/scripts")
     @Scripts.Render("~/bundles/angular")
 </head>
 <body>
     <div class="container">
-        <div class="app" ng-class="options.transitionType">
+        <div class="app slide-left">
             <div ui-view="header" class="header row"></div>
             <div ui-view="main" class="main row"></div>
         </div>

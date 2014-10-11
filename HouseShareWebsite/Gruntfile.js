@@ -9,6 +9,9 @@ module.exports = function(grunt) {
                 }
             }
         },
+        jshint: {
+            all: ['Angular/**/*.js']
+        },
         ngAnnotate: {
             all: {
                 files: {
@@ -108,14 +111,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-lenient');
     grunt.loadNpmTasks('grunt-zip');
     grunt.loadNpmTasks('grunt-phonegap-build');
     grunt.loadNpmTasks('grunt-notify');
 
-    grunt.registerTask('Release', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
-    grunt.registerTask('Release_Test', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
-    grunt.registerTask('Phonegap', ['ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build', 'notify:done']);
+    grunt.registerTask('Release', ['jshint', 'ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
+    grunt.registerTask('Release_Test', ['jshint', 'ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
+    grunt.registerTask('Phonegap', ['jshint', 'ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build', 'notify:done']);
     grunt.registerTask('Debug', []);
 }
 

@@ -36,6 +36,7 @@ namespace AbodeWebsite
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Angular/App.js",
                 "~/Angular/Controllers/*.js",
+                "~/Angular/Controllers/TileItemDetail/*.js",
                 "~/Angular/Filters/*.js",
                 "~/Angular/Directives/*.js",
                 "~/Angular/Services/*.js"

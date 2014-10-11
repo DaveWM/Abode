@@ -160,10 +160,10 @@ div.sidebar .sidebarToggle i {
   transform: rotateZ(-180deg);
 }
 [ui-view].slide {
-  -moz-transition: all ease-out 0.6s;
-  -webkit-transition: all ease-out 0.6s;
-  -o-transition: all ease-out 0.6s;
-  transition: all ease-out 0.6s;
+  -moz-transition: all ease 0.6s;
+  -webkit-transition: all ease 0.6s;
+  -o-transition: all ease 0.6s;
+  transition: all ease 0.6s;
 }
 [ui-view].slide.ng-leave,
 [ui-view].slide.ng-enter {
@@ -434,14 +434,82 @@ div.sidebar .sidebarToggle i {
 .live-tile-1 {
   height: 180px;
 }
+.live-tile-1 p,
+.live-tile-1 blockquote,
+.live-tile-1 i {
+  font-size: 1em;
+}
+.live-tile-1 h1 {
+  font-size: 36px;
+}
+.live-tile-1 h2 {
+  font-size: 36px;
+}
+.live-tile-1 h3 {
+  font-size: 36px;
+}
+.live-tile-1 h4 {
+  font-size: 36px;
+}
 .live-tile-2 {
   height: 360px;
+}
+.live-tile-2 p,
+.live-tile-2 blockquote,
+.live-tile-2 i {
+  font-size: 1.5em;
+}
+.live-tile-2 h1 {
+  font-size: 54px;
+}
+.live-tile-2 h2 {
+  font-size: 51px;
+}
+.live-tile-2 h3 {
+  font-size: 48px;
+}
+.live-tile-2 h4 {
+  font-size: 45px;
 }
 .live-tile-3 {
   height: 540px;
 }
+.live-tile-3 p,
+.live-tile-3 blockquote,
+.live-tile-3 i {
+  font-size: 2em;
+}
+.live-tile-3 h1 {
+  font-size: 72px;
+}
+.live-tile-3 h2 {
+  font-size: 66px;
+}
+.live-tile-3 h3 {
+  font-size: 60px;
+}
+.live-tile-3 h4 {
+  font-size: 54px;
+}
 .live-tile-4 {
   height: 720px;
+}
+.live-tile-4 p,
+.live-tile-4 blockquote,
+.live-tile-4 i {
+  font-size: 2.5em;
+}
+.live-tile-4 h1 {
+  font-size: 90px;
+}
+.live-tile-4 h2 {
+  font-size: 81px;
+}
+.live-tile-4 h3 {
+  font-size: 72px;
+}
+.live-tile-4 h4 {
+  font-size: 63px;
 }
 .halfHeight .live-tile {
   height: 90px;
@@ -449,14 +517,82 @@ div.sidebar .sidebarToggle i {
 .halfHeight .live-tile-1 {
   height: 90px;
 }
+.halfHeight .live-tile-1 p,
+.halfHeight .live-tile-1 blockquote,
+.halfHeight .live-tile-1 i {
+  font-size: 1em;
+}
+.halfHeight .live-tile-1 h1 {
+  font-size: 36px;
+}
+.halfHeight .live-tile-1 h2 {
+  font-size: 36px;
+}
+.halfHeight .live-tile-1 h3 {
+  font-size: 36px;
+}
+.halfHeight .live-tile-1 h4 {
+  font-size: 36px;
+}
 .halfHeight .live-tile-2 {
   height: 180px;
+}
+.halfHeight .live-tile-2 p,
+.halfHeight .live-tile-2 blockquote,
+.halfHeight .live-tile-2 i {
+  font-size: 1.5em;
+}
+.halfHeight .live-tile-2 h1 {
+  font-size: 54px;
+}
+.halfHeight .live-tile-2 h2 {
+  font-size: 51px;
+}
+.halfHeight .live-tile-2 h3 {
+  font-size: 48px;
+}
+.halfHeight .live-tile-2 h4 {
+  font-size: 45px;
 }
 .halfHeight .live-tile-3 {
   height: 270px;
 }
+.halfHeight .live-tile-3 p,
+.halfHeight .live-tile-3 blockquote,
+.halfHeight .live-tile-3 i {
+  font-size: 2em;
+}
+.halfHeight .live-tile-3 h1 {
+  font-size: 72px;
+}
+.halfHeight .live-tile-3 h2 {
+  font-size: 66px;
+}
+.halfHeight .live-tile-3 h3 {
+  font-size: 60px;
+}
+.halfHeight .live-tile-3 h4 {
+  font-size: 54px;
+}
 .halfHeight .live-tile-4 {
   height: 360px;
+}
+.halfHeight .live-tile-4 p,
+.halfHeight .live-tile-4 blockquote,
+.halfHeight .live-tile-4 i {
+  font-size: 2.5em;
+}
+.halfHeight .live-tile-4 h1 {
+  font-size: 90px;
+}
+.halfHeight .live-tile-4 h2 {
+  font-size: 81px;
+}
+.halfHeight .live-tile-4 h3 {
+  font-size: 72px;
+}
+.halfHeight .live-tile-4 h4 {
+  font-size: 63px;
 }
 .live-tile .slideContainer {
   height: 100%;
@@ -497,6 +633,23 @@ div.sidebar .sidebarToggle i {
   max-height: 90px;
   overflow-y: auto;
 }
+.live-tile-purple .live-tile-slide {
+  background-color: #7e3878;
+}
+.live-tile-purple .live-tile-slide .btn-primary {
+  background-color: #603cba;
+}
+.live-tile-purple .live-tile-slide .list-group-item {
+  color: #9f00a7;
+  background-color: #603cba;
+}
+.live-tile-purple .live-tile-slide blockquote footer {
+  color: #603cba !important;
+}
+.live-tile-purple .live-tile-slide ul {
+  max-height: 90px;
+  overflow-y: auto;
+}
 .live-tile .fix {
   position: absolute;
   left: 0;
@@ -521,6 +674,7 @@ div.sidebar .sidebarToggle i {
   position: absolute;
   left: 0;
   top: 0;
+  padding-top: 10px;
 }
 .live-tile .tileIcons {
   margin-top: 5px;
@@ -551,9 +705,21 @@ div.sidebar .sidebarToggle i {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.noteViewContainer {
-  background-color: #2d89ef;
+.tileItemDetailsContainer div {
   padding: 20px 0 20px 0;
+}
+.tileItemDetailsContainer div.note {
+  background-color: #2d89ef;
+}
+.tileItemDetailsContainer div.chore {
+  background-color: #7e3878;
+}
+.tileItemDetailsContainer div.chore .btn {
+  background-color: #622b5d !important;
+  border-color: #9f00a7 !important;
+}
+.tileItemDetailsContainer div.chore .btn:hover {
+  background-color: #603cba !important;
 }
 .imageUploadContainer {
   cursor: pointer;

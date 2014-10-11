@@ -11,13 +11,13 @@ using System.Web.Http.Results;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using AbodeWebsite.Models;
 using AbodeWebsite.Providers;
 using AbodeWebsite.Results;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace AbodeWebsite.Controllers
 {

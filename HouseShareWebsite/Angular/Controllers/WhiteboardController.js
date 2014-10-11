@@ -12,17 +12,30 @@
     .controller('whiteboardController', function ($scope, tileItemsService, notificationsService, $window) {
         $scope.tileItems = [];
 
-        $scope.typeIconMapping = {
-            'All': 'fa-circle-thin',
-            'Note': 'fa-clipboard',
-            'Events': 'fa-calendar'
-        };
-        $scope.typeFilter = 'All';
+        $scope.typeIconMapping = [
+            {
+                name: 'All',
+                icon: 'fa-circle-thin'
+            },
+            {
+                name: 'Note',
+                icon: 'fa-clipboard'
+            },
+            {
+                name: 'Chore',
+                icon: 'fa-trash'
+            }
+        ];
+        $scope.selectedItemType = $scope.typeIconMapping[0];
 
         $scope.tileTypeMapping = {
             'Note': {
                 view: 'Note.html',
                 colour: 'blue'
+            },
+            'Chore': {
+                view: 'Chore.html',
+                colour: 'purple'
             }
         };
 
@@ -31,7 +44,9 @@
     };
 
     var getTileIcons = function(tileItem) {
-        var icons = ['fa ' + $scope.typeIconMapping[tileItem.TileItemType]];
+        var icons = ['fa ' + $scope.typeIconMapping.filter(function(mapping) {
+            return mapping.name == tileItem.TileItemType;
+        })[0].icon];
         if (tileItem.Priority > 0.75) {
             icons.push('fa fa-exclamation fa-red');
         }
@@ -54,11 +69,6 @@
     }
     refresh();
 
-    $scope.tileItemOrdering = function (tileItem) {
-        var Math = $window.Math;
-        var dateDiff = moment() - moment(tileItem.CreatedDate);
-        return -1 * Math.sqrt(Math.pow(tileItem.Priority, 2) + Math.pow(Math.pow(Math.E, -1 * moment.duration(dateDiff).asDays()), 2));
-    };
     $scope.getTileItemSize = function(tileItem) {
         var totalPriority = $scope.tileItems.reduce(function(prev, curr) {
             return prev + curr.Priority;

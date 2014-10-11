@@ -23,6 +23,7 @@ namespace AbodeWebsite.Controllers
                     db.TileItems.Include("Comments")
                     .Where(ti => ti.CreatedUser.HouseId == user.HouseId)
                         .ToList()
+                        .Where(ti => !ti.Hidden)
                         .Select(Mapper.Map<TileItem, TileItemViewModel>).ToList();
                 return results;
             }

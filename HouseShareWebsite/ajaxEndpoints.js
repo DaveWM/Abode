@@ -161,6 +161,21 @@ server.endpoints = (function(prefix){
 					"GET",
 					[])	
 		},	
+		chores: {
+		
+			"create": new server.endpoint.Url(
+					prefix + "chores/create",
+					"GET",
+					["chore"]),	
+			"complete": new server.endpoint.Url(
+					prefix + "chores/complete",
+					"GET",
+					["id"]),	
+			"executeasync": new server.endpoint.Url(
+					prefix + "chores/executeasync",
+					"GET",
+					["controllerContext","cancellationToken"])	
+		},	
 		comments: {
 		
 			"getitemcomments": new server.endpoint.Url(

@@ -16,6 +16,10 @@ namespace AbodeWebsite.Models
         // should have a maximum value of 1
         public abstract decimal Priority { get; }
 
+        [NotMapped]
+        // determines if the item shows on the whiteboard
+        public abstract bool Hidden { get; }
+
         public virtual ICollection<Comment> Comments { get; set; } 
     }
 }

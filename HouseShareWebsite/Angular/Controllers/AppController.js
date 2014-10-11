@@ -18,13 +18,16 @@
         }
     };
 
-    $scope.isLoading = notificationsService.isLoading;
-
-
-    var defaultTransition = 'slide-left';
-    $scope.options = {
-        transitionType: defaultTransition
+    $rootScope.choreTypeIcons = {
+        'Dishes': 'fa-circle-o',
+        'Rubbish': 'fa-trash-o',
+        'Cleaning': 'fa-tint',
+        'Other': 'fa-asterisk'
     };
+
+    $scope.isPhone = phonegapService.isPhone;
+
+    $scope.isLoading = notificationsService.isLoading;
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
@@ -34,13 +37,6 @@
                     $state.go('app.main.house.join');
                 }
             });
-        }
-
-        // set animation type for transition
-        if (fromState.data && fromState.data.transition) {
-            $scope.options.transitionType = fromState.data.transition;
-        } else {
-            $scope.options.transitionType = defaultTransition;
         }
 
         if (toState.data && angular.isDefined(toState.data.sidebarCollapsed)) {

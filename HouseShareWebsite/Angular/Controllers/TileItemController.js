@@ -53,7 +53,8 @@
     };
 
     var tileViewMapping = {
-        'Note': 'Angular/Views/TileItemDetailViews/Note.html'
+        'Note': 'Angular/Views/TileItemDetailViews/Note.html',
+        'Chore': 'Angular/Views/TileItemDetailViews/Chore.html'
     };
 
     $scope.loadingTileItem = true;

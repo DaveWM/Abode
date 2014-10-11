@@ -7,4 +7,5 @@
     'Services.Phonegap',
     'Services.PreviousState',
     'Services.TileItems',
-    'Services.Users'])
+    'Services.Users'
+]);

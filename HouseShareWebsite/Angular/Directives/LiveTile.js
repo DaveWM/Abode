@@ -33,7 +33,7 @@
 
                 var slides = [];
                 this.addSlide = function($slideScope) {
-                    var visible = slides.length == 0;
+                    var visible = slides.length === 0;
                     $slideScope.visible = visible;
                     $slideScope.animation = $scope.animation || 'flip-x';
                     slides.push($slideScope);

@@ -1,0 +1,25 @@
+﻿<div class="col-xs-12">
+    <form ng-submit="save()" name="createChoreForm" novalidate>
+        <legend>Create a Chore</legend>
+        <fieldset ng-disabled="saving">
+            <div class="form-group" ng-class="{'has-error': createChoreForm.desc.$invalid && createChoreForm.desc.$dirty}">
+                <label for="desc">Description</label>
+                <textarea rows="4" cols="50" ng-model="description" class="form-control" required name="desc" placeholder="What needs doing?"></textarea>
+            </div>
+            <div class="spacer text-center">
+                <label>How Urgent is it?</label>
+                <icon-select icon-mapping="completionDates" selected="selectedUrgency"></icon-select>
+                <input type="hidden" required ng-model="selectedUrgency.date" />
+            </div>
+            <div class="spacer text-center">
+                <label>Chore Type</label>
+                <icon-select icon-mapping="types" selected="selectedChoreType"></icon-select>
+                <input type="hidden" required ng-model="selectedChoreType.name" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block spacer"
+                    ng-disabled="!createChoreForm.$valid">
+                Save <i class="fa fa-floppy-o"></i> <loading-icon class="spacer" large="true" ng-show="saving"></loading-icon>
+            </button>
+        </fieldset>
+    </form>
+</div>

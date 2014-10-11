@@ -239,10 +239,12 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\ChoresController.cs" />
     <Compile Include="Controllers\Helpers\TileItemHelpers.cs" />
     <Compile Include="Controllers\UserController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enums\ChoreType.cs" />
     <Compile Include="HouseHub.cs" />
     <Compile Include="App_Start\AutoMapperBootstrapper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -265,12 +267,14 @@
     <Compile Include="Attributes\HubAuthorizeAttribute.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Chore.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Entity Model\EntityModel.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\TileItem.cs" />
+    <Compile Include="Models\ViewModels\ChoreViewModel.cs" />
     <Compile Include="Models\ViewModels\CommentViewModel.cs" />
     <Compile Include="Models\ViewModels\HouseViewModel.cs" />
     <Compile Include="Models\ViewModels\NoteViewModel.cs" />
@@ -292,10 +296,12 @@
     </Content>
     <Content Include="Angular\App.js" />
     <Content Include="Angular\Controllers\AppController.js" />
+    <Content Include="Angular\Controllers\ChoresController.js" />
     <Content Include="Angular\Controllers\Controllers.js" />
-    <Content Include="Angular\Controllers\NotesControllers.js" />
+    <Content Include="Angular\Controllers\NotesController.js" />
     <Content Include="Angular\Controllers\HouseControllers.js" />
     <Content Include="Angular\Controllers\TileItemController.js" />
+    <Content Include="Angular\Controllers\TileItemDetail\ChoreDetailController.js" />
     <Content Include="Angular\Controllers\UserSettingsController.js" />
     <Content Include="Angular\Controllers\WhiteboardController.js" />
     <Content Include="Angular\Controllers\LoginController.js" />
@@ -308,6 +314,7 @@
     <Content Include="Angular\Directives\ProfilePic.js" />
     <Content Include="Angular\Directives\IconSelect.js" />
     <Content Include="Angular\Filters\Filters.js" />
+    <Content Include="Angular\Filters\FromNow.js" />
     <Content Include="Angular\Services\AuthService.js" />
     <Content Include="Angular\Services\CommentsService.js" />
     <Content Include="Angular\Services\CurrentUserService.js" />
@@ -317,6 +324,7 @@
     <Content Include="Angular\Services\Services.js" />
     <Content Include="Angular\Services\TileItemsService.js" />
     <Content Include="Angular\Services\UsersService.js" />
+    <Content Include="Angular\Views\CreateChore.html" />
     <Content Include="Angular\Views\CreateHouse.html" />
     <Content Include="Angular\Views\CreateNote.html" />
     <Content Include="Angular\Views\DefaultHeader.html" />
@@ -324,8 +332,10 @@
     <Content Include="Angular\Views\JoinHouse.html" />
     <Content Include="Angular\Views\NoHouseSidebar.html" />
     <Content Include="Angular\Views\TileItemDetails.html" />
+    <Content Include="Angular\Views\TileItemDetailViews\Chore.html" />
     <Content Include="Angular\Views\TileItemDetailViews\Note.html" />
     <Content Include="Angular\Views\UserSettings.html" />
+    <Content Include="Angular\Views\WhiteboardTileItems\Chore.html" />
     <Content Include="Angular\Views\WhiteboardTileItems\Note.html" />
     <Content Include="Angular\Views\Whiteboard.html" />
     <Content Include="Angular\Views\Login.html" />

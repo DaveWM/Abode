@@ -82,7 +82,7 @@ var appModule = angular.module('App', [
                     if (!config) {
                         config = {};
                     }
-                    config.headers['Authorization'] = 'Bearer ' + currentUserService.getToken();
+                    config.headers.Authorization = 'Bearer ' + currentUserService.getToken();
                     notificationsService.addLoadingTask();
                     return config;
                 },

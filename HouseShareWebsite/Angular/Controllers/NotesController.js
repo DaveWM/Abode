@@ -1,5 +1,5 @@
 ﻿angular.module('Controllers.Notes', ['ui.bootstrap', 'Services.TileItems'])
-    .config(function ($stateProvider) {
+    .config(function($stateProvider) {
         $stateProvider
             .state('app.main.createNote', {
                 url: '/notes/create',
@@ -16,7 +16,7 @@
         $scope.title = '';
         $scope.content = '';
         $scope.maxRating = 10;
-        $scope.importanceRating = $scope.maxRating/2;
+        $scope.importanceRating = $scope.maxRating / 2;
 
         $scope.saving = false;
         $scope.saveNote = function() {
@@ -27,14 +27,11 @@
             };
 
             $scope.saving = true;
-            tileItemsService.createNote(note).then(function () {
-                $state.go('app.main.whiteboard');
-            })
-            .finally(function() {
-                $scope.saving = false;
-            });
+            tileItemsService.createNote(note).then(function() {
+                    $state.go('app.main.whiteboard');
+                })
+                .finally(function() {
+                    $scope.saving = false;
+                });
         };
-    })
-    .controller('viewNote', function() {
-        
     });

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using AbodeWebsite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -9,10 +8,8 @@ using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.MicrosoftAccount;
 using Microsoft.Owin.Security.OAuth;
-using Microsoft.Owin.Security.Twitter;
 using Owin;
 using AbodeWebsite.Providers;
-using WebGrease.Css.Extensions;
 
 namespace AbodeWebsite
 {

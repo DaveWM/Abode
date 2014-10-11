@@ -41,6 +41,18 @@
 
 
 @contentBackgroundColour: rgba(43,87,151,0.4);
+
+
+.buttonColours(@light, @normal, @dark){
+    .btn{
+        background-color:@normal !important;
+        border-color: @light !important;
+        &:hover{
+            background-color: @dark !important;
+        }
+    }
+}
+
 //fix for phonegap not rendering fa icons
 .fa {
   text-rendering: auto !important;
@@ -214,7 +226,7 @@ div.sidebar{
 }
 
 [ui-view].slide{
-    .transition(all ease-out 0.6s);
+    .transition(all ease 0.6s);
     &.ng-leave, &.ng-enter{
         position: absolute;
     }
@@ -409,6 +421,21 @@ div.sidebar{
         .generateSizes(@size - 1, @baseHeight);
         &-@{size}{
             height: @baseHeight * @size;
+            p, blockquote, i{
+                font-size: 1em + (1em * (@size - 1)/2);
+            }
+            h1{
+                font-size: @font-size-h1 + (@font-size-h1 * (@size - 1)/2);
+            }
+            h2{
+                font-size: @font-size-h1 + (@font-size-h2 * (@size - 1)/2);
+            }
+            h3{
+                font-size: @font-size-h1 + (@font-size-h3 * (@size - 1)/2);
+            }
+            h4{
+                font-size: @font-size-h1 + (@font-size-h4 * (@size - 1)/2);
+            }
         }
     }
     .generateSizes(4, @defaultTileHeight);
@@ -431,6 +458,9 @@ div.sidebar{
     &-green{
         .colouredTile(@lightGreen, @green, @darkGreen);
     }
+    &-purple{
+        .colouredTile(@lightPurple, @purple, @darkPurple);
+    }
     .fix{
         position:absolute;
         left:0;
@@ -451,6 +481,7 @@ div.sidebar{
         position:absolute;
         left:0;
         top:0;
+        padding-top: 10px;
     }
     .tileIcons{
         margin-top: 5px;
@@ -486,9 +517,17 @@ div.sidebar{
     margin-bottom: 5px;
 }
 
-.noteViewContainer{
-    background-color: @blue;
-    padding: 20px 0 20px 0;
+.tileItemDetailsContainer{
+    div{
+        padding: 20px 0 20px 0;
+        &.note{
+            background-color: @blue;
+        }
+        &.chore{
+            background-color: @purple;
+            .buttonColours(@lightPurple, darken(@purple, 8%), @darkPurple);
+        }
+    }
 }
 
 .imageUploadContainer{
@@ -533,14 +572,9 @@ div.sidebar{
 .houseDetailsContainer{
     background-color: @darkGreen;
     padding: 20px 10px 20px 10px;
-    .btn{
-        background-color:@green !important;
-        border-color: @lightGreen !important;
-        &:hover{
-            background-color: @darkGreen !important;
-        }
-    }
+    .buttonColours(@lightGreen, @green, @darkGreen);
 }
+
 .btn{
     .brandButton(@primaryColour, @secondaryColour){
         background-color: @primaryColour;

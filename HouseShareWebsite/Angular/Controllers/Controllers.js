@@ -1,5 +1,7 @@
 ﻿angular.module('Controllers', [
     'Controllers.App',
+    'Controllers.Chores',
+    'Controllers.ChoreDetails',
     'Controllers.Login',
     'Controllers.Register',
     'Controllers.Home',

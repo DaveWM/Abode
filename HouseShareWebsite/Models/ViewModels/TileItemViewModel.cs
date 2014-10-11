@@ -5,7 +5,8 @@ namespace AbodeWebsite.Models.ViewModels
 {
     public enum TileItemType
     {
-        Note = 1
+        Note = 1,
+        Chore = 2
     }
     public abstract class TileItemViewModel
     {
@@ -16,5 +17,6 @@ namespace AbodeWebsite.Models.ViewModels
         public decimal Priority { get; set; }
         public List<CommentViewModel> Comments { get; set; }
         public TileItemType TileItemType { get; set; }
+        public bool Hidden { get; set; }
     }
 }

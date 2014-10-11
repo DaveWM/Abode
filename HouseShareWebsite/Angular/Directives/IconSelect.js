@@ -2,7 +2,7 @@
     .directive('iconSelect', function() {
         return {
             restrict: 'E',
-            template: '<div class="iconSelect"><i ng-repeat="(option, iconClass) in iconMapping" ng-class="[option == selected ? \'selected\' : \'\', iconClass]" class="fa fa-2x" ng-click="onClick(option)" tooltip-placement="bottom" tooltip="{{option}}"></i></div>',
+            template: '<div class="iconSelect"><i ng-repeat="mapping in iconMapping" ng-class="[mapping == selected ? \'selected\' : \'\', mapping.icon]" class="fa fa-2x" ng-click="onClick(mapping)" tooltip-placement="bottom" tooltip="{{mapping.name}}"></i></div>',
             scope: {
                 iconMapping: '=',
                 selected: '='

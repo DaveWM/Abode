@@ -1,0 +1,12 @@
+﻿<live-tile-slide>
+    <h4 class="text-center">Chore - {{tileItem.ChoreType}}</h4>
+    <p class="text-center"><i class="fa fa-3x" ng-class="choreTypeIcons[tileItem.ChoreType]"></i></p>
+    <p class="fix fix-bottom text-center"><i class="fa fa-2x fa-comments-o"></i> {{tileItem.Comments.length}}</p>
+</live-tile-slide>
+<live-tile-slide>
+    <h4 class="spacer"><i class="fa fa-clock-o"></i> Due {{tileItem.ExpectedCompletionDate | fromNow}}</h4>
+    <div class="fix fix-bottom">
+        <p><i class="fa fa-user"></i> {{tileItem.CreatedUser.RealName}}</p>
+        <p><i class="fa fa-calendar-o"></i> {{tileItem.CreatedDate | date : 'medium'}}</p>
+    </div>
+</live-tile-slide>
