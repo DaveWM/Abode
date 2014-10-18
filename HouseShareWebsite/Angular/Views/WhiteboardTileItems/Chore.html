@@ -5,6 +5,9 @@
 </live-tile-slide>
 <live-tile-slide>
     <h4 class="spacer"><i class="fa fa-clock-o"></i> Due {{tileItem.ExpectedCompletionDate | fromNow}}</h4>
+    <div class="text-center">
+        <p>{{tileItem.Description}}</p>
+    </div>
     <div class="fix fix-bottom">
         <p><i class="fa fa-user"></i> {{tileItem.CreatedUser.RealName}}</p>
         <p><i class="fa fa-calendar-o"></i> {{tileItem.CreatedDate | date : 'medium'}}</p>
