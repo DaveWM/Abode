@@ -22,7 +22,7 @@
                     sm: 4,
                     md: 3
                 };
-                $scope.size = $window.Math.min(4, $window.Math.round($scope.size));
+                $scope.size = $window.Math.min(4, $window.Math.max(1, $window.Math.round($scope.size)));
                 $scope.columnClass = Object.keys(columnSizes).reduce(function(prev, key) {
                     return prev + ' col-' + key + '-' + ($window.Math.min(columnSizes[key] * ($scope.size || 1), 12));
                 }, '');

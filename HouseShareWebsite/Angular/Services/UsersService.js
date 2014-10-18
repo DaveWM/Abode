@@ -1,16 +1,12 @@
 ﻿angular.module('Services.Users', [])
-    .factory('usersService', function($http) {
+    .factory('usersService', function($http, Restangular) {
         return {
             getUser: function(id) {
-                return $http.get(server.endpoints.user.getuser.uri, { params: { userId: id } });
-            },
-
-            getHousemates: function(houseId) {
-                return $http.get(server.endpoints.user.gethousemates.uri, { params: { houseId: houseId } });
+                return Restangular.one("users", id).get();
             },
 
             updateUser: function(user) {
-                return $http.post(server.endpoints.user.updateuser.uri, user);
+                return Restangular.all("users").customPUT(user, "current");
             }
         };
     });

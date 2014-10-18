@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -52,15 +55,16 @@ namespace AbodeWebsite.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET api/Account/GetUserInfo
+        // GET api/Account/
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("GetUserInfo")]
+        [HttpGet]
+        [Route("")]
         public UserInfoViewModel GetUserInfo()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(claimsIdentity);
 
-            using (var db=new EntityModel())
+            using (var db = new EntityModel())
             {
                 ApplicationUser user = db.Users.FirstOrDefault(u => u.UserName == claimsIdentity.Name);
 
@@ -76,7 +80,9 @@ namespace AbodeWebsite.Controllers
             }
         }
 
-        public async Task<string> Ping()
+        [Route("ticket")]
+        [HttpGet]
+        public async Task<string> RefreshTicket()
         {
             using (var db = new EntityModel())
             {
@@ -88,8 +94,9 @@ namespace AbodeWebsite.Controllers
             }
         }
 
-        // POST api/Account/Logout
-        [Route("Logout")]
+        // DELETE api/Account
+        [Route("")]
+        [HttpDelete]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -147,7 +154,7 @@ namespace AbodeWebsite.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -272,7 +279,7 @@ namespace AbodeWebsite.Controllers
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 return new ChallengeResult(provider, this);
             }
-            
+
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
             var phoneNumber = claimsUser.FindFirst(ClaimTypes.MobilePhone).IfNotNull(p => p.Value);
@@ -282,18 +289,12 @@ namespace AbodeWebsite.Controllers
 
             if (user == null)
             {
-                var registerResult = await RegisterExternal(new RegisterExternalBindingModel
+                await RegisterExternal(new RegisterExternalBindingModel
                 {
                     Email = email,
                     RealName = name,
                     PhoneNumber = phoneNumber
                 });
-
-                // need to refactor this - if result is not null it means an error occured
-                if (registerResult != null)
-                {
-                    return registerResult;
-                }
                 user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
             }
@@ -306,7 +307,7 @@ namespace AbodeWebsite.Controllers
             AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user);
             Authentication.SignIn(properties, oAuthIdentity);
             var ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            
+
             return new RedirectResult(new Uri("/#/externallogin/" + Startup.OAuthOptions.AccessTokenFormat.Protect(ticket), UriKind.Relative), Request);
         }
 
@@ -351,9 +352,10 @@ namespace AbodeWebsite.Controllers
             return logins;
         }
 
-        // POST api/Account/Register
+        // POST api/Account
         [AllowAnonymous]
-        [Route("Register")]
+        [Route("")]
+        [HttpPost]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -361,7 +363,7 @@ namespace AbodeWebsite.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() {UserName = model.Email, Email = model.Email, RealName = model.Name};
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, RealName = model.Name };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -373,44 +375,38 @@ namespace AbodeWebsite.Controllers
             return Ok();
         }
 
-        // POST api/Account/RegisterExternal
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("RegisterExternal")]
-        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        private async Task<bool> RegisterExternal(RegisterExternalBindingModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                throw new ValidationException("Error validating the registration model");
             }
 
             var info = await Authentication.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                return InternalServerError();
+                throw new AuthenticationException("GetExternalLoginInfoAsync() failed");
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, RealName = model.RealName, PhoneNumber = model.PhoneNumber};
-
-            try
+            var user = new ApplicationUser()
+                       {
+                           UserName = model.Email,
+                           Email = model.Email,
+                           RealName = model.RealName,
+                           PhoneNumber = model.PhoneNumber
+                       };
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (!result.Succeeded)
             {
-                IdentityResult result = await UserManager.CreateAsync(user);
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
+                throw new Exception(string.Format("Errors: {0}", String.Join(", ", result.Errors)));
+            }
 
-                result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-            }
-            catch (Exception e)
+            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+            if (!result.Succeeded)
             {
-                Console.WriteLine(e);
+                throw new Exception(string.Format("Errors: {0}", String.Join(", ", result.Errors)));
             }
-            return null;
+            return true;
         }
 
         protected override void Dispose(bool disposing)

@@ -1,4 +1,4 @@
-﻿angular.module('Controllers.UserSettings', ['angularFileUpload', 'Services.Users', 'Services.House', 'Services.Notifications', 'Directives.ProfilePic', 'ui.bootstrap'])
+﻿angular.module('Controllers.UserSettings', ['angularFileUpload', 'Services.Users', 'Services.House', 'Services.Notifications', 'Directives.ProfilePic', 'ui.bootstrap', 'config'])
     .config(function($stateProvider) {
         $stateProvider.state('app.main.userSettings', {
             url: '/settings/:userId',
@@ -15,40 +15,31 @@
             resolve: {
                 user: function (usersService, $stateParams) {
                     var userId = $stateParams.userId;
-                    return usersService.getUser(userId)
-                        .then(function(response) {
-                            return response.data;
-                        });
+                    return usersService.getUser(userId);
                 },
                 house: function (houseService, user, $q) {
                     if (user.HouseId) {
-                        return houseService.getHouse(user.HouseId)
-                            .then(function(response) {
-                                return response.data;
-                            });
+                        return houseService.getHouse(user.HouseId);
                     }
                     return {};
                 },
-                housemates: function (usersService, user, $q) {
+                housemates: function (houseService, user, $q) {
                     if (user.HouseId) {
-                        return usersService.getHousemates(user.HouseId)
-                            .then(function(response) {
-                                return response.data;
-                            });
+                        return houseService.getHousemates(user.HouseId);
                     }
                     return [];
                 }
             }
         });
     })
-    .controller('userSettingsController', function($scope, $stateParams, $upload, $q, notificationsService, usersService, currentUserService, user, house, housemates) {
+    .controller('userSettingsController', function($scope, $stateParams, $upload, $q, notificationsService, usersService, currentUserService, user, house, housemates, config) {
     $scope.user = user;
     $scope.house = house;
     $scope.housemates = housemates;
 
     $scope.editable = currentUserService.getUserDetails().id == $stateParams.userId;
 
-    var uploadUrl = server.endpoints.user.uploadprofilepicture.uri;
+    var uploadUrl = config.apiUrl + "/users/current/profilePicture";
     $scope.uploading = false;
     $scope.uploadProgress = 0;
     $scope.uploadProfilePicture = function($files) {

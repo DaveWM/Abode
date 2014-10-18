@@ -32,7 +32,7 @@ namespace AbodeWebsite
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             OAuthOptions = new OAuthAuthorizationServerOptions
                            {
-                               TokenEndpointPath = new PathString("/Token"),
+                               TokenEndpointPath = new PathString("/API/Token"),
                                Provider = new ApplicationOAuthProvider(PublicClientId),
                                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),

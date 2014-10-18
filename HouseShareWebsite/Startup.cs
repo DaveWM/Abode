@@ -11,7 +11,7 @@ namespace AbodeWebsite
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            app.MapSignalR(new HubConfiguration()
+            app.MapSignalR("/api/signalr", new HubConfiguration()
                            {
                                EnableJSONP = true
                            });

@@ -1,36 +1,32 @@
 ﻿angular.module('Services.TileItems', ['Services.Notifications'])
-    .factory('tileItemsService', function($http, notificationsService) {
+    .factory('tileItemsService', function($http, notificationsService, Restangular) {
         return {
             createNote: function(note) {
-                return $http.post(server.endpoints.notes.createnote.uri, note)
+                return Restangular.all("notes").post(note)
                     .then(function() {
                         notificationsService.notifySuccess('Note Added');
                     });
             },
 
             createChore: function(chore) {
-                return $http.post(server.endpoints.chores.create.uri, chore)
+                return Restangular.all("chores").post(chore)
                     .then(function() {
                         notificationsService.notifySuccess('Chore Added');
                     });
             },
             completeChore: function(id) {
-                return $http.delete(server.endpoints.chores.complete.uri, {
-                        params: { id: id }
-                    })
+                return Restangular.one("chores", id).remove()
                     .then(function() {
                         notificationsService.notifySuccess('Chore Completed');
                     });
             },
 
             getWhiteboardItems: function() {
-                return $http.get(server.endpoints.tileitems.getwhiteboardtileitems.uri);
+                return Restangular.all("items").getList();
             },
 
             getTileItemDetails: function(tileItemId) {
-                return $http.get(server.endpoints.tileitems.gettileitem.uri, {
-                    params: { tileItemId: tileItemId }
-                });
+                return Restangular.one("items", tileItemId).get();
             }
         };
     });

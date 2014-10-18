@@ -1,10 +1,10 @@
-﻿angular.module('Services.Notifications', ['Services.CurrentUser', 'Services.Phonegap'])
-    .factory('notificationsService', function (currentUserService, phonegapService) {
+﻿angular.module('Services.Notifications', ['Services.CurrentUser', 'Services.Phonegap', 'config'])
+    .factory('notificationsService', function (currentUserService, phonegapService, config) {
         var loadingTasksCount = 0;
         var hub;
 
     function connectToHub() {
-            var connection = $.hubConnection(globalConfig.apiUrl + "/signalr", { useDefaultPath: false });
+        var connection = $.hubConnection(config.apiUrl + "/signalr", { useDefaultPath: false });
             hub = connection.createHubProxy('houseHub');
             connection.qs = { 'token': currentUserService.getToken() };
 

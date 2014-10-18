@@ -1,5 +1,5 @@
-﻿angular.module('Controllers.Login', ['Services.Auth','ui.router','ngTouch'])
-    .config(function ($stateProvider) {
+﻿angular.module('Controllers.Login', ['Services.Auth','ui.router','ngTouch', 'config'])
+    .config(function ($stateProvider, config) {
         $stateProvider.state('app.login', {
             url: '/login',
             templateUrl: 'Angular/Views/Login.html',
@@ -11,7 +11,7 @@
             },
             resolve: {
                 externalLogins: function($http) {
-                    return $http.get(server.endpoints.account.getexternallogins.uri, {
+                    return $http.get(config.apiUrl + "/account/GetExternalLogins", {
                         params: {returnUrl: '/'}
                         })
                         .then(function(response) {

@@ -7,9 +7,11 @@ using AutoMapper;
 
 namespace AbodeWebsite.Controllers
 {
+    [RoutePrefix("api/Chores")]
     public class ChoresController : ApiController
     {
         [HttpPost]
+        [Route("")]
         public IHttpActionResult Create(ChoreViewModel chore)
         {
             using (var db = new EntityModel())
@@ -29,6 +31,7 @@ namespace AbodeWebsite.Controllers
         }
 
         [HttpDelete]
+        [Route("{id:int}")]
         public IHttpActionResult Complete(int id)
         {
             using (var db = new EntityModel())

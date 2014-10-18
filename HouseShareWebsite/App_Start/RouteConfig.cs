@@ -10,14 +10,12 @@ namespace AbodeWebsite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("Token");
 
-            routes.MapRoute("API", "api/{controller}/{action}/{id}",
-                new {controller = "App", action = "Index", id = UrlParameter.Optional});
+            routes.IgnoreRoute("api/{*url}");
             routes.MapRoute(
                 name: "Client URLs",
                 url: "{*url}",
                 defaults: new { controller = "App", action = "Index", id = UrlParameter.Optional }
             );
-            routes.MapRoute("auth", "token");
         }
     }
 }

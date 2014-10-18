@@ -57,8 +57,8 @@
 
     function refresh() {
         tileItemsService.getWhiteboardItems()
-            .then(function(response) {
-                $scope.tileItems = response.data;
+            .then(function(items) {
+                $scope.tileItems = items;
                 $scope.tileItems.forEach(function(item) {
                     item.icons = getTileIcons(item);
                 });

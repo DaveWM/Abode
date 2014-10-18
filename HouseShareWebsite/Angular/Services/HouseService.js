@@ -1,38 +1,40 @@
 ﻿angular.module('Services.House', ['Services.CurrentUser'])
-    .factory('houseService', function($http, currentUserService, authService) {
+    .factory('houseService', function($http, currentUserService, authService, Restangular) {
         return {
             getCurrentHouse: function() {
-                return $http.get(server.endpoints.house.getcurrenthouse.uri);
+                return Restangular.one("houses", 0).get();
             },
 
-            searchHouses: function(str) {
-                return $http.get(server.endpoints.house.search.uri, {
-                    params: { searchString: str }
-                });
+            searchHouses: function(searchString) {
+                return Restangular.all("houses").getList({ 'searchString': searchString });
+            },
+
+            getHousemates: function (houseId) {
+                return Restangular.one("houses",houseId).all("housemates").getList();
             },
 
             createHouse: function(name, password) {
-                return $http.post(server.endpoints.house.createhouse.uri, { Name: name, Password: password })
-                    .then(function(response) {
-                        currentUserService.setHouseId(response.data.Id);
+                return Restangular.all("houses").post({ Name: name, Password: password })
+                    .then(function(house) {
+                        currentUserService.setHouseId(house.Id);
                         return authService.ping().finally(function() {
-                            return response;
+                            return house;
                         });
                     });
             },
 
             joinHouse: function(id, password) {
-                return $http.post(server.endpoints.house.joinhouse.uri, { Id: id, Password: password })
-                    .then(function(response) {
-                        currentUserService.setHouseId(response.data.Id);
+                return Restangular.one("houses", id).customPUT(password, "join")
+                    .then(function (house) {
+                        currentUserService.setHouseId(house.Id);
                         return authService.ping().finally(function() {
-                            return response;
+                            return house;
                         });
                     });
             },
 
             getHouse: function(id) {
-                return $http.get(server.endpoints.house.gethouse.uri, { params: { houseId: id } });
+                return Restangular.one("houses", id).get();
             }
         };
     });

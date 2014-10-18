@@ -9,9 +9,9 @@ namespace AbodeWebsite.Models
         {
             get
             {
-                var importanceComponent = Math.Pow((double)Importance,2);
-                var dateComponent = Math.Pow(Math.Exp(-1*(DateTime.Now - this.CreatedDate).TotalDays), 2);
-                return (decimal)Math.Sqrt(importanceComponent + dateComponent);
+                var importanceComponent = Math.Pow((double)Importance,2)/2;
+                var dateComponent = Math.Min(0.5, Math.Pow(Math.Exp(-1*(DateTime.Now - this.CreatedDate).TotalDays), 2));
+                return (decimal)Math.Min(1, Math.Sqrt(importanceComponent + dateComponent));
             }
         }
 

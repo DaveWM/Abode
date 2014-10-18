@@ -15,8 +15,8 @@ namespace AbodeWebsite
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 "~/Scripts/jquery-{version}.js",
+                "~/Scripts/lodash.js",
                 "~/Scripts/toastr.js",
-                "~/Scripts/ajaxEndpoints.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/moment.js",
                 "~/Scripts/angular-file-upload-html5-shim.js",
@@ -32,8 +32,10 @@ namespace AbodeWebsite
                 "~/Scripts/angular-breakpoint.js",
                 "~/Scripts/jquery.signalR-2.1.1.js",
                 "~/Scripts/hammer.js",
-                "~/Scripts/angular-hammer.js"));
+                "~/Scripts/angular-hammer.js",
+                "~/Scripts/restangular.js"));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Angular/globalConfig.js",
                 "~/Angular/App.js",
                 "~/Angular/Controllers/*.js",
                 "~/Angular/Controllers/TileItemDetail/*.js",

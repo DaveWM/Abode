@@ -435,81 +435,77 @@ div.sidebar .sidebarToggle i {
   height: 180px;
 }
 .live-tile-1 p,
-.live-tile-1 blockquote,
-.live-tile-1 i {
+.live-tile-1 blockquote {
   font-size: 1em;
 }
 .live-tile-1 h1 {
   font-size: 36px;
 }
 .live-tile-1 h2 {
-  font-size: 36px;
+  font-size: 30px;
 }
 .live-tile-1 h3 {
-  font-size: 36px;
+  font-size: 24px;
 }
 .live-tile-1 h4 {
-  font-size: 36px;
+  font-size: 18px;
 }
 .live-tile-2 {
   height: 360px;
 }
 .live-tile-2 p,
-.live-tile-2 blockquote,
-.live-tile-2 i {
+.live-tile-2 blockquote {
   font-size: 1.5em;
 }
 .live-tile-2 h1 {
   font-size: 54px;
 }
 .live-tile-2 h2 {
-  font-size: 51px;
+  font-size: 45px;
 }
 .live-tile-2 h3 {
-  font-size: 48px;
+  font-size: 36px;
 }
 .live-tile-2 h4 {
-  font-size: 45px;
+  font-size: 27px;
 }
 .live-tile-3 {
   height: 540px;
 }
 .live-tile-3 p,
-.live-tile-3 blockquote,
-.live-tile-3 i {
+.live-tile-3 blockquote {
   font-size: 2em;
 }
 .live-tile-3 h1 {
   font-size: 72px;
 }
 .live-tile-3 h2 {
-  font-size: 66px;
-}
-.live-tile-3 h3 {
   font-size: 60px;
 }
+.live-tile-3 h3 {
+  font-size: 48px;
+}
 .live-tile-3 h4 {
-  font-size: 54px;
+  font-size: 36px;
 }
 .live-tile-4 {
   height: 720px;
 }
 .live-tile-4 p,
-.live-tile-4 blockquote,
-.live-tile-4 i {
+.live-tile-4 blockquote {
   font-size: 2.5em;
 }
 .live-tile-4 h1 {
   font-size: 90px;
 }
 .live-tile-4 h2 {
-  font-size: 81px;
+  font-size: 75px;
 }
 .live-tile-4 h3 {
-  font-size: 72px;
+  font-size: 60px;
 }
 .live-tile-4 h4 {
-  font-size: 63px;
+  font-size: 45px;
 }
 .halfHeight .live-tile {
   height: 90px;
@@ -518,81 +514,77 @@ div.sidebar .sidebarToggle i {
   height: 90px;
 }
 .halfHeight .live-tile-1 p,
-.halfHeight .live-tile-1 blockquote,
-.halfHeight .live-tile-1 i {
+.halfHeight .live-tile-1 blockquote {
   font-size: 1em;
 }
 .halfHeight .live-tile-1 h1 {
   font-size: 36px;
 }
 .halfHeight .live-tile-1 h2 {
-  font-size: 36px;
+  font-size: 30px;
 }
 .halfHeight .live-tile-1 h3 {
-  font-size: 36px;
+  font-size: 24px;
 }
 .halfHeight .live-tile-1 h4 {
-  font-size: 36px;
+  font-size: 18px;
 }
 .halfHeight .live-tile-2 {
   height: 180px;
 }
 .halfHeight .live-tile-2 p,
-.halfHeight .live-tile-2 blockquote,
-.halfHeight .live-tile-2 i {
+.halfHeight .live-tile-2 blockquote {
   font-size: 1.5em;
 }
 .halfHeight .live-tile-2 h1 {
   font-size: 54px;
 }
 .halfHeight .live-tile-2 h2 {
-  font-size: 51px;
+  font-size: 45px;
 }
 .halfHeight .live-tile-2 h3 {
-  font-size: 48px;
+  font-size: 36px;
 }
 .halfHeight .live-tile-2 h4 {
-  font-size: 45px;
+  font-size: 27px;
 }
 .halfHeight .live-tile-3 {
   height: 270px;
 }
 .halfHeight .live-tile-3 p,
-.halfHeight .live-tile-3 blockquote,
-.halfHeight .live-tile-3 i {
+.halfHeight .live-tile-3 blockquote {
   font-size: 2em;
 }
 .halfHeight .live-tile-3 h1 {
   font-size: 72px;
 }
 .halfHeight .live-tile-3 h2 {
-  font-size: 66px;
-}
-.halfHeight .live-tile-3 h3 {
   font-size: 60px;
 }
+.halfHeight .live-tile-3 h3 {
+  font-size: 48px;
+}
 .halfHeight .live-tile-3 h4 {
-  font-size: 54px;
+  font-size: 36px;
 }
 .halfHeight .live-tile-4 {
   height: 360px;
 }
 .halfHeight .live-tile-4 p,
-.halfHeight .live-tile-4 blockquote,
-.halfHeight .live-tile-4 i {
+.halfHeight .live-tile-4 blockquote {
   font-size: 2.5em;
 }
 .halfHeight .live-tile-4 h1 {
   font-size: 90px;
 }
 .halfHeight .live-tile-4 h2 {
-  font-size: 81px;
+  font-size: 75px;
 }
 .halfHeight .live-tile-4 h3 {
-  font-size: 72px;
+  font-size: 60px;
 }
 .halfHeight .live-tile-4 h4 {
-  font-size: 63px;
+  font-size: 45px;
 }
 .live-tile .slideContainer {
   height: 100%;

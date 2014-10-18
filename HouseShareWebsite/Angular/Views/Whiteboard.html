@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="text-center spacer row">
-    <live-tile ng-repeat="tileItem in tileItems | filter: textFilter | filter: {TileItemType: selectedItemType.name == 'All' ? '' : selectedItemType.name} | orderBy : 'Priority'" colour="{{tileTypeMapping[tileItem.TileItemType].colour}}"
+    <live-tile ng-repeat="tileItem in tileItems | filter: textFilter | filter: {TileItemType: selectedItemType.name == 'All' ? '' : selectedItemType.name} | orderBy : 'Priority' : true" colour="{{tileTypeMapping[tileItem.TileItemType].colour}}"
                ui-sref="app.main.tileItemDetails({ tileItemId: tileItem.Id})" hover-slide="1" animation="flip-y" size="{{getTileItemSize(tileItem)}}" icons="tileItem.icons">
         <div ng-include="getTileView(tileItem.TileItemType)"></div>
     </live-tile>

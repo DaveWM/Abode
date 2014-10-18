@@ -16,7 +16,7 @@ using WebGrease.Css.Extensions;
 
 namespace AbodeWebsite.Controllers
 {
-    [RoutePrefix("api/user")]
+    [RoutePrefix("api/users")]
     public class UserController : ApiController
     {
         private CloudBlobContainer _profilePicsContainer;
@@ -29,7 +29,7 @@ namespace AbodeWebsite.Controllers
         }
 
         [HttpPost]
-        [Route("UploadProfilePicture")]
+        [Route("current/profilePicture")]
         public async Task<HttpResponseMessage> UploadProfilePicture()
         {
             var streamProvider = await Request.Content.ReadAsMultipartAsync();
@@ -42,8 +42,8 @@ namespace AbodeWebsite.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, blob.Uri.AbsoluteUri);
         }
 
+        [Route("{userId}")]
         [HttpGet]
-        [Route("GetUser")]
         public UserViewModel GetUser(string userId)
         {
             using (var db = new EntityModel())
@@ -55,22 +55,9 @@ namespace AbodeWebsite.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetHousemates")]
-        public List<UserViewModel> GetHousemates(int houseId)
-        {
-            using (var db = new EntityModel())
-            {
-                if (houseId != UserHelpers.GetCurrentUser().HouseId)
-                {
-                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
-                return Mapper.Map<ICollection<ApplicationUser>, List<UserViewModel>>(db.Houses.FirstOrDefault(h => h.Id == houseId).Users);
-            }
-        }
 
-        [HttpPost]
-        [Route("UpdateUser")]
+        [HttpPut]
+        [Route("current")]
         public IHttpActionResult UpdateUser(UserViewModel user)
         {
             using (var db = new EntityModel())

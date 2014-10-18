@@ -14,7 +14,7 @@ namespace AbodeWebsite.Models
             get
             {
                 const double expConstant = 0.12; // gives priority after 1 day = 0.88, after 7 days = 0.43 - about right
-                return (decimal)Math.Min(1, Math.Exp(-1 * (ExpectedCompletionDate - DateTime.Now).TotalDays) * expConstant);
+                return (decimal)Math.Min(1, Math.Exp(-1 * (ExpectedCompletionDate - DateTime.Now).TotalDays * expConstant));
             }
         }
 

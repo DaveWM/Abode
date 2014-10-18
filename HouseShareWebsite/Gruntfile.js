@@ -19,6 +19,13 @@ module.exports = function(grunt) {
                         'Angular/**/*.js'
                     ]
                 }
+            },
+            phonegap: {
+                'Scripts/angular-combined.js': [
+                        'Angular/**/*.js',
+                        '!Angular/globalConfig.js',
+                        'Phonegap/globalConfig.js'
+                ]
             }
         },
         uglify: {
@@ -34,8 +41,8 @@ module.exports = function(grunt) {
                     'Scripts/combined-strict.js': [
                         "Scripts/jquery-*.js",
                         "!Scripts/jquery-*{intellisense,validate}.js",
+                        "Scripts/lodash.js",
                         "Scripts/toastr.js",
-                        "Scripts/ajaxEndpoints.js",
                         "Scripts/bootstrap.js",
                         "Scripts/moment.js",
                         "Scripts/angular-file-upload-html5-shim.js",
@@ -52,6 +59,7 @@ module.exports = function(grunt) {
                         "Scripts/jquery.signalR-2.1.1.min.js",
                         "Scripts/hammer.js",
                         "Scripts/angular-hammer.js",
+                        "Scripts/restangular.js",
                         'Scripts/angular-combined.js'
                     ]
                 }
@@ -117,9 +125,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-phonegap-build');
     grunt.loadNpmTasks('grunt-notify');
 
-    grunt.registerTask('Release', ['jshint', 'ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
-    grunt.registerTask('Release_Test', ['jshint', 'ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip']);
-    grunt.registerTask('Phonegap', ['jshint', 'ngAnnotate', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build', 'notify:done']);
+    grunt.registerTask('Release', ['jshint', 'ngAnnotate:all', 'uglify', 'cssmin', 'lenient', 'zip']);
+    grunt.registerTask('Release_Test', ['jshint', 'ngAnnotate:all', 'uglify', 'cssmin', 'lenient', 'zip']);
+    grunt.registerTask('Phonegap', ['jshint', 'ngAnnotate:phonegap', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build', 'notify:done']);
     grunt.registerTask('Debug', []);
 }
 

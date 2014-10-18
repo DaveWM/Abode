@@ -1,3 +1,0 @@
-﻿globalConfig = {
-    apiUrl: ""
-};

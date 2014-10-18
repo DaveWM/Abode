@@ -70,8 +70,8 @@
             if (value) {
                 $scope.searching = true;
                 $scope.houses = [];
-                houseService.searchHouses(value).then(function(response) {
-                        $scope.houses = response.data;
+                houseService.searchHouses(value).then(function(houses) {
+                        $scope.houses = houses;
                     })
                     .finally(function() {
                         $scope.searching = false;

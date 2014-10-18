@@ -1,8 +1,8 @@
 ﻿
 var appModule = angular.module('App', [
-        'Controllers', 'Services', 'Filters', 'Directives', 'ui.router', 'ngAnimate', 'hmTouchEvents'
+        'Controllers', 'Services', 'Filters', 'Directives', 'ui.router', 'ngAnimate', 'hmTouchEvents', 'restangular', 'config'
     ])
-    .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, RestangularProvider, config) {
         $urlRouterProvider.otherwise('/whiteboard');
 
         $stateProvider.state('app', {
@@ -42,14 +42,13 @@ var appModule = angular.module('App', [
                 authenticated: function(authService, $state) {
                     return authService.ping()
                         .then(function() {
-                            authService.getUserInfo();
-                        })
-                        .then(function() {
-                            return true;
+                            return authService.getUserInfo();
                         })
                         .catch(
                         function(error) { // not authenticated, need to log in
-                            $state.go('app.login');
+                            $state.go('app.login').catch(function(err) {
+                                console.log(err);
+                            });
                             return false;
                         });
                 }
@@ -97,6 +96,8 @@ var appModule = angular.module('App', [
                 }
             };
         });
+
+        RestangularProvider.setBaseUrl(config.apiUrl);
     })
     .run(function($templateCache) {
         $templateCache.put("template/rating/rating.html",

@@ -8,9 +8,11 @@ using AbodeWebsite.Models.ViewModels;
 
 namespace AbodeWebsite.Controllers
 {
+    [RoutePrefix("api/Notes")]
     public class NotesController : ApiController
     {
         [HttpPost]
+        [Route("")]
         public IHttpActionResult CreateNote(NoteViewModel note)
         {
             using (var db = new EntityModel())

@@ -31,7 +31,7 @@
     $scope.loadingComments = true;
     commentsService.getItemComments(tileItemId)
         .then(function(comments) {
-            $scope.comments = comments.data;
+            $scope.comments = comments;
         })
         .finally(function() {
             $scope.loadingComments = false;
@@ -60,8 +60,8 @@
     $scope.loadingTileItem = true;
     tileItemsService.getTileItemDetails(tileItemId)
     .then(function (tileItem) {
-        $scope.tileItemView = tileViewMapping[tileItem.data.TileItemType];
-            $scope.tileItem = tileItem.data;
+        $scope.tileItemView = tileViewMapping[tileItem.TileItemType];
+            $scope.tileItem = tileItem;
         })
         .finally(function() {
             $scope.loadingTileItem = false;
