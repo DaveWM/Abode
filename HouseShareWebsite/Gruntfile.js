@@ -127,7 +127,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-phonegap-build');
     grunt.loadNpmTasks('grunt-notify');
 
-    grunt.registerTask('Release', ['jshint', 'ngAnnotate:all', 'uglify', 'cssmin', 'lenient', 'zip']);
+    grunt.registerTask('Release', ['jshint', 'ngAnnotate:all', 'uglify', 'cssmin', 'lenient']);
     grunt.registerTask('Release_Test', ['jshint', 'ngAnnotate:all', 'uglify', 'cssmin', 'lenient', 'zip']);
     grunt.registerTask('Phonegap', ['jshint', 'ngAnnotate:phonegap', 'uglify', 'cssmin', 'lenient', 'zip', 'phonegap-build', 'notify:done']);
     grunt.registerTask('Debug', []);

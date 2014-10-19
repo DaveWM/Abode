@@ -92,7 +92,6 @@ var appModule = angular.module('App', [
                 },
                 responseError: function(rejection) {
                     notificationsService.notifyError(rejection.data.error_description || rejection.data.message || rejection.data.Message || rejection.data.Message || "Unknown Error - Response: " + JSON.stringify(rejection.data));
-                    alert(rejection);
                     notificationsService.removeLoadingTask();
                     return $q.reject(rejection);
                 }
