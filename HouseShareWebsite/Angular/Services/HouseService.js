@@ -24,7 +24,7 @@
             },
 
             joinHouse: function(id, password) {
-                return Restangular.one("houses", id).customPUT(password, "join")
+                return Restangular.one("houses", id).customPUT({ password: password }, "join")
                     .then(function (house) {
                         currentUserService.setHouseId(house.Id);
                         return authService.ping().finally(function() {

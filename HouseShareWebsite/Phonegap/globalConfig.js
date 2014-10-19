@@ -1,4 +1,4 @@
 ﻿angular.module('config', [])
     .constant('config', {
-        apiUrl: "http://housesharewebsite.azurewebsites.net/api"
+        apiUrl: "http://www.abodeapp.co.uk/api"
     });

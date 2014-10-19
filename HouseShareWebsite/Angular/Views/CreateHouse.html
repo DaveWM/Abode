@@ -1,13 +1,15 @@
 ﻿<a class="pull-left" ui-sref="app.main.house.join"><i class="fa fa-2x fa-arrow-circle-left"></i></a>
-<form name="createHouseForm" ng-submit="createHouse()" novalidate>
-    <legend>Create a new House</legend>
-    <div class="form-group" ng-class="{'has-error': createHouseForm.name.$invalid && createHouseForm.name.$dirty}">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" ng-model="name" required name="name" />
-    </div>
-    <div class="form-group" ng-class="{'has-error': createHouseForm.password.$invalid && createHouseForm.password.$dirty}">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" ng-model="password" required name="password" placeholder="Your housemates will need this to join your house" ng-minlength="5"/>
-    </div>
-    <button type="submit" class="btn btn-primary" ng-disabled="creatingHouse">Create New House <i class="fa fa-plus-circle"></i> <loading-icon ng-show="creatingHouse"></loading-icon></button>
-</form>
+<div class="col-xs-12">
+    <form name="createHouseForm" ng-submit="createHouse()" novalidate>
+        <legend>Create a new House</legend>
+        <div class="form-group" ng-class="{'has-error': createHouseForm.name.$invalid && createHouseForm.name.$dirty}">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" ng-model="name" required name="name" />
+        </div>
+        <div class="form-group" ng-class="{'has-error': createHouseForm.password.$invalid && createHouseForm.password.$dirty}">
+            <label for="password">Password</label>
+            <input type="text" class="form-control" ng-model="password" required name="password" placeholder="Your housemates will need this to join your house" ng-minlength="5" />
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="creatingHouse">Create New House <i class="fa fa-plus-circle"></i> <loading-icon ng-show="creatingHouse"></loading-icon></button>
+    </form>
+</div>

@@ -8,9 +8,6 @@ var appModule = angular.module('App', [
         $stateProvider.state('app', {
             'abstract': true,
             views: {
-                'header': {
-                    templateUrl: 'Angular/Views/DefaultHeader.html'
-                },
                 'main': {
                     templateUrl: 'Angular/Views/Main.html',
                     controller: function ($scope, $rootScope) {
@@ -54,6 +51,10 @@ var appModule = angular.module('App', [
                 }
             }
         })
+            .state('app.main.about', {
+                url: '/about',
+                templateUrl: '/Angular/Views/about.html'
+            })
         .state('externallogin', {
             url: '/externallogin/{token}',
             resolve: {
@@ -91,6 +92,7 @@ var appModule = angular.module('App', [
                 },
                 responseError: function(rejection) {
                     notificationsService.notifyError(rejection.data.error_description || rejection.data.message || rejection.data.Message || rejection.data.Message || "Unknown Error - Response: " + JSON.stringify(rejection.data));
+                    alert(rejection);
                     notificationsService.removeLoadingTask();
                     return $q.reject(rejection);
                 }

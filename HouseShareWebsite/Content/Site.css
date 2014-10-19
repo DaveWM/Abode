@@ -43,6 +43,9 @@ div.content {
   color: #eff4ff;
   background-color: rgba(43, 87, 151, 0.4);
 }
+div.content .jumbotron {
+  background-color: #094ab2;
+}
 div.sidebar {
   margin-top: 52px;
   float: left;
@@ -697,20 +700,20 @@ div.sidebar .sidebarToggle i {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.tileItemDetailsContainer div {
+.tileItemDetailsContainer > div {
   padding: 20px 0 20px 0;
 }
-.tileItemDetailsContainer div.note {
+.tileItemDetailsContainer > div.note {
   background-color: #2d89ef;
 }
-.tileItemDetailsContainer div.chore {
+.tileItemDetailsContainer > div.chore {
   background-color: #7e3878;
 }
-.tileItemDetailsContainer div.chore .btn {
+.tileItemDetailsContainer > div.chore .btn {
   background-color: #622b5d !important;
   border-color: #9f00a7 !important;
 }
-.tileItemDetailsContainer div.chore .btn:hover {
+.tileItemDetailsContainer > div.chore .btn:hover {
   background-color: #603cba !important;
 }
 .imageUploadContainer {

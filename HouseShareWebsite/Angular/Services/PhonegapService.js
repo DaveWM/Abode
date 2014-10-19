@@ -2,9 +2,11 @@
     .factory('phonegapService', function (previousState, $document, $window, $rootScope) {
     var onBackButtonPressed = function() {};
     $document[0].addEventListener("backbutton", function () {
-        var prevState = previousState.get();
-        if (prevState.state) {
-            onBackButtonPressed(prevState.state, prevState.params);
+        if (previousState) {
+            var prevState = previousState.get();
+            if (prevState.state) {
+                onBackButtonPressed(prevState.state, prevState.params);
+            }
         }
     }, false);
 
@@ -14,7 +16,7 @@
     });
 
     return {
-        isPhone: $window.plugin !== undefined,
+        isPhone: $window.phonegap !== undefined || $window.cordova !== undefined,
         notifyPhone: $window.plugin && $window.plugin.notification && $window.plugin.notification.local ? $window.plugin.notification.local.add :
             function () { },
         setBackButtonFunc: function(func) {

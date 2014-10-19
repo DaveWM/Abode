@@ -11,6 +11,7 @@
     "grunt-lenient": "0.0.2",
     "grunt-zip": "^0.15.0",
     "grunt-phonegap-build": "0.0.8",
-    "grunt-notify": "^0.3.1"
+    "grunt-notify": "^0.3.1",
+    "grunt-contrib-jshint": "^0.10.0"
   }
 }

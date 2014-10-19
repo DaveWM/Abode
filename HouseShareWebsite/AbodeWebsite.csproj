@@ -315,6 +315,7 @@
     <Content Include="Angular\Services\Services.js" />
     <Content Include="Angular\Services\TileItemsService.js" />
     <Content Include="Angular\Services\UsersService.js" />
+    <Content Include="Angular\Views\about.html" />
     <Content Include="Angular\Views\CreateChore.html" />
     <Content Include="Angular\Views\CreateHouse.html" />
     <Content Include="Angular\Views\CreateNote.html" />
@@ -1039,7 +1040,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

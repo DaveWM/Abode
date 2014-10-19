@@ -18,7 +18,7 @@
                 <h4 class="text-center">Housemates</h4>
                 <div class="col-md-10 col-md-offset-1">
                     <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="user in house.Users"><span class="badge badge-primary">{{user.Comments.length || 0}} <i class="fa fa-comment-o"></i></span>{{user.RealName}}</li>
+                        <li class="list-group-item" ng-repeat="user in house.Users"><profile-pic size="small" user="user"></profile-pic> <span class="pull-right">{{user.RealName}}</span></li>
                     </ul>
                 </div>
                 <p ng-show="!house.Users.length" class="text-center">Nobody lives here <i class="fa fa-frown-o"></i></p>

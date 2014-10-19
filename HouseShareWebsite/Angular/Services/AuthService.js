@@ -51,9 +51,10 @@
         },
 
         logout: function () {
-            Restangular.one("account").delete();
-            currentUserService.setUserDetails(null);
-            $state.go('app.login');
+            Restangular.one("account").remove().then(function() {
+                currentUserService.setUserDetails(null);
+                $state.go('app.login');
+            });
         },
         getUserInfo: function() {
             return Restangular.one("account").get()

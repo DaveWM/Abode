@@ -33,7 +33,7 @@
 
         if (!(toState.data && (toState.data.allowHomeless || toState.data.allowAnonymous)) && currentUserService.getUserDetails()) { // user logged in
             return houseService.getCurrentHouse().then(function (house) {
-                if (!house) {
+                if (!house || house == "null") {
                     $state.go('app.main.house.join');
                 }
             });

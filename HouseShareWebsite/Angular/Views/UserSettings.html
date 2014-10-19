@@ -40,7 +40,7 @@
                     <live-tile ng-repeat="hm in housemates | filter : {Id: '!'+user.Id }" colour="green" hover-slide="1" ui-sref="app.main.userSettings({userId: hm.Id})" size="2">
                         <live-tile-slide>
                             <h4>{{hm.RealName}}</h4>
-                            <profile-pic size="large" user="hm" class="spacer"></profile-pic>
+                            <profile-pic size="large" user="hm"></profile-pic>
                         </live-tile-slide>
                         <live-tile-slide>
                             <div class="center text-center">

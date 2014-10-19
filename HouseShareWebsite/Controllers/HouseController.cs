@@ -57,14 +57,14 @@ namespace AbodeWebsite.Controllers
 
         [System.Web.Http.HttpPut]
         [System.Web.Http.Route("{houseId:int}/Join")]
-        public HouseViewModel JoinHouse(int houseId, [FromBody]string password)
+        public HouseViewModel JoinHouse([FromBody]dynamic request, int houseId)
         {
             using (var db = new EntityModel())
             {
                 var house = db.Houses.FirstOrDefault(h => h.Id == houseId);
                 if(house == null)
                     throw new Exception("There is no house with Id " + houseId);
-                if (password != house.Password)
+                if (request.password != house.Password)
                 {
                     throw new HttpResponseException(this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Incorrect Password"));
                 }

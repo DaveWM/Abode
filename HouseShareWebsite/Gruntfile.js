@@ -21,17 +21,19 @@ module.exports = function(grunt) {
                 }
             },
             phonegap: {
-                'Scripts/angular-combined.js': [
+                files: {
+                    'Scripts/angular-combined.js': [
+                        'Phonegap/globalConfig.js',
                         'Angular/**/*.js',
-                        '!Angular/globalConfig.js',
-                        'Phonegap/globalConfig.js'
-                ]
+                        '!Angular/globalConfig.js'
+                    ]
+                }
             }
         },
         uglify: {
             all: {
                 options: {
-                    mangle: true,
+                    mangle: false,
                     compress: {
                         drop_console: true
                     }
@@ -40,7 +42,6 @@ module.exports = function(grunt) {
                 files: {
                     'Scripts/combined-strict.js': [
                         "Scripts/jquery-*.js",
-                        "!Scripts/jquery-*{intellisense,validate}.js",
                         "Scripts/lodash.js",
                         "Scripts/toastr.js",
                         "Scripts/bootstrap.js",
@@ -60,7 +61,8 @@ module.exports = function(grunt) {
                         "Scripts/hammer.js",
                         "Scripts/angular-hammer.js",
                         "Scripts/restangular.js",
-                        'Scripts/angular-combined.js'
+                        'Scripts/angular-combined.js',
+                        "!Scripts/jquery-*{intellisense,validate}.js",
                     ]
                 }
             }
@@ -84,7 +86,7 @@ module.exports = function(grunt) {
         },
         zip: {
             all: {
-                src: ['Scripts/combined.js', "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/*', 'Views/App/Index.cshtml', 'Content/images/*'],
+                src: ['Scripts/combined.js', "Content/combined.css", "Angular/Views/**/*.html", 'Phonegap/config.xml', 'Views/App/Index.cshtml', 'Content/images/*'],
                 dest: 'Phonegap.zip',
                 router: function(filepath) {
                     if (filepath.indexOf('Phonegap/') >= 0) {

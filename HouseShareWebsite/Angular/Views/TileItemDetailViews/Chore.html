@@ -1,6 +1,6 @@
 ﻿<div class="text-center chore" ng-controller="choreDetailsController">
     <h3>Chore</h3>
-    <p><i class="fa fa-2x" ng-class="choreTypeIcons[tileItem.ChoreType]"></i> {{tileItem.ChoreType}}</p>
+    <p><i class="fa fa-2x" ng-class="choreTypeIcons[tileItem.ChoreType]" tooltip="{{tileItem.ChoreType}}" tooltip-placement="right"></i></p>
     <p>{{tileItem.Description}}</p>
     <p>Due {{tileItem.ExpectedCompletionDate | date : 'dd/MM/yyyy'}} ({{tileItem.ExpectedCompletionDate | fromNow}})</p>
     <button class="btn btn-primary btn-large" ng-disabled="completing" ng-click="completeChore()">Chore Complete <i class="fa fa-check"></i></button>
