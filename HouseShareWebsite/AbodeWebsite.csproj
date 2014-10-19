@@ -306,6 +306,7 @@
     <Content Include="Angular\Directives\IconSelect.js" />
     <Content Include="Angular\Filters\Filters.js" />
     <Content Include="Angular\Filters\FromNow.js" />
+    <Content Include="Angular\globalConfig.js" />
     <Content Include="Angular\Services\AuthService.js" />
     <Content Include="Angular\Services\CommentsService.js" />
     <Content Include="Angular\Services\CurrentUserService.js" />
@@ -337,7 +338,6 @@
     <Content Include="Content\combined.css" />
     <Content Include="Content\images\profilePicPlaceholder.png" />
     <Content Include="Content\images\uploadIcon.png" />
-    <Content Include="Angular\globalConfig.js" />
     <Content Include="Content\bootflat\css\bootflat.css.map">
       <DependentUpon>bootflat.css</DependentUpon>
     </Content>
