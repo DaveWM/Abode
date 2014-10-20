@@ -30,4 +30,7 @@
   <icon src="Content/images/houseIcon.png" />
 
   <gap:plugin name="org.apache.cordova.device" />
+
+  <preference name="android-minSdkVersion" value="11" />
+  <preference name="android-targetSdkVersion" value="16" />
 </widget>
