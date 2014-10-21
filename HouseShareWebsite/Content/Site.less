@@ -419,12 +419,16 @@ div.sidebar{
 }
 
 .live-tile{
-    @defaultTileHeight: 180px;
+    @defaultTileHeight: 220px;
     height: @defaultTileHeight;
     .generateSizes(@size, @baseHeight) when (@size > 0){
         .generateSizes(@size - 1, @baseHeight);
         &-@{size}{
             height: @baseHeight * @size;
+
+            @media (max-width: @screen-xs){
+                height: @baseHeight * @size * 0.9;
+            }
 
             p, blockquote{
                 font-size: 1em + (1em * (@size - 1)/2);

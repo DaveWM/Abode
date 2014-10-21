@@ -429,13 +429,18 @@ div.sidebar .sidebarToggle i {
   margin-bottom: 10px;
 }
 .live-tile {
-  height: 180px;
+  height: 220px;
   overflow: hidden;
   position: relative;
   margin-bottom: 5px;
 }
 .live-tile-1 {
-  height: 180px;
+  height: 220px;
+}
+@media (max-width: 480px) {
+  .live-tile-1 {
+    height: 198px;
+  }
 }
 .live-tile-1 p,
 .live-tile-1 blockquote {
@@ -454,7 +459,12 @@ div.sidebar .sidebarToggle i {
   font-size: 18px;
 }
 .live-tile-2 {
-  height: 360px;
+  height: 440px;
+}
+@media (max-width: 480px) {
+  .live-tile-2 {
+    height: 396px;
+  }
 }
 .live-tile-2 p,
 .live-tile-2 blockquote {
@@ -473,7 +483,12 @@ div.sidebar .sidebarToggle i {
   font-size: 27px;
 }
 .live-tile-3 {
-  height: 540px;
+  height: 660px;
+}
+@media (max-width: 480px) {
+  .live-tile-3 {
+    height: 594px;
+  }
 }
 .live-tile-3 p,
 .live-tile-3 blockquote {
@@ -492,7 +507,12 @@ div.sidebar .sidebarToggle i {
   font-size: 36px;
 }
 .live-tile-4 {
-  height: 720px;
+  height: 880px;
+}
+@media (max-width: 480px) {
+  .live-tile-4 {
+    height: 792px;
+  }
 }
 .live-tile-4 p,
 .live-tile-4 blockquote {
@@ -511,10 +531,15 @@ div.sidebar .sidebarToggle i {
   font-size: 45px;
 }
 .halfHeight .live-tile {
-  height: 90px;
+  height: 110px;
 }
 .halfHeight .live-tile-1 {
-  height: 90px;
+  height: 110px;
+}
+@media (max-width: 480px) {
+  .halfHeight .live-tile-1 {
+    height: 99px;
+  }
 }
 .halfHeight .live-tile-1 p,
 .halfHeight .live-tile-1 blockquote {
@@ -533,7 +558,12 @@ div.sidebar .sidebarToggle i {
   font-size: 18px;
 }
 .halfHeight .live-tile-2 {
-  height: 180px;
+  height: 220px;
+}
+@media (max-width: 480px) {
+  .halfHeight .live-tile-2 {
+    height: 198px;
+  }
 }
 .halfHeight .live-tile-2 p,
 .halfHeight .live-tile-2 blockquote {
@@ -552,7 +582,12 @@ div.sidebar .sidebarToggle i {
   font-size: 27px;
 }
 .halfHeight .live-tile-3 {
-  height: 270px;
+  height: 330px;
+}
+@media (max-width: 480px) {
+  .halfHeight .live-tile-3 {
+    height: 297px;
+  }
 }
 .halfHeight .live-tile-3 p,
 .halfHeight .live-tile-3 blockquote {
@@ -571,7 +606,12 @@ div.sidebar .sidebarToggle i {
   font-size: 36px;
 }
 .halfHeight .live-tile-4 {
-  height: 360px;
+  height: 440px;
+}
+@media (max-width: 480px) {
+  .halfHeight .live-tile-4 {
+    height: 396px;
+  }
 }
 .halfHeight .live-tile-4 p,
 .halfHeight .live-tile-4 blockquote {
