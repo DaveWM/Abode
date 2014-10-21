@@ -282,21 +282,33 @@ namespace AbodeWebsite.Controllers
 
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
+
             var phoneNumber = claimsUser.FindFirst(ClaimTypes.MobilePhone).IfNotNull(p => p.Value);
 
             var email = claimsUser.FindFirst(ClaimTypes.Email).Value;
             var name = claimsUser.FindFirst(ClaimTypes.Name).Value;
+            var existingUser = await UserManager.FindByEmailAsync(email);
 
             if (user == null)
             {
-                await RegisterExternal(new RegisterExternalBindingModel
+                if (existingUser == null)
                 {
-                    Email = email,
-                    RealName = name,
-                    PhoneNumber = phoneNumber
-                });
-                user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
-                externalLogin.ProviderKey));
+                    await RegisterExternal(new RegisterExternalBindingModel
+                                           {
+                                               Email = email,
+                                               RealName = name,
+                                               PhoneNumber = phoneNumber
+                                           });
+                    user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+                        externalLogin.ProviderKey));
+                }
+                else
+                {
+                    await
+                        UserManager.AddLoginAsync(existingUser.Id,
+                            new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
+                    user = existingUser;
+                }
             }
 
             Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);

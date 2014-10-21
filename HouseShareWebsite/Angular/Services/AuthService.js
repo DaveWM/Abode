@@ -42,12 +42,21 @@
             });
         },
 
-        ping: function() {
-            return Restangular.all("account").customGET("ticket")
-            .then(function(ticket) {
-                currentUserService.setToken(JSON.parse(ticket));
-                return ticket;
-            });
+        ping: function () {
+            var deferred = $q.defer();
+            if (!currentUserService.getToken()) {
+                deferred.reject();
+            } else {
+                Restangular.all("account").customGET("ticket")
+                    .then(function(ticket) {
+                        currentUserService.setToken(JSON.parse(ticket));
+                        deferred.resolve(ticket);
+                    })
+                    .catch(function(err) {
+                        deferred.reject(err);
+                    });
+            }
+            return deferred.promise;
         },
 
         logout: function () {
