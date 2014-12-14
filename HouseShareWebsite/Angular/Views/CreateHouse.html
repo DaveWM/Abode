@@ -10,6 +10,6 @@
             <label for="password">Password</label>
             <input type="text" class="form-control" ng-model="password" required name="password" placeholder="Your housemates will need this to join your house" ng-minlength="5" />
         </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="creatingHouse">Create New House <i class="fa fa-plus-circle"></i> <loading-icon ng-show="creatingHouse"></loading-icon></button>
+        <button type="submit" class="btn btn-primary" ng-disabled="creatingHouse || createHouseForm.$invalid">Create New House <i class="fa fa-plus-circle"></i> <loading-icon ng-show="creatingHouse"></loading-icon></button>
     </form>
 </div>
